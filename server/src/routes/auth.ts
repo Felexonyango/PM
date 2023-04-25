@@ -3,7 +3,7 @@ import {
   login,
   signUp,
   changePassword,
-} from "../controller/authController"
+} from "../controller/auth"
 import { authorize, protect } from "../middleware/auth"
 import {
   validate,

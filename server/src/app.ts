@@ -8,8 +8,8 @@ import passport from "passport";
 require("./lib/passport")(passport);
 
 //importing routes
-import { authRoutes } from "./routes/authRoutes";
-import { userRoutes } from "./routes/userRoutes";
+import { authRoutes } from "./routes/auth";
+import { userRoutes } from "./routes/user";
 import { connectDb } from "./database";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();

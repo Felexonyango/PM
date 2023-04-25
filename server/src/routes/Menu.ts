@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
 getAllMenus
-} from "../controller/MenuController"
+} from "../controller/Menu"
 import { authorize, protect } from "../middleware/auth"
 
 
