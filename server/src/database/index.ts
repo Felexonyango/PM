@@ -6,7 +6,8 @@ export const connectDb = async () => {
     await mongoose.connect("mongodb://127.0.0.1:27017/pms",{
         useUnifiedTopology: true,
         useNewUrlParser: true,
-        useFindAndModify:false
+        useFindAndModify:false,
+        
        
     })
     console.log(`MongoDB Connected `)

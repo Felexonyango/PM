@@ -1,7 +1,8 @@
 import { Response, Request, NextFunction } from 'express';
 import passport from 'passport';
-import { User } from '../types/user'
 import { Role } from '../types'
+import { User, Iuser } from '../model/user';
+import { User as UserTypes } from "../types/user";
 export const protect = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
     if (err) {
@@ -21,20 +22,53 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   })(req, res, next);
 };
 
-export const authorize = (roles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user as User; // assuming user object has been added to request object by authentication middleware
-    if (!user.role || !user.role.some(role => roles.includes(role))) {
-      return res.status(403).json({
+
+export const authorize = (roles: Role[]) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = req.user as UserTypes;
+      const foundUser = await User.findById(user._id).populate("role");
+      if (!foundUser || !foundUser.role || !roles.some(role=>roles.includes(role))) {
+        return res.status(403).json({
+          error: {
+            name: "Unauthorized",
+            message: "You are not authorized to perform this action",
+          },
+          success: false,
+        });
+      }
+      next();
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
         error: {
-          name: 'Unauthorized',
-          message: 'You are not authorized to perform this action',
+          name: "Server Error",
+          message: "Something went wrong on the server",
         },
         success: false,
       });
     }
-    next();
   };
 };
+// export const authorize = (roles: Role[]) => {
+//   return async (req: Request, res: Response, next: NextFunction) => {
+//     const user = req.user as UserTypes; 
+//     const foundUser = await User.findById(user._id).populate("role");
+//     if (!foundUserrole. || !user.role.some(role => roles.includes(role))) {
+//       return res.status(403).json({
+//         error: {
+//           name: 'Unauthorized',
+//           message: 'You are not authorized to perform this action',
+//         },
+//         success: false,
+//       });
+//     }
+//     next();
+//   };
+// };
+
+
+
+
 
 

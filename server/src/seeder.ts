@@ -1,18 +1,18 @@
-import mongoose from 'mongoose'
+import mongoose, { Types } from 'mongoose'
 import dotenv from 'dotenv'
 import users from './data/users'
 import {User} from './model/user'
 import {connectDb} from './database/index'
 import { Menu } from './model/menu'
 import  MenuData  from './data/menu'
+import { Role } from './types'
 
 
 dotenv.config()
 connectDb()
 
  export const importData = async () => {
-    try {
-       
+    try {   
       await User.deleteMany()
         //await Menu.deleteMany()
           await User.insertMany(users)

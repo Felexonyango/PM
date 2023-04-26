@@ -1,13 +1,14 @@
 import mongoose, { Model, Schema, Document, Types } from "mongoose";
 import bcrypt from "bcryptjs";
 import { Role } from "../types/role";
+const { ObjectId } = mongoose.Types;
 export interface Iuser extends Document {
   firstname: string;
   lastname:string
   email: string;
   password: string
-  role: Role[];
-  
+  role:Types.ObjectId[]; 
+   
 
   comparePassword(candidatepassword: string): Promise<boolean>;
 }
@@ -39,10 +40,10 @@ const UserSchema: Schema = new Schema(
 
     
 
-   role: {
-      type: [String],
-      enum: ['user', 'admin',"sysadmin"],
-      default: 'user'
+    role: {
+      type: [mongoose.Types.ObjectId],
+      ref: "Roles",
+      default: [ObjectId("6448d330febc8c2878fec0b1")]
     },
   
   },

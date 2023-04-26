@@ -3,12 +3,13 @@ import {
 getAllMenus
 } from "../controller/Menu"
 import { authorize, protect } from "../middleware/auth"
+import { Role } from '../types/role';
 
 
 const router = Router();
 
 
-router.route('/all').get(protect, authorize(["admin","user"]),getAllMenus);
+router.route('/all').get(protect, authorize([Role.Admin]),getAllMenus);
 
 
 

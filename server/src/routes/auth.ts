@@ -11,11 +11,12 @@ import {
   signUpValidation,
   changePasswordValidation,
 } from "../validation/index"
+import { Role } from '../types';
 
 const router = Router();
 
 
-router.route('/create-user').post(signUpValidation(), validate, protect, authorize(["admin"]), signUp);
+router.route('/create-user').post(signUpValidation(), validate, protect, authorize([Role.sysadmin]), signUp);
 router.route('/login').post(loginValidation(), validate, login);
 
 

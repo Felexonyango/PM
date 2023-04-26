@@ -4,6 +4,7 @@ import { User } from "../model/user";
 import { Role } from "../types/role";
 import { JWT_SECRET_KEY } from "../config";
 import { PassportStatic } from "passport";
+import { Types } from "mongoose";
 //This verifies that the token sent by the user is valid
 
 
@@ -52,12 +53,12 @@ module.exports = function(passport:PassportStatic) {
             password,
             firstname: req.body.firstname,
             lastname: req.body.lastname,
-            role: Role.User,
+            role:Types.ObjectId("6448d330febc8c2878fec0b1")
          
           });
 
          
-          const result =  await newUser.save()
+            await newUser.save()
     
         
           return done(null, newUser);

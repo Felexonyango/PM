@@ -67,11 +67,11 @@ export const UserService = {
         return res.status(404).send({ message: "User not found" });
       }
   
-      if (user.role.includes(role)) {
-        return res.status(400).send({ message: "Role already exists for this user" });
-      }
+      // if (user.role.includes(role)) {
+      //   return res.status(400).send({ message: "Role already exists for this user" });
+      // }
   
-      user.role.push(role);
+      user.role
       await user.save();
   
       return res.status(200).send({ message: "User role updated successfully" });
