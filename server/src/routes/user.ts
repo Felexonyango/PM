@@ -7,11 +7,11 @@ const router = Router();
 
 
 //route  admin routes\
-router.route('/all').get(protect, authorize([Role.Admin]),  getAllUsers);
-router.route('/:id').get(protect, authorize([Role.Admin]),  getUserById);
-router.route('/:id').delete(protect, authorize([Role.Admin]), deleteUser);
-router.route('/:id').patch(protect, authorize([Role.Admin]), updateUser);
-router.route("/updateRole/:id").patch(protect, authorize([Role.Admin]), UpdateUserRole);
+router.route('/all').get(protect, authorize([Role.SYSADMIN]),  getAllUsers);
+router.route('/:id').get(protect, authorize([Role.SYSADMIN]),  getUserById);
+router.route('/:id').delete(protect, authorize([Role.SYSADMIN]), deleteUser);
+router.route('/:id').patch(protect, authorize([Role.SYSADMIN]), updateUser);
+router.route("/updateRole/:id").patch(protect, authorize([Role.SYSADMIN]), UpdateUserRole);
 
 
 

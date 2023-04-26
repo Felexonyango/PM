@@ -9,7 +9,7 @@ import { Role } from '../types/role';
 const router = Router();
 
 
-router.route('/all').get(protect, authorize([Role.Admin]),getAllMenus);
+router.route('/all').get(protect, authorize([Role.SYSADMIN]),getAllMenus);
 
 
 
