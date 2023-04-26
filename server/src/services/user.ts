@@ -48,6 +48,7 @@ export const UserService = {
       const { id } = req.params;
 
       const result = await User.findById(id);
+    
       if (!result) return res.status(404).json({ message: " User not found" });
       res.status(200).json({ msg: "successfully retrived user ", result });
     } catch (err) {
@@ -56,7 +57,7 @@ export const UserService = {
     next();
   },
 
-  async UpdateUserRole(req: Request, res: Response, next: NextFunction) {
+  async AssignRole(req: Request, res: Response, next: NextFunction) {
     const userId = req.params.id; 
     const role = req.body.role;
   
@@ -67,17 +68,48 @@ export const UserService = {
         return res.status(404).send({ message: "User not found" });
       }
   
-      // if (user.role.includes(role)) {
-      //   return res.status(400).send({ message: "Role already exists for this user" });
-      // }
+      if (user.role.includes(role)) {
+        return res.status(400).send({ message: "Role already exists for this user" });
+      }
   
-      user.role
-      await user.save();
+      user.role.push(role);
+    
+      const result=  await user.save();
   
-      return res.status(200).send({ message: "User role updated successfully" });
+      return res.status(200).send({ message: "User role updated successfully",result });
     } catch (error) {
-      return res.status(500).send({ message: "Server error" });
+      res.status(500).send({ message: "Server error" });
     }
+    next()
+  },
+
+  async UnAssignRole(req: Request, res: Response, next: NextFunction) {
+    const userId = req.params.id; 
+    const role = req.body.role;
+  
+    try {
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+  
+
+      if (!user.role.includes(role)) {
+        return res.status(400).send({ message: "Role does not exist for this user" });
+      }
+  
+      const index = user.role.indexOf(role);
+      user.role.splice(index, 1);
+  
+    
+      const result=  await user.save();
+  
+      return res.status(200).send({ message: "User role updated successfully",result });
+    } catch (error) {
+      res.status(500).send({ message: "Server error" });
+    }
+    next()
   }
   
 
