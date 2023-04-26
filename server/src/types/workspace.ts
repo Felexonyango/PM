@@ -1,3 +1,7 @@
+export enum workspaceActions  {
+  VIEWDETAILS = 'VIEWDETAILS',
+  VIEWDASHBOARD = 'VIEWDASHBOARD'
+}
 export type Iworkspace = {
   _id?: string;
   name: string;
@@ -6,4 +10,5 @@ export type Iworkspace = {
   address: string;
   country: string;
   OrgType: string;
+  action :workspaceActions
 };

@@ -1,14 +1,15 @@
-import { IStatus } from "../types/project";
 import { Schema, model, Document } from "mongoose";
+import { workspaceActions } from "../types/workspace";
 const { ObjectId } = Schema.Types;
 
 export interface workspaceDocument extends Document {
-    name: string;
-    email: string;
-    phoneNumber: string;
-    address: string;
-    country: string;
-    OrgType: string
+  name: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  country: string;
+  OrgType: string;
+  action: workspaceActions;
 }
 
 const WorkspaceSchma = new Schema(
@@ -36,7 +37,10 @@ const WorkspaceSchma = new Schema(
     },
     OrgType: {
       type: String,
-      require:true
+      require: true,
+    },
+    action: {
+      type: String,
     },
     user: {
       type: ObjectId,
