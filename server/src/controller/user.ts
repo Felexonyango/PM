@@ -15,6 +15,9 @@ import { UserService } from "../services/user";
   },
   getUserById(req: Request, res: Response, next:NextFunction) {
     UserService.getUserById(req, res,next);
-  }
+  },
+UpdateUserRole(req: Request, res: Response, next:NextFunction){
+  UserService.UpdateUserRole(req,res,next);
+}
 };
-export const {getAllUsers,updateUser,deleteUser,getUserById} =UserController
+export const {getAllUsers,updateUser,deleteUser,getUserById,UpdateUserRole} =UserController

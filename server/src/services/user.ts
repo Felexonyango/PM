@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { User } from "../model/user";
+import { Iuser, User } from "../model/user";
 
 export const UserService = {
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
@@ -55,4 +55,30 @@ export const UserService = {
     }
     next();
   },
-};
+
+  async UpdateUserRole(req: Request, res: Response, next: NextFunction) {
+    const userId = req.params.id; 
+    const role = req.body.role;
+  
+    try {
+      const user = await User.findById(userId);
+  
+      if (!user) {
+        return res.status(404).send({ message: "User not found" });
+      }
+  
+      if (user.role.includes(role)) {
+        return res.status(400).send({ message: "Role already exists for this user" });
+      }
+  
+      user.role.push(role);
+      await user.save();
+  
+      return res.status(200).send({ message: "User role updated successfully" });
+    } catch (error) {
+      return res.status(500).send({ message: "Server error" });
+    }
+  }
+  
+
+}
