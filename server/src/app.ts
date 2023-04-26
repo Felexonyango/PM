@@ -10,6 +10,7 @@ require("./lib/passport")(passport);
 //importing routes
 import { authRoutes } from "./routes/auth";
 import { userRoutes } from "./routes/user";
+import { workspaceRoutes } from "./routes/workspace";
 import { connectDb } from "./database";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
@@ -37,7 +38,10 @@ app.use(cors());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/workspace", workspaceRoutes);
 // app.use("/api/menus",MenuRoutes)
+
+
 
 //updated body-parser for ts node
 app.use(express.json());
