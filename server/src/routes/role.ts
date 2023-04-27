@@ -8,9 +8,9 @@ const router = Router();
 
 //route  admin routes\
 
-router.route('/create-role').post(protect,authorize([Role.SYSADMIN]),createRole)
-router.route('/allRoles').get(protect, authorize([Role.SYSADMIN]),  getAllRoles);
-router.route('/:id').get(protect, authorize([]),  getRoleById);
+router.route('/create-role').post(protect,authorize([Role.SYSADMIN,Role.ADMIN]),createRole)
+router.route('/allRoles').get(protect, authorize([Role.SYSADMIN,Role.ADMIN]),  getAllRoles);
+router.route('/:id').get(protect, authorize([Role.ADMIN,Role.SYSADMIN]),  getRoleById);
 
 
 

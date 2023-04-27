@@ -4,11 +4,11 @@ import { authorize, protect } from "../middleware/auth"
 import { Role } from '../types';
 
 const router = Router();
-router.route('/create').post(protect,authorize([Role.SYSADMIN]),CreateWorkspace)
-router.route('/all').get(protect, authorize([Role.SYSADMIN]),  getAllWorkspace);
-router.route('/:id').get(protect, authorize([Role.SYSADMIN]),  getWorkspaceById);
-router.route('/:id').delete(protect, authorize([Role.SYSADMIN]), deleteWorkspace);
-router.route('/:id').patch(protect, authorize([Role.SYSADMIN]), UpdateWorkspace);
+router.route('/create').post(protect,authorize([Role.SYSADMIN,Role.ADMIN]),CreateWorkspace)
+router.route('/all').get(protect, authorize([Role.SYSADMIN,Role.ADMIN]),  getAllWorkspace);
+router.route('/:id').get(protect, authorize([Role.SYSADMIN,Role.ADMIN]),  getWorkspaceById);
+router.route('/:id').delete(protect, authorize([Role.SYSADMIN,Role.ADMIN]), deleteWorkspace);
+router.route('/:id').patch(protect, authorize([Role.SYSADMIN,Role.ADMIN]), UpdateWorkspace);
 
 
 
