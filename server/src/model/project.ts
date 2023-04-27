@@ -1,4 +1,4 @@
-import { IStatus } from "../types/project";
+import {Status } from "../types/project";
 import { Schema, model, Document } from "mongoose";
 const { ObjectId } = Schema.Types;
 
@@ -8,7 +8,7 @@ export interface projectDocument extends Document {
   startDate: Date;
   endDate: Date;
   projectduration?: number;
-  status: IStatus;
+  status: Status;
 }
 
 const ProjectSchma = new Schema(
@@ -40,7 +40,13 @@ const ProjectSchma = new Schema(
     user: {
       type: ObjectId,
       ref: "User",
+      require:true
     },
+    workspace:{
+      type:ObjectId,
+      ref: "Workspace",
+      required:true
+    }
   },
 
   {

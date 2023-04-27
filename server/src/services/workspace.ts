@@ -86,11 +86,11 @@ export const WorkspaceService = {
       const result = await Workspace.findById(id).populate('user').select("-password").exec()
       if (!result)
         return res.status(404).json({ message: " Workspace not found" });
-      res.status(200).json({ msg: "successfully retrived Workspace ", result });
+      res.status(200).json({ msg: "successfully retrieved Workspace ", result });
     } catch (err) {
       res.status(500).json({ error: err });
     }
     next();
   },
- 
-};
+}
+

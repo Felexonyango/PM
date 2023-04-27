@@ -13,6 +13,7 @@ import { userRoutes } from "./routes/user";
 import { workspaceRoutes } from "./routes/workspace";
 import { connectDb } from "./database";
 import { roleRoutes } from "./routes/role";
+import { projectRoutes } from "./routes/project";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
 app.use(express.json());
@@ -41,6 +42,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/workspace", workspaceRoutes);
 app.use('/api/role',roleRoutes)
+app.use('/api/project',projectRoutes)
 // app.use("/api/menus",MenuRoutes)
 
 

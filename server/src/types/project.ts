@@ -1,8 +1,8 @@
-export interface IStatus {
-  PENDING: "PENDING";
-  COMPLETED: "COMPLETED";
-  CANCELLED: "CANCELLED";
-  ONGOING: "ONGOING";
+export enum Status {
+  PENDING= "PENDING",
+  COMPLETED= "COMPLETED",
+  CANCELLED= "CANCELLED",
+  ONGOING="ONGOING",
 
 }
 export interface Iproject {
@@ -12,5 +12,5 @@ export interface Iproject {
   startDate?: Date;
   endDate?: Date;
   projectduration?:number;
-  status?: IStatus;
+  status?: Status;
 }
