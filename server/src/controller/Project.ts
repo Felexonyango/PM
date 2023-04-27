@@ -19,6 +19,8 @@ import { ProjectService } from "../services/project";
   getProjectById(req: Request, res: Response, next:NextFunction) {
     ProjectService.getProjectById(req, res,next);
   },
-
+  AssignProject(req:Request,res: Response, next:NextFunction){
+    ProjectService.AssignProject(req, res, next);
+  }
 };
-export const { CreateProject,UpdateProject,deleteProject,getAllProject,getProjectById} =ProjectController
+export const { CreateProject,UpdateProject,deleteProject,getAllProject,getProjectById,AssignProject} =ProjectController

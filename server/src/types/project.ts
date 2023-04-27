@@ -12,5 +12,6 @@ export interface Iproject {
   startDate?: Date;
   endDate?: Date;
   projectduration?:number;
+  budget?:number
   status?: Status;
 }
