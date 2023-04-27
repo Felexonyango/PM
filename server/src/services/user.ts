@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { Iuser, User } from "../model/user";
+import {  User } from "../model/user";
 
 export const UserService = {
   async getAllUsers(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await User.find({}).select("-password").exec();
+      const result = await User.find({}).populate('role').select("-password").exec();
       if (result)
         return res
           .status(200)
@@ -47,10 +47,10 @@ export const UserService = {
     try {
       const { id } = req.params;
 
-      const result = await User.findById(id);
+      const result = await User.findById(id) .populate('role');
     
       if (!result) return res.status(404).json({ message: " User not found" });
-      res.status(200).json({ msg: "successfully retrived user ", result });
+      res.status(200).json({ msg: "successfully retrieved user ", result });
     } catch (err) {
       res.status(500).json({ error: err });
     }

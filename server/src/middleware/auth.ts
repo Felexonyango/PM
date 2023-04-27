@@ -1,8 +1,9 @@
 import { Response, Request, NextFunction } from 'express';
 import passport from 'passport';
+import { User as UserType } from '../types/user'
 import { Role } from '../types'
-import { User, Iuser } from '../model/user';
-import { User as UserTypes } from "../types/user";
+import {Roles } from '../types/role'
+import { User } from '../model/user';
 export const protect = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate('jwt', { session: false }, (err, user, info) => {
     if (err) {
@@ -22,13 +23,13 @@ export const protect = (req: Request, res: Response, next: NextFunction) => {
   })(req, res, next);
 };
 
-
-export const authorize = (roles: Role[]) => {
+export const authorize = (roles: String[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const user = req.user as UserTypes;
+      const user = req.user as UserType; // assuming user object has been added to request object by authentication middleware
       const foundUser = await User.findById(user._id).populate("role");
-      if (!foundUser || !foundUser.role || !roles.some(role=>roles.includes(role))) {
+      console.log(foundUser);
+      if (!foundUser || !foundUser.role || !foundUser.role.find(role => roles.includes(role.name))) {
         return res.status(403).json({
           error: {
             name: "Unauthorized",
@@ -50,25 +51,6 @@ export const authorize = (roles: Role[]) => {
     }
   };
 };
-// export const authorize = (roles: Role[]) => {
-//   return async (req: Request, res: Response, next: NextFunction) => {
-//     const user = req.user as UserTypes; 
-//     const foundUser = await User.findById(user._id).populate("role");
-//     if (!foundUserrole. || !user.role.some(role => roles.includes(role))) {
-//       return res.status(403).json({
-//         error: {
-//           name: 'Unauthorized',
-//           message: 'You are not authorized to perform this action',
-//         },
-//         success: false,
-//       });
-//     }
-//     next();
-//   };
-// };
-
-
-
 
 
 

@@ -10,7 +10,7 @@ const router = Router();
 
 router.route('/create-role').post(protect,authorize([Role.SYSADMIN]),createRole)
 router.route('/allRoles').get(protect, authorize([Role.SYSADMIN]),  getAllRoles);
-router.route('/:id').get(protect, authorize([Role.SYSADMIN]),  getRoleById);
+router.route('/:id').get(protect, authorize([]),  getRoleById);
 
 
 

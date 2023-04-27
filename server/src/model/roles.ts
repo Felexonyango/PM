@@ -2,7 +2,7 @@ import mongoose, { Model, Schema, Document, Types } from "mongoose";
 import bcrypt from "bcryptjs";
 import { Role } from "../types/role";
 export interface IRole extends Document {
-  role:String
+  name:String
   
 }
 
@@ -12,7 +12,7 @@ export interface RoleModel extends Model<IRole> {}
 const RoleSchema: Schema = new Schema(
  {
   
-    role: {
+    name: {
       type: String,
       enum: ["USER", "ADMIN", "SYSADMIN"],
       required: true,

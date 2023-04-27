@@ -1,13 +1,13 @@
 import bcrypt from "bcryptjs";
 import { Types } from "mongoose";
-import { Role } from "../types";
+import { Role, Roles } from "../types";
 
 interface User {
   firstname: string;
   lastname: string;
   email: string;
   password: string;
-  role: Types.ObjectId[];
+  role: Roles[];
 }
 
 const Users: User[] = [
@@ -16,9 +16,16 @@ const Users: User[] = [
     lastname: "Doe",
     email: "projectmanager@gmail.com",
     password: bcrypt.hashSync("@projectmanager254", 12),
-    role: [Types.ObjectId("6448d342febc8c2878fec0b2") ] 
+    role: [
+      {
+        _id: Types.ObjectId("644966e4b063a954a811a912"),
+        name: "SYSADMIN",
+      },
+    ],
   },
+
 ];
+
 
 
 

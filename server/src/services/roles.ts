@@ -4,13 +4,13 @@ import { Roles } from "../model/roles";
 export const RoleService = {
   async CreateRole(req: Request, res: Response, next: NextFunction) {
     try {
-      let { role } = req.body;
-      const checkExsting = await Roles.findOne({ role: role });
+      let { name } = req.body;
+      const checkExsting = await Roles.findOne({ name: name });
       if (checkExsting) {
         return res.status(400).json({ msg: "Role  already exists" });
       } else {
         let roles = await Roles.create({
-          role,
+          name,
         });
         let result = await roles.save();
 
