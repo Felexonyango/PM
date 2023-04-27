@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { Workspace } from "../model/workspace";
 import { workspaceActions } from "../types";
-
+import { User as UserType } from '../types/user'
 export const WorkspaceService = {
   async CreateWorkspace(req: Request, res: Response, next: NextFunction) {
     try {
@@ -12,6 +12,7 @@ export const WorkspaceService = {
           .status(400)
           .json({ msg: "Worspace with that name already exists" });
       } else {
+        const user = req.user as UserType;
         let workspace = await Workspace.create({
           name,
           email,
@@ -19,6 +20,7 @@ export const WorkspaceService = {
           address,
           country,
           OrgType,
+          user:user?._id
         });
         let result = await workspace.save();
 
@@ -35,7 +37,7 @@ export const WorkspaceService = {
 
   async getAllWorkspaces(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await Workspace.find({});
+      const result = await Workspace.find({}).populate('user').select("-password").exec()
       if (result)
         return res
           .status(200)
@@ -81,7 +83,7 @@ export const WorkspaceService = {
     try {
       const { id } = req.params;
 
-      const result = await Workspace.findById(id);
+      const result = await Workspace.findById(id).populate('user').select("-password").exec()
       if (!result)
         return res.status(404).json({ message: " Workspace not found" });
       res.status(200).json({ msg: "successfully retrived Workspace ", result });

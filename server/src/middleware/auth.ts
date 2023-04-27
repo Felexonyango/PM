@@ -28,7 +28,7 @@ export const authorize = (roles: String[]) => {
     try {
       const user = req.user as UserType; // assuming user object has been added to request object by authentication middleware
       const foundUser = await User.findById(user._id).populate("role");
-      console.log(foundUser);
+     
       if (!foundUser || !foundUser.role || !foundUser.role.find(role => roles.includes(role.name))) {
         return res.status(403).json({
           error: {
