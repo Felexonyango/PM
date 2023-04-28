@@ -7,6 +7,12 @@ export interface ITask{
     assignedTo?:string
     startDate?:Date
     endDate?:Date
+    priority:Ipriority
     status?:Status
 
+}
+export enum Ipriority{
+    HIGH ="HIGH",
+    LOW ="LOW",
+    MEDIUM ="MEDIUM",
 }

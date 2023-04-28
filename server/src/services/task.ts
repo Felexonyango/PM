@@ -3,7 +3,7 @@ import { User as UserType } from "../types/user";
 import { Task } from "../model/task";
 import { User } from "../model/user";
 import { Project } from "../model/project";
-import { Status } from "../types";
+import { Ipriority, Status } from "../types";
 export const TaskService = {
   async CreateTask(req: Request, res: Response, next: NextFunction) {
     try {
@@ -33,6 +33,7 @@ export const TaskService = {
           endDate,
           status:Status.PENDING,
           isCompleted,
+          priority:Ipriority.LOW,
           user: user?._id,
           project: project?._id,
         });

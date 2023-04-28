@@ -1,3 +1,4 @@
+import { Ipriority } from "../types";
 import { Status } from "../types/project";
 import { Schema, model, Document, ObjectId } from "mongoose";
 const { ObjectId } = Schema.Types;
@@ -8,6 +9,7 @@ export interface taskDocument extends Document {
   startDate: Date;
   endDate: Date;
   status: Status;
+  priority:Ipriority,
   assignedTo: ObjectId;
   project: ObjectId;
 }
@@ -34,6 +36,9 @@ const taskSChema = new Schema(
    
     status: {
       type: String,
+    },
+    priority:{
+      type:String
     },
     user: {
       type: ObjectId,
