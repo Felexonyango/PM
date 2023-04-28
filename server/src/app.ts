@@ -15,6 +15,7 @@ import { connectDb } from "./database";
 import { roleRoutes } from "./routes/role";
 import { projectRoutes } from "./routes/project";
 import { TaskRoutes } from "./routes/task";
+import { CommentSRoute } from "./routes/comment";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
 app.use(express.json());
@@ -44,6 +45,7 @@ app.use("/api/workspace", workspaceRoutes);
 app.use('/api/role',roleRoutes)
 app.use('/api/project',projectRoutes)
 app.use("/api/task",TaskRoutes)
+app.use('/api/comment',CommentSRoute)
 // app.use("/api/menus",MenuRoutes)
 
 

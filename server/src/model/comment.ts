@@ -5,7 +5,7 @@ const { ObjectId } = Schema.Types;
 export interface CommentDocument extends Document {
   comment: string;
   project: ObjectId;
-  commentedBy:ObjectId
+  commentedBy:any
 }
 
 const CommentSChema = new Schema(
@@ -16,7 +16,7 @@ const CommentSChema = new Schema(
     },
     commentedBy:{
         type: ObjectId,
-        ref: "user",
+        ref: "User",
     },
     project: {
       type: ObjectId,
