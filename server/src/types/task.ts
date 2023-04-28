@@ -1,3 +1,5 @@
+import { Status } from "./project";
+
 export interface ITask{
     _id?:string;
     name?:string
@@ -5,6 +7,6 @@ export interface ITask{
     assignedTo?:string
     startDate?:Date
     endDate?:Date
-    status?:string
+    status?:Status
 
 }

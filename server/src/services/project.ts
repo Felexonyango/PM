@@ -23,13 +23,9 @@ export const ProjectService = {
           .json({ msg: "Project with that name already exists" });
       } else {
         const user = req.user as UserType;
-        const {id} =req.params
+        const { id } = req.params;
         const workspace = await Workspace.findById(id);
 
-        if (!workspace) {
-          return res.status(400).json({ msg: 'Workspace not found' });
-        }
-        console.log(workspace)
         let project = await Project.create({
           projectName,
           description,
@@ -53,15 +49,46 @@ export const ProjectService = {
     }
     next();
   },
- 
-  
+
   async getAllProjects(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await Project.find({}).populate('assignedTo').populate("user").select("-password").exec();
+      const result = await Project.find({})
+        .populate("assignedTo")
+        .populate("task")
+        .populate("user")
+        .select("-password")
+        .exec();
       if (result)
         return res
           .status(200)
           .json({ message: "Projects retrieved successfully", result });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+    next();
+  },
+  async getAllProjectsByWorkspaceById(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { workspaceId } = req.params;
+      let workspace = await Workspace.findById(workspaceId);
+      if (workspace) {
+        const result = await Project.find({workspace:workspace.id})
+          .populate("assignedTo")
+          .populate("task")
+          .populate("user")
+          .select("-password")
+          .exec();
+        if (result)
+          return res
+            .status(200)
+            .json({ message: "Projects retrieved successfully", result });
+      } else {
+        return res.status(404).json({ message: "Projects not found" });
+      }
     } catch (err) {
       res.status(500).json({ error: err });
     }
@@ -76,7 +103,7 @@ export const ProjectService = {
         runValidators: true,
       });
       if (!user) return res.status(404).json({ message: "Project not found" });
-      res.status(200).json({ message: "User updated successfully", user });
+      res.status(200).json({ message: "Project updated successfully", user });
     } catch (error) {
       res.status(500).json({ message: "Error in updating Project" });
     }
@@ -100,7 +127,11 @@ export const ProjectService = {
   async getProjectById(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      const result = await Project.findById(id).populate("user").populate('assignedTo').select("-password").exec();
+      const result = await Project.findById(id)
+        .populate("user")
+        .populate("assignedTo")
+        .select("-password")
+        .exec();
 
       if (!result)
         return res.status(404).json({ message: " Project not found" });
@@ -111,20 +142,20 @@ export const ProjectService = {
     next();
   },
 
-  async  assignProjectToUser(projectId: string, userId: string): Promise<void> {
+  async assignProjectToUser(projectId: string, userId: string): Promise<void> {
     try {
       const project = await Project.findById(projectId);
-  
+
       if (!project) {
         throw new Error("Project not found");
       }
-  
+
       const user = await User.findById(userId);
-  
+
       if (!user) {
         throw new Error("User not found");
       }
-  
+
       project.assignedTo = user._id;
       await project.save();
     } catch (error) {
@@ -134,17 +165,16 @@ export const ProjectService = {
   async AssignProject(req: Request, res: Response, next: NextFunction) {
     const projectId = req.params.id;
     const userId = req.body.userId;
-  
+
     try {
       await this.assignProjectToUser(projectId, userId);
-  
-      return res.status(200).send({ message: "Project assigned to user successfully" });
+
+      return res
+        .status(200)
+        .send({ message: "Project assigned to user successfully" });
     } catch (error) {
       res.status(500).send({ message: "Failed to assign project to user" });
     }
-    next()
-  }
-  
-  
+    next();
+  },
 };
-

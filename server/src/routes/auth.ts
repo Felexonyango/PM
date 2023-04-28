@@ -1,9 +1,5 @@
 import { Router } from 'express';
-import {
-  login,
-  signUp,
-  changePassword,
-} from "../controller/auth"
+
 import { authorize, protect } from "../middleware/auth"
 import {
   validate,
@@ -12,6 +8,7 @@ import {
   changePasswordValidation,
 } from "../validation/index"
 import { Role } from '../types';
+import { changedPassword, login, signUp } from '../controller/auth';
 
 const router = Router();
 
@@ -24,6 +21,6 @@ router.route('/login').post(loginValidation(), validate, login);
 
 router
   .route('/change-password')
-  .patch(changePasswordValidation(), validate, changePassword);
+  .patch(changePasswordValidation(), validate, changedPassword);
 
 export { router as authRoutes };

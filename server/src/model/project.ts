@@ -52,8 +52,7 @@ const ProjectSchma = new Schema(
     workspace:{
       type:ObjectId,
       ref: "Workspace",
-      
-      
+
     },
     budget:{
       type:Number,
