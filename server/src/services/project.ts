@@ -53,10 +53,10 @@ export const ProjectService = {
   async getAllProjects(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await Project.find({})
-        .populate("assignedTo")
+        .populate("assignedTo","-password")
         .populate("task")
-        .populate("user")
-        .select("-password")
+        .populate("user","-password")
+        .sort({ createdAt: -1 })
         .exec();
       if (result)
         return res
@@ -77,10 +77,10 @@ export const ProjectService = {
       let workspace = await Workspace.findById(workspaceId);
       if (workspace) {
         const result = await Project.find({workspace:workspace.id})
-          .populate("assignedTo")
+          .populate("assignedTo","-password")
           .populate("task")
-          .populate("user")
-          .select("-password")
+          .populate("user","-password")
+          .sort({ createdAt: -1 })
           .exec();
         if (result)
           return res
@@ -128,9 +128,8 @@ export const ProjectService = {
     try {
       const { id } = req.params;
       const result = await Project.findById(id)
-        .populate("user")
-        .populate("assignedTo")
-        .select("-password")
+        .populate("user","-password")
+        .populate("assignedTo","-password")
         .exec();
 
       if (!result)

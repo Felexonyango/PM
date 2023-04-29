@@ -37,7 +37,7 @@ export const WorkspaceService = {
 
   async getAllWorkspaces(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await Workspace.find({}).populate('user').select("-password").exec()
+      const result = await Workspace.find({}).populate('user',"-password").exec()
       if (result)
         return res
           .status(200)
@@ -83,7 +83,7 @@ export const WorkspaceService = {
     try {
       const { id } = req.params;
 
-      const result = await Workspace.findById(id).populate('user').select("-password").exec()
+      const result = await Workspace.findById(id).populate('user',"-password").exec()
       if (!result)
         return res.status(404).json({ message: " Workspace not found" });
       res.status(200).json({ msg: "successfully retrieved Workspace ", result });

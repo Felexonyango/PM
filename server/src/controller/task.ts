@@ -6,8 +6,8 @@ const TaskController = {
     TaskService.CreateTask(req, res, next);
   },
 
-  getAllTasks(req: Request, res: Response, next: NextFunction) {
-    TaskService.getAllTasks(req, res, next);
+  getAllMyTasks(req: Request, res: Response, next: NextFunction) {
+    TaskService.getTasksAssignedTOme(req, res, next);
   },
   getAllTasksById(req: Request, res: Response, next: NextFunction){
     TaskService.getAllTasksByProjectId(req, res, next);
@@ -28,7 +28,7 @@ const TaskController = {
 };
 export const {
   createTask,
-  getAllTasks,
+  getAllMyTasks,
   getAllTasksById,
   getTaskById,
   deleteTask,

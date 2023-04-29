@@ -10,7 +10,7 @@ export interface taskDocument extends Document {
   endDate: Date;
   status: Status;
   priority:Ipriority,
-  assignedTo: ObjectId;
+  assignedTo: ObjectId|any
   project: ObjectId;
 }
 

@@ -2,18 +2,13 @@ import { Request, Response, NextFunction } from "express";
 import { User as UserType } from "../types/user";
 import { Task } from "../model/task";
 import { User } from "../model/user";
+import mongoose from "mongoose";
 import { Project } from "../model/project";
 import { Ipriority, Status } from "../types";
 export const TaskService = {
   async CreateTask(req: Request, res: Response, next: NextFunction) {
     try {
-      let {
-        name,
-        isCompleted,
-        startDate,
-        endDate,
-        
-      } = req.body;
+      let { name, isCompleted, startDate, endDate } = req.body;
       const checkExsting = await Task.findOne({ name });
       if (checkExsting) {
         return res
@@ -31,9 +26,9 @@ export const TaskService = {
           name,
           startDate,
           endDate,
-          status:Status.PENDING,
+          status: Status.PENDING,
           isCompleted,
-          priority:Ipriority.LOW,
+          priority: Ipriority.LOW,
           user: user?._id,
           project: project?._id,
         });
@@ -50,14 +45,15 @@ export const TaskService = {
     next();
   },
 
-  async getAllTasks(req: Request, res: Response, next: NextFunction) {
+  async getTasksAssignedTOme(req: Request, res: Response, next: NextFunction) {
     try {
-     
-      const result = await Task.find({})
-        .populate("assignedTo")
-        .populate("user")
-        .select("-password")
-        .exec();
+      const user = req.user as UserType;
+
+      const result = await Task.find({
+        assignedTo: mongoose.Types.ObjectId(user._id),
+      }).populate("assignedTo", "-password")
+      .sort({ createdAt: -1 });
+      console.log(result);
       if (result)
         return res
           .status(200)
@@ -76,10 +72,10 @@ export const TaskService = {
       const { projectId } = req.params;
       let project = await Project.findById(projectId);
       if (project) {
-        const result = await Task.find({project:project.id})
-          .populate("assignedTo")
+        const result = await Task.find({ project: project.id })
+          .populate("assignedTo", "-password")
           .populate("user")
-          .select("-password")
+          .sort({ createdAt: -1 })
           .exec();
         if (result)
           return res
@@ -114,9 +110,7 @@ export const TaskService = {
       const { id } = req.params;
       const task = await Task.findByIdAndRemove({ _id: id });
       if (task)
-        return res
-          .status(200)
-          .json({ message: "Task deleted successfully" });
+        return res.status(200).json({ message: "Task deleted successfully" });
     } catch (err) {
       res.status(500).json({ error: err });
     }
@@ -127,14 +121,13 @@ export const TaskService = {
     try {
       const { id } = req.params;
       const result = await Task.findById(id)
-      .populate('project')
-      .populate("assignedTo")
-      .populate("user")
+        .populate("project")
+        .populate("assignedTo", "-password")
+        .populate("user", "-password")
         .select("-password")
         .exec();
 
-      if (!result)
-        return res.status(404).json({ message: " Task not found" });
+      if (!result) return res.status(404).json({ message: " Task not found" });
       res.status(200).json({ msg: "successfully retrieved Task ", result });
     } catch (err) {
       res.status(500).json({ error: err });

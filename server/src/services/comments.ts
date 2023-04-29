@@ -57,7 +57,7 @@ export const CommentService = {
   async getCommentById(req: Request, res: Response, next: NextFunction) {
     try {
       const { commentId } = req.params;
-      const result = await Comment.findById(commentId).populate("commentedBy");
+      const result = await Comment.findById(commentId).populate("commentedBy","-password");
 
       console.log(result);
       if (!result)
