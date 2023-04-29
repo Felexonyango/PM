@@ -17,6 +17,7 @@ export const ProjectService = {
         endDate,
         projectduration,
         budget,
+        dueDate
       } = req.body;
       const checkExsting = await Project.findOne({ projectName: projectName });
       if (checkExsting) {
@@ -33,6 +34,7 @@ export const ProjectService = {
           description,
           startDate,
           endDate,
+          dueDate,
           budget,
           projectduration,
           status: Status.PENDING,

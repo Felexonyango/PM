@@ -26,6 +26,10 @@ const ProjectSchma = new Schema(
       type: String,
       required: true,
     },
+    dueDate:{
+      type: Date,
+      required: true,
+    },
     startDate: {
       type: Date,
       required: false,

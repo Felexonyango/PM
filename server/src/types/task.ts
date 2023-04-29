@@ -6,6 +6,7 @@ export interface ITask{
     isCompleted?:boolean
     assignedTo?:string
     startDate?:Date
+    dueDate?:Date
     endDate?:Date
     priority:Ipriority
     status?:Status

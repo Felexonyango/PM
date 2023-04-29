@@ -5,7 +5,7 @@ const { ObjectId } = Schema.Types;
 
 export interface taskDocument extends Document {
   name: string;
-  isCompleted: boolean;
+  dueDate:Date
   startDate: Date;
   endDate: Date;
   status: Status;
@@ -20,9 +20,9 @@ const taskSChema = new Schema(
       type: String,
       required: true,
     },
-    isCompleted: {
-      type: Boolean,
-      default:false
+    dueDate: {
+      type: Date,
+      required: true,
     },
     startDate: {
       type: Date,

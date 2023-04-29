@@ -8,7 +8,7 @@ import { Ipriority, Status } from "../types";
 export const TaskService = {
   async CreateTask(req: Request, res: Response, next: NextFunction) {
     try {
-      let { name, isCompleted, startDate, endDate } = req.body;
+      let { name, dueDate, startDate, endDate } = req.body;
       const checkExsting = await Task.findOne({ name });
       if (checkExsting) {
         return res
@@ -27,7 +27,7 @@ export const TaskService = {
           startDate,
           endDate,
           status: Status.PENDING,
-          isCompleted,
+          dueDate,
           priority: Ipriority.LOW,
           user: user?._id,
           project: project?._id,
