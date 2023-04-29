@@ -1,5 +1,5 @@
 import {Status } from "../types/project";
-import { Schema, model, Document, ObjectId } from "mongoose";
+import mongoose, { Schema, model, Document, ObjectId } from "mongoose";
 const { ObjectId } = Schema.Types;
 
 export interface projectDocument extends Document {
@@ -10,8 +10,10 @@ export interface projectDocument extends Document {
   endDate: Date;
   projectduration?: number;
   status: Status;
-  assignedTo:ObjectId
+  assignedTo:ObjectId |any;
   workspace:ObjectId
+  percentageCompleted?: number;
+  percentagePending?: number;
 }
 
 const ProjectSchma = new Schema(
@@ -56,7 +58,16 @@ const ProjectSchma = new Schema(
     },
     budget:{
       type:Number,
-    }
+    },
+    percentageCompleted: { 
+      type: Number,
+       default: 0 
+      },
+    percentagePending: { 
+      type: Number, default: 0
+     },
+     task: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+ 
   },
 
   {

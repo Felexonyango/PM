@@ -14,4 +14,7 @@ export interface Iproject {
   projectduration?:number;
   budget?:number
   status?: Status;
+  percentageCompleted?: number;
+  percentagePending?: number;
+
 }

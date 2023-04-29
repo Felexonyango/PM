@@ -2,9 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { User as UserType } from "../types/user";
 import { Iworkspace as WorkspaceType } from "../types/workspace";
 import { Project } from "../model/project";
+import mongoose from "mongoose";
 import { Status } from "../types/project";
 import { User } from "../model/user";
 import { Workspace, workspaceDocument } from "../model/workspace";
+import { Task } from "../model/task";
 export const ProjectService = {
   async CreateProject(req: Request, res: Response, next: NextFunction) {
     try {
@@ -53,11 +55,34 @@ export const ProjectService = {
   async getAllProjects(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await Project.find({})
-        .populate("assignedTo","-password")
+        .populate("assignedTo", "-password")
         .populate("task")
-        .populate("user","-password")
+        .populate("user", "-password")
         .sort({ createdAt: -1 })
         .exec();
+      if (result)
+        return res
+          .status(200)
+          .json({ message: "Projects retrieved successfully", result });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+    next();
+  },
+  async getProjectsAssignedTOme(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const user = req.user as UserType;
+
+      const result = await Project.find({
+        assignedTo: mongoose.Types.ObjectId(user._id),
+      })
+        .populate("assignedTo", "-password")
+        .sort({ createdAt: -1 });
+      console.log(result);
       if (result)
         return res
           .status(200)
@@ -76,12 +101,13 @@ export const ProjectService = {
       const { workspaceId } = req.params;
       let workspace = await Workspace.findById(workspaceId);
       if (workspace) {
-        const result = await Project.find({workspace:workspace.id})
-          .populate("assignedTo","-password")
+        const result = await Project.find({ workspace: workspace.id })
+          .populate("assignedTo", "-password")
           .populate("task")
-          .populate("user","-password")
+          .populate("user", "-password")
           .sort({ createdAt: -1 })
           .exec();
+          
         if (result)
           return res
             .status(200)
@@ -128,8 +154,9 @@ export const ProjectService = {
     try {
       const { id } = req.params;
       const result = await Project.findById(id)
-        .populate("user","-password")
-        .populate("assignedTo","-password")
+        .populate("user", "-password")
+        .populate("assignedTo", "-password").
+        populate('task')
         .exec();
 
       if (!result)
@@ -175,5 +202,117 @@ export const ProjectService = {
       res.status(500).send({ message: "Failed to assign project to user" });
     }
     next();
+  },
+  async getAllCompletedProjects(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const result = await Project.find({ status: Status.COMPLETED }).sort({
+        createdAt: -1,
+      });
+
+      if (result)
+        return res
+          .status(200)
+          .json({
+            message: " Completed Projects retrieved successfully",
+            result,
+          });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+    next();
+  },
+  async getAllPedingProjects(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await Project.find({ status: Status.PENDING }).sort({
+        createdAt: -1,
+      });
+
+      if (result)
+        return res
+          .status(200)
+          .json({
+            message: " Pending Projects retrieved successfully",
+            result,
+          });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+    next();
+  },
+  async getAllOngoingProjects(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await Project.find({ status: Status.ONGOING }).sort({
+        createdAt: -1,
+      });
+
+      if (result)
+        return res
+          .status(200)
+          .json({
+            message: " Ongoing Projects retrieved successfully",
+            result,
+          });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+    next();
+  },
+  async getAllCancelledProjects(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const result = await Project.find({ status: Status.CANCELLED }).sort({
+        createdAt: -1,
+      });
+
+      if (result)
+        return res
+          .status(200)
+          .json({
+            message: " Cancell Projects retrieved successfully",
+            result,
+          });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+    next();
+  },
+
+  async getPercentageOfProjectBasedOnTaskCompleted(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const { projectId } = req.params;
+      let project = await Project.findById(projectId);
+      const projectTasks = await Task.find({ project: project?.id });
+
+      const completedTasksCount = projectTasks.filter(
+        (task) => task.status === Status.COMPLETED
+      ).length;
+      const pendingTasksCount = projectTasks.filter(
+        (task) => task.status == Status.PENDING).length;
+
+      const totalTasksCount = completedTasksCount + pendingTasksCount;
+      const percentageCompleted =
+        totalTasksCount === 0
+          ? 0
+          : Math.round((completedTasksCount / totalTasksCount) * 100);
+      console.log(percentageCompleted);
+      const percentagePending = 100 - percentageCompleted;
+      res.status(200).json({
+        percentageCompleted: percentageCompleted,
+        percentagePending: percentagePending,
+      });
+    } catch (error) {
+      next(error);
+    }
   },
 };
