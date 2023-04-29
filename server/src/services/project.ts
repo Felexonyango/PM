@@ -261,13 +261,13 @@ export const ProjectService = {
     }
     next();
   },
-  async getAllCancelledProjects(
+  async getAllOnHoldProjects(
     req: Request,
     res: Response,
     next: NextFunction
   ) {
     try {
-      const result = await Project.find({ status: Status.CANCELLED }).sort({
+      const result = await Project.find({ status: Status.ONHOLD }).sort({
         createdAt: -1,
       });
 
@@ -275,7 +275,7 @@ export const ProjectService = {
         return res
           .status(200)
           .json({
-            message: " Cancell Projects retrieved successfully",
+            message: " Onhold Projects retrieved successfully",
             result,
           });
     } catch (err) {

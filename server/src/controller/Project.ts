@@ -36,8 +36,8 @@ const ProjectController = {
   getAllCompletedProject(req: Request, res: Response, next: NextFunction) {
     ProjectService.getAllCompletedProjects(req, res, next);
   },
-  getAllCancelledProjects(req: Request, res: Response, next: NextFunction) {
-    ProjectService.getAllCancelledProjects(req, res, next);
+  getAllOnholdProjects(req: Request, res: Response, next: NextFunction) {
+    ProjectService.getAllOnHoldProjects(req, res, next);
   },
   getAllOngoingProjects(req: Request, res: Response, next: NextFunction) {
     ProjectService.getAllOngoingProjects(req, res, next);
@@ -59,7 +59,7 @@ export const {
   AssignProject,
   getAllProjectsAssigneTome,
   getAllProjectsByWorkspaceById,
-  getAllCancelledProjects,
+  getAllOnholdProjects,
   getAllCompletedProject,
   getAllOngoingProjects,
   getAllPendingProjects,

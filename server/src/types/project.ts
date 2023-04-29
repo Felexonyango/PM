@@ -1,7 +1,7 @@
 export enum Status {
   PENDING= "PENDING",
   COMPLETED= "COMPLETED",
-  CANCELLED= "CANCELLED",
+  ONHOLD= "ONHOLD",
   ONGOING="ONGOING",
 
 }
