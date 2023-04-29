@@ -61,7 +61,7 @@ export const ProjectService = {
         .populate("task")
         .populate("user", "-password")
         .sort({ createdAt: -1 })
-        .exec();
+        .exec()
       if (result)
         return res
           .status(200)
@@ -317,4 +317,31 @@ export const ProjectService = {
       next(error);
     }
   },
-};
+  async  updateProjectPercentages( req: Request, res: Response, next: NextFunction) {
+    const {id} = req.params
+    let project = await Project.findById(id);
+    if (project) {
+    const projectTasks = await Task.find({ project: project?.id });
+    const completedTasksCount = projectTasks.filter(task => task.status === Status.COMPLETED).length;
+    const pendingTasksCount = projectTasks.filter(task => task.status !== Status.COMPLETED).length;
+    const totalTasksCount = completedTasksCount + pendingTasksCount;
+    const percentageCompleted = totalTasksCount === 0 ? 0 : Math.round((completedTasksCount / totalTasksCount) * 100);
+    const percentagePending = 100 - percentageCompleted;
+    project.percentageCompleted = percentageCompleted;
+    project.percentagePending = percentagePending;
+    const result = await project.save();
+    if(result) return res.status(200).json({msg:'Project percentage updated successfully',result})
+    else return res.status(500).json({msg:'Error while updating project'})
+    }
+  },
+  // async  updateWorkspacePercentages(req:Request, res:Response, next:NextFunction) {
+  //   const {id}= req.params;
+  //   const workspace = await Workspace.findById(id);
+
+  //   const projects = await Project.find({ workspace: workspace?._id});
+  //   for (const project of projects) {
+  //     await  this.updateProjectPercentages(project._id);
+  //   }
+  }
+  
+

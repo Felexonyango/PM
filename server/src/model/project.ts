@@ -12,23 +12,23 @@ export interface projectDocument extends Document {
   status: Status;
   assignedTo:ObjectId |any;
   workspace:ObjectId
-  percentageCompleted?: number;
-  percentagePending?: number;
+  percentageCompleted: number;
+  percentagePending: number;
 }
 
 const ProjectSchma = new Schema(
   {
     projectName: {
       type: String,
-      required: true,
+      required: false,
     },
     description: {
       type: String,
-      required: true,
+      required: false,
     },
     dueDate:{
       type: Date,
-      required: true,
+      required: false,
     },
     startDate: {
       type: Date,
@@ -49,7 +49,7 @@ const ProjectSchma = new Schema(
     user: {
       type: ObjectId,
       ref: "User",
-      require:true
+      require:false
     },
     assignedTo:{
       type: ObjectId,
@@ -75,7 +75,7 @@ const ProjectSchma = new Schema(
   },
 
   {
-    timestamps: true,
+    timestamps: false,
   }
 );
 export const Project = model<projectDocument>("Project", ProjectSchma);

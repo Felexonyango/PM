@@ -46,8 +46,9 @@ const ProjectController = {
     ProjectService.getAllPedingProjects(req, res, next);
   },
  
-  getpercentageOfProject(req: Request, res: Response, next: NextFunction) {
-    ProjectService.getPercentageOfProjectBasedOnTaskCompleted(req,res,next);
+
+  updateProjectPercentage(req: Request, res: Response, next: NextFunction){
+    ProjectService.updateProjectPercentages(req,res,next);
   }
 };
 export const {
@@ -63,5 +64,5 @@ export const {
   getAllCompletedProject,
   getAllOngoingProjects,
   getAllPendingProjects,
-  getpercentageOfProject
+  updateProjectPercentage
 } = ProjectController;
