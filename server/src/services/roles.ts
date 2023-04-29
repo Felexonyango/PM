@@ -49,4 +49,17 @@ export const RoleService = {
     }
     next();
   },
+  async deleteRole(req:Request, res:Response, next:Function){
+    try {
+            
+      const { id } = req.params;
+      const result = await Roles.findByIdAndRemove(id);
+      if (!result) return res.status(404).json({ message: " Role not found" });
+      res.status(200).json({ msg: `successfully deleteted  this ${id} role`, result });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+    next();
+  }
+  
 };

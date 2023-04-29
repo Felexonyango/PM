@@ -13,6 +13,9 @@ import {RoleService  } from "../services/roles";
   getRoleById(req: Request, res: Response, next:NextFunction) {
     RoleService.getRoleById(req, res,next);
   },
+  deleteRoleId(req: Request, res: Response, next:NextFunction){
+    RoleService.deleteRole(req, res,next);
+  }
 
 };
-export const {getAllRoles,createRole,getRoleById} =RolesController
+export const {getAllRoles,createRole,getRoleById,deleteRoleId} =RolesController
