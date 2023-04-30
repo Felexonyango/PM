@@ -4,6 +4,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import { PORT } from "./config/index";
 import { destroyData, importData } from "./seeder";
 import cors from "cors";
+import  path  from 'path'
 import passport from "passport";
 require("./lib/passport")(passport);
 
@@ -17,6 +18,8 @@ import { projectRoutes } from "./routes/project";
 import { TaskRoutes } from "./routes/task";
 import { CommentSRoute } from "./routes/comment";
 import { FeedbackRoute } from "./routes/feedback";
+import { FileRoutes } from "./routes/file";
+import multer from "multer";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
 app.use(express.json());
@@ -39,6 +42,17 @@ connectDb();
 
 app.use(cors());
 
+//file upload
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
@@ -48,6 +62,7 @@ app.use('/api/project',projectRoutes)
 app.use("/api/task",TaskRoutes)
 app.use('/api/comment',CommentSRoute)
 app.use("/api/feedback",FeedbackRoute)
+app.use('/api/file', upload.single('file'), FileRoutes)
 // app.use("/api/menus",MenuRoutes)
 
 

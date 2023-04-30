@@ -37,7 +37,7 @@ export const CommentService = {
       let project = await Project.findById(projectId);
       if (project) {
         const result = await Comment.find({ project: project.id }).populate(
-          "commentedBy"
+          "commentedBy","-password"
         );
 
         if (result)
