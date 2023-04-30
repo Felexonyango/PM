@@ -16,4 +16,5 @@ export enum Ipriority{
     HIGH ="HIGH",
     LOW ="LOW",
     MEDIUM ="MEDIUM",
+    NONE ="NONE"
 }

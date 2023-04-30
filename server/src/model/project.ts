@@ -1,3 +1,4 @@
+import { Ipriority } from "../types";
 import {Status } from "../types/project";
 import mongoose, { Schema, model, Document, ObjectId } from "mongoose";
 const { ObjectId } = Schema.Types;
@@ -8,10 +9,12 @@ export interface projectDocument extends Document {
   description: string;
   startDate: Date;
   endDate: Date;
+  dueDate: Date;
   projectduration?: number;
   status: Status;
   assignedTo:ObjectId |any;
   workspace:ObjectId
+  priority:Ipriority,
   percentageCompleted: number;
   percentagePending: number;
 }
@@ -70,7 +73,10 @@ const ProjectSchma = new Schema(
     percentagePending: { 
       type: Number, default: 0
      },
-     task: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+     priority:{
+      type:String,
+      default:Ipriority.NONE
+    },
  
   },
 

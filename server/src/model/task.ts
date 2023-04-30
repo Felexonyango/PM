@@ -38,7 +38,8 @@ const taskSChema = new Schema(
       type: String,
     },
     priority:{
-      type:String
+      type:String,
+      default:Ipriority.NONE
     },
     user: {
       type: ObjectId,
