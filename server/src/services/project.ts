@@ -367,6 +367,37 @@ export const ProjectService = {
       console.log(err);
     }
   },
+  async getUserDashboardSummary(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = req.user as UserType;
+      let totalProjects = await Project.find({user:user._id}).countDocuments();
+      let totalCompletedProjects = await Project.find({
+        user:user._id,
+        status: Status.COMPLETED,
+      }).countDocuments();
+      let totalOnholdProjects = await Project.find({
+        user:user._id,
+        status: Status.ONHOLD,
+      }).countDocuments();
+      let totalOngoingProjects = await Project.find({
+        user:user._id,
+        status: Status.ONGOING,
+      }).countDocuments();
+
+     
+      let totalWorkspace =await Workspace.find({}).countDocuments()
+      return {
+        totalCompletedProjects,
+        totalOngoingProjects,
+        totalOnholdProjects,
+        totalWorkspace,
+        totalProjects,
+       
+      };
+    } catch (err) {
+      console.log(err);
+    }
+  },
   async getUsersProjects(req:Request, res:Response,next:NextFunction){
     try{
     const user = req.user as UserType;

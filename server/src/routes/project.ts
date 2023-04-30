@@ -111,9 +111,20 @@ router
     updateProjectPercentage
   );
   router.route('/api/projects/users').get(protect,authorize([Role.USER]), getAllUsersProject)
+
   router.get("/dashboard/totals", protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER]), async (req:Request, res:Response,next:NextFunction) => {
     try {
       const result = await ProjectService.dashboardSummary(req,res,next);
+      res.status(200).json({ msg:"successfully retrieved dashboard summary", result });
+    } catch (error) {
+      res.status(500).json({ msg:error });
+    }
+    next()
+  });
+
+  router.get("/dashboard/user/totals", protect, authorize([Role.USER]), async (req:Request, res:Response,next:NextFunction) => {
+    try {
+      const result = await ProjectService.getUserDashboardSummary(req,res,next);
       res.status(200).json({ msg:"successfully retrieved dashboard summary", result });
     } catch (error) {
       res.status(500).json({ msg:error });
