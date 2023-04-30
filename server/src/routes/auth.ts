@@ -13,7 +13,7 @@ import { changedPassword, login, signUp } from '../controller/auth';
 const router = Router();
 
 
-router.route('/create-user').post(signUpValidation(), validate, protect, authorize([Role.SYSADMIN,Role.ADMIN]), signUp);
+router.route('/create-user').post(signUpValidation(), validate, protect, authorize([Role.SYSADMIN]), signUp);
 router.route('/login').post(loginValidation(), validate, login);
 
 

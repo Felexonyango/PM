@@ -36,6 +36,9 @@ const ProjectController = {
   getAllCompletedProject(req: Request, res: Response, next: NextFunction) {
     ProjectService.getAllCompletedProjects(req, res, next);
   },
+  getAllUsersProject(req: Request, res: Response, next: NextFunction) {
+  ProjectController.getAllUsersProject(req, res, next);
+  },
   getAllOnholdProjects(req: Request, res: Response, next: NextFunction) {
     ProjectService.getAllOnHoldProjects(req, res, next);
   },
@@ -64,5 +67,6 @@ export const {
   getAllCompletedProject,
   getAllOngoingProjects,
   getAllPendingProjects,
+  getAllUsersProject,
   updateProjectPercentage
 } = ProjectController;

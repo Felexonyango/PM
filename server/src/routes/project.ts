@@ -15,29 +15,32 @@ import {
   getAllOnholdProjects,
   getAllPendingProjects,
   updateProjectPercentage,
+  getAllUsersProject,
 } from "../controller/Project";
 import { ProjectService } from "../services/project";
 import { Request, Response, NextFunction } from "express";
 const router = Router();
+//Admin Routes 
+
 router
   .route("/create/:id")
   .post(
     protect,
-    authorize([Role.SYSADMIN, Role.ADMIN, Role.PROJECTMANAGER, Role.USER]),
+    authorize([Role.SYSADMIN, Role.PROJECTMANAGER, Role.USER]),
     CreateProject
   );
 router
   .route("/all")
   .get(
     protect,
-    authorize([Role.SYSADMIN, Role.ADMIN, Role.PROJECTMANAGER, Role.USER]),
+    authorize([Role.SYSADMIN, Role.PROJECTMANAGER]),
     getAllProject
   );
 router
   .route("/all/myprojects")
   .get(
     protect,
-    authorize([Role.SYSADMIN, Role.ADMIN, Role.PROJECTMANAGER, Role.USER]),
+    authorize([Role.SYSADMIN, Role.PROJECTMANAGER, Role.USER]),
     getAllProjectsAssigneTome
   );
 router
@@ -73,41 +76,42 @@ router
   .route("/all/:workspaceId")
   .get(
     protect,
-    authorize([Role.SYSADMIN, Role.ADMIN]),
+    authorize([Role.SYSADMIN,Role.PROJECTMANAGER]),
     getAllProjectsByWorkspaceById
   );
 router
   .route("/:id")
   .get(
     protect,
-    authorize([Role.SYSADMIN, Role.ADMIN, Role.USER, Role.PROJECTMANAGER]),
+    authorize([Role.SYSADMIN, Role.USER, Role.PROJECTMANAGER]),
     getProjectById
   );
 router
   .route("/:id")
   .delete(
     protect,
-    authorize([Role.SYSADMIN, Role.ADMIN, Role.PROJECTMANAGER, Role.USER]),
+    authorize([Role.SYSADMIN, Role.PROJECTMANAGER, Role.USER]),
     deleteProject
   );
 router
   .route("/:id")
   .patch(
     protect,
-    authorize([Role.SYSADMIN, Role.ADMIN, Role.PROJECTMANAGER, Role.USER]),
+    authorize([Role.SYSADMIN, Role.PROJECTMANAGER, Role.USER]),
     UpdateProject
   );
 router
   .route("/id")
-  .patch(protect, authorize([Role.SYSADMIN, Role.ADMIN]), AssignProject);
+  .patch(protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER]), AssignProject);
 router
   .route("/updatePercentage/:id")
   .patch(
     protect,
-    authorize([Role.SYSADMIN, Role.ADMIN]),
+    authorize([Role.SYSADMIN, Role.PROJECTMANAGER]),
     updateProjectPercentage
   );
-  router.get("/dashboard/totals", protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER,Role.ADMIN]), async (req:Request, res:Response,next:NextFunction) => {
+  router.route('/api/projects/users').get(protect,authorize([Role.USER]), getAllUsersProject)
+  router.get("/dashboard/totals", protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER]), async (req:Request, res:Response,next:NextFunction) => {
     try {
       const result = await ProjectService.dashboardSummary(req,res,next);
       res.status(200).json({ msg:"successfully retrieved dashboard summary", result });
@@ -116,6 +120,8 @@ router
     }
     next()
   });
+
+
   // router.get("/user/total", protect, authorize(['user']), async (req, res) => {
   //   try {
   //     const result = await getUserTotals(req);

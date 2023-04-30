@@ -205,6 +205,8 @@ export const ProjectService = {
     }
     next();
   },
+
+
   async getAllCompletedProjects(
     req: Request,
     res: Response,
@@ -350,11 +352,14 @@ export const ProjectService = {
       let totalOngoingProjects = await Project.find({
         status: Status.ONGOING,
       }).countDocuments();
+
       let totalNotstartedProjects = await Project.find({status: Status.NOTSTARTED}).countDocuments()
+      let totalWorkspace =await Workspace.find({}).countDocuments()
       return {
         totalCompletedProjects,
         totalOngoingProjects,
         totalOnholdProjects,
+        totalWorkspace,
         totalProjects,
         totalNotstartedProjects
       };
@@ -362,4 +367,25 @@ export const ProjectService = {
       console.log(err);
     }
   },
-};
+  async getUsersProjects(req:Request, res:Response,next:NextFunction){
+    try{
+    const user = req.user as UserType;
+      const result = await Project.find({user:user._id })
+        .populate("assignedTo", "-password")
+        .populate("task")
+        .populate("user", "-password")
+        .sort({ createdAt: -1 })
+        .exec();
+
+      if (result)
+        return res
+          .status(200)
+          .json({ message: " User's Projects retrieved successfully", result });
+
+    
+  } catch (err) {
+    res.status(500).json({ error: err });
+  
+}
+  }
+}
