@@ -36,6 +36,7 @@ const taskSChema = new Schema(
    
     status: {
       type: String,
+      default: Status.NOTSTARTED
     },
     priority:{
       type:String,

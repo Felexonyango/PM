@@ -17,7 +17,7 @@ export const ProjectService = {
         endDate,
         projectduration,
         budget,
-        dueDate
+        dueDate,
       } = req.body;
       const checkExsting = await Project.findOne({ projectName: projectName });
       if (checkExsting) {
@@ -37,7 +37,7 @@ export const ProjectService = {
           dueDate,
           budget,
           projectduration,
-          status: Status.PENDING,
+          status: Status.NOTSTARTED,
           user: user?._id,
           workspace: workspace?._id,
         });
@@ -61,7 +61,7 @@ export const ProjectService = {
         .populate("task")
         .populate("user", "-password")
         .sort({ createdAt: -1 })
-        .exec()
+        .exec();
       if (result)
         return res
           .status(200)
@@ -109,7 +109,7 @@ export const ProjectService = {
           .populate("user", "-password")
           .sort({ createdAt: -1 })
           .exec();
-          
+
         if (result)
           return res
             .status(200)
@@ -157,8 +157,8 @@ export const ProjectService = {
       const { id } = req.params;
       const result = await Project.findById(id)
         .populate("user", "-password")
-        .populate("assignedTo", "-password").
-        populate('task')
+        .populate("assignedTo", "-password")
+        .populate("task")
         .exec();
 
       if (!result)
@@ -216,12 +216,10 @@ export const ProjectService = {
       });
 
       if (result)
-        return res
-          .status(200)
-          .json({
-            message: " Completed Projects retrieved successfully",
-            result,
-          });
+        return res.status(200).json({
+          message: " Completed Projects retrieved successfully",
+          result,
+        });
     } catch (err) {
       res.status(500).json({ error: err });
     }
@@ -229,17 +227,15 @@ export const ProjectService = {
   },
   async getAllPedingProjects(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await Project.find({ status: Status.PENDING }).sort({
+      const result = await Project.find({ status: Status.NOTSTARTED }).sort({
         createdAt: -1,
       });
 
       if (result)
-        return res
-          .status(200)
-          .json({
-            message: " Pending Projects retrieved successfully",
-            result,
-          });
+        return res.status(200).json({
+          message: " Pending Projects retrieved successfully",
+          result,
+        });
     } catch (err) {
       res.status(500).json({ error: err });
     }
@@ -252,34 +248,26 @@ export const ProjectService = {
       });
 
       if (result)
-        return res
-          .status(200)
-          .json({
-            message: " Ongoing Projects retrieved successfully",
-            result,
-          });
+        return res.status(200).json({
+          message: " Ongoing Projects retrieved successfully",
+          result,
+        });
     } catch (err) {
       res.status(500).json({ error: err });
     }
     next();
   },
-  async getAllOnHoldProjects(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
+  async getAllOnHoldProjects(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await Project.find({ status: Status.ONHOLD }).sort({
         createdAt: -1,
       });
 
       if (result)
-        return res
-          .status(200)
-          .json({
-            message: " Onhold Projects retrieved successfully",
-            result,
-          });
+        return res.status(200).json({
+          message: " Onhold Projects retrieved successfully",
+          result,
+        });
     } catch (err) {
       res.status(500).json({ error: err });
     }
@@ -300,7 +288,8 @@ export const ProjectService = {
         (task) => task.status === Status.COMPLETED
       ).length;
       const pendingTasksCount = projectTasks.filter(
-        (task) => task.status == Status.PENDING).length;
+        (task) => task.status == Status.NOTSTARTED
+      ).length;
 
       const totalTasksCount = completedTasksCount + pendingTasksCount;
       const percentageCompleted =
@@ -317,31 +306,60 @@ export const ProjectService = {
       next(error);
     }
   },
-  async  updateProjectPercentages( req: Request, res: Response, next: NextFunction) {
-    const {id} = req.params
+  async updateProjectPercentages(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
+    const { id } = req.params;
     let project = await Project.findById(id);
     if (project) {
-    const projectTasks = await Task.find({ project: project?.id });
-    const completedTasksCount = projectTasks.filter(task => task.status === Status.COMPLETED).length;
-    const pendingTasksCount = projectTasks.filter(task => task.status !== Status.COMPLETED).length;
-    const totalTasksCount = completedTasksCount + pendingTasksCount;
-    const percentageCompleted = totalTasksCount === 0 ? 0 : Math.round((completedTasksCount / totalTasksCount) * 100);
-    const percentagePending = 100 - percentageCompleted;
-    project.percentageCompleted = percentageCompleted;
-    project.percentagePending = percentagePending;
-    const result = await project.save();
-    if(result) return res.status(200).json({msg:'Project percentage updated successfully',result})
-    else return res.status(500).json({msg:'Error while updating project'})
+      const projectTasks = await Task.find({ project: project?.id });
+      const completedTasksCount = projectTasks.filter(
+        (task) => task.status === Status.COMPLETED
+      ).length;
+      const pendingTasksCount = projectTasks.filter(
+        (task) => task.status !== Status.COMPLETED
+      ).length;
+      const totalTasksCount = completedTasksCount + pendingTasksCount;
+      const percentageCompleted =
+        totalTasksCount === 0
+          ? 0
+          : Math.round((completedTasksCount / totalTasksCount) * 100);
+      const percentagePending = 100 - percentageCompleted;
+      project.percentageCompleted = percentageCompleted;
+      project.percentagePending = percentagePending;
+      const result = await project.save();
+      if (result)
+        return res
+          .status(200)
+          .json({ msg: "Project percentage updated successfully", result });
+      else return res.status(500).json({ msg: "Error while updating project" });
     }
   },
-  // async  updateWorkspacePercentages(req:Request, res:Response, next:NextFunction) {
-  //   const {id}= req.params;
-  //   const workspace = await Workspace.findById(id);
-
-  //   const projects = await Project.find({ workspace: workspace?._id});
-  //   for (const project of projects) {
-  //     await  this.updateProjectPercentages(project._id);
-  //   }
-  }
-  
-
+  //dashboard summary
+  async dashboardSummary(req: Request, res: Response, next: NextFunction) {
+    try {
+      let totalProjects = await Project.find({}).countDocuments();
+      let totalCompletedProjects = await Project.find({
+        status: Status.COMPLETED,
+      }).countDocuments();
+      let totalOnholdProjects = await Project.find({
+        status: Status.ONHOLD,
+      }).countDocuments();
+      let totalOngoingProjects = await Project.find({
+        status: Status.ONGOING,
+      }).countDocuments();
+      let totalNotstartedProjects = await Project.find({status: Status.NOTSTARTED}).countDocuments()
+      return {
+        totalCompletedProjects,
+        totalOngoingProjects,
+        totalOnholdProjects,
+        totalProjects,
+        totalNotstartedProjects
+      };
+    } catch (err) {
+      console.log(err);
+    }
+  },
+};

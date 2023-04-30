@@ -16,7 +16,8 @@ import {
   getAllPendingProjects,
   updateProjectPercentage,
 } from "../controller/Project";
-
+import { ProjectService } from "../services/project";
+import { Request, Response, NextFunction } from "express";
 const router = Router();
 router
   .route("/create/:id")
@@ -106,4 +107,22 @@ router
     authorize([Role.SYSADMIN, Role.ADMIN]),
     updateProjectPercentage
   );
+  router.get("/dashboard/totals", protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER,Role.ADMIN]), async (req:Request, res:Response,next:NextFunction) => {
+    try {
+      const result = await ProjectService.dashboardSummary(req,res,next);
+      res.status(200).json({ msg:"successfully retrieved dashboard summary", result });
+    } catch (error) {
+      res.status(500).json({ msg:error });
+    }
+    next()
+  });
+  // router.get("/user/total", protect, authorize(['user']), async (req, res) => {
+  //   try {
+  //     const result = await getUserTotals(req);
+  //     res.status(200).json({ msg:"successfully retrieved dashboard summary", result });
+  //   } catch (error) {
+  //     res.status(500).json({ msg:error });
+  //   }
+  // });
+
 export { router as projectRoutes };

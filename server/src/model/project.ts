@@ -48,6 +48,7 @@ const ProjectSchma = new Schema(
     },
     status: {
       type: String,
+      default:Status.NOTSTARTED
     },
     user: {
       type: ObjectId,

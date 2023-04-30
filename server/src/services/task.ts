@@ -26,7 +26,7 @@ export const TaskService = {
           name,
           startDate,
           endDate,
-          status: Status.PENDING,
+          status: Status.NOTSTARTED,
           dueDate,
           priority: Ipriority.LOW,
           user: user?._id,
