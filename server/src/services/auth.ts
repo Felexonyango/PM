@@ -27,7 +27,7 @@ export const sendResponseToken = ({user,res,statusCode,}: {
 
   // remove password from response
  
-  res.status(statusCode).json({ data: { user, token }, success: true });
+  res.status(statusCode).json({ data: {token }, success: true });
 };
 
 export const AuthService = {
