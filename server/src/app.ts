@@ -19,6 +19,7 @@ import { TaskRoutes } from "./routes/task";
 import { CommentSRoute } from "./routes/comment";
 import { FeedbackRoute } from "./routes/feedback";
 import { FileRoutes } from "./routes/file";
+import { FaqRoutes } from "./routes/faq";
 import multer from "multer";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
@@ -63,6 +64,7 @@ app.use("/api/task",TaskRoutes)
 app.use('/api/comment',CommentSRoute)
 app.use("/api/feedback",FeedbackRoute)
 app.use('/api/file', upload.single('file'), FileRoutes)
+app.use("/api/faq",FaqRoutes)
 // app.use("/api/menus",MenuRoutes)
 
 
