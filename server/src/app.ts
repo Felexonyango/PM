@@ -21,6 +21,7 @@ import { FeedbackRoute } from "./routes/feedback";
 import { FileRoutes } from "./routes/file";
 import { FaqRoutes } from "./routes/faq";
 import multer from "multer";
+import { CustomerRoutes } from "./routes/customer";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
 app.use(express.json());
@@ -65,6 +66,7 @@ app.use('/api/comment',CommentSRoute)
 app.use("/api/feedback",FeedbackRoute)
 app.use('/api/file', upload.single('file'), FileRoutes)
 app.use("/api/faq",FaqRoutes)
+app.use("/api/customer",CustomerRoutes)
 // app.use("/api/menus",MenuRoutes)
 
 
