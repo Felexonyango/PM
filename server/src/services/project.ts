@@ -478,7 +478,7 @@ function SendprojectDueDatesReminders(req: Request) {
         });
         const mailOptions = {
           from: "devconnector254@gmail.com",
-          to: "felexonyango02@gmail.com",
+          to: user.email,
           subject: `Reminder: Project "${project.projectName}" is due soon`,
           text: `Project "${project.projectName}" is due on ${project.dueDate}. Please complete it before then.`,
         };
@@ -496,6 +496,6 @@ function SendprojectDueDatesReminders(req: Request) {
   }
 }
 
-export const sendReminder = async (event: any) => {
+export const sendProjectReminder = async (event: any) => {
   SendprojectDueDatesReminders(event);
 };

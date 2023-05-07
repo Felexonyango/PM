@@ -201,3 +201,52 @@ export const TaskService = {
     next();
   },
 };
+function SendTaskDueDatesReminders(req: Request) {
+  try {
+   
+    cron.schedule("0 0 * * *", async () => {
+      const dueDateReminderPeriod = 1; // in days
+      const dueDateReminder = new Date();
+      dueDateReminder.setDate(
+        dueDateReminder.getDate() + dueDateReminderPeriod
+      );
+      const user = req.user as UserType;
+
+      const dueTasks = await Task.find({
+        dueDate: { $lte: dueDateReminder },
+        user: user?._id,
+      });
+
+      for (const task of dueTasks) {
+        let PASSWORD = "nwfbopmzfxclbkup";
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          secure: false,
+          auth: {
+            user: "devconnector254@gmail.com",
+            pass: `${PASSWORD}`,
+          },
+        });
+        const mailOptions = {
+          from: "devconnector254@gmail.com",
+          to: user.email,
+          subject: `Reminder: Task "${task.name}" is due soon`,
+          text: `Task "${task.name}" is due on ${task.dueDate}. Please complete it before then.`,
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const sendTaskReminder = async (event: any) => {
+  SendTaskDueDatesReminders(event);
+}

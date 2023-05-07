@@ -22,7 +22,8 @@ import { FileRoutes } from "./routes/file";
 import { FaqRoutes } from "./routes/faq";
 import multer from "multer";
 import { CustomerRoutes } from "./routes/customer";
-import {sendReminder} from './services/project'
+import {sendProjectReminder} from './services/project'
+import { sendTaskReminder } from "./services/task";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
 app.use(express.json());
@@ -43,7 +44,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 connectDb();
 //destroyData()
 let event
-sendReminder(event)
+sendProjectReminder(event)
+sendTaskReminder(event)
 
 app.use(cors());
 
