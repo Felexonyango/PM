@@ -22,6 +22,7 @@ import { FileRoutes } from "./routes/file";
 import { FaqRoutes } from "./routes/faq";
 import multer from "multer";
 import { CustomerRoutes } from "./routes/customer";
+import {sendReminder} from './services/project'
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
 app.use(express.json());
@@ -41,6 +42,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 connectDb();
 //destroyData()
+let event
+sendReminder(event)
 
 app.use(cors());
 
@@ -73,4 +76,6 @@ app.use("/api/customer",CustomerRoutes)
 
 //updated body-parser for ts node
 app.use(express.json());
-app.listen(PORT, () => console.log(`server is listening at port ${PORT}`))
+app.listen(PORT, () => {
+  console.log(`server is listening at port ${PORT}`)
+})

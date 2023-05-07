@@ -5,6 +5,8 @@ import { User } from "../model/user";
 import mongoose from "mongoose";
 import { Project } from "../model/project";
 import { Ipriority, Status } from "../types";
+import nodemailer from "nodemailer";
+import cron from "node-cron";
 export const TaskService = {
   async CreateTask(req: Request, res: Response, next: NextFunction) {
     try {
@@ -145,12 +147,40 @@ export const TaskService = {
 
       const user = await User.findById(userId);
 
-      if (!user) {
-        throw new Error("User not found");
+      if (user) {
+        task.assignedTo = user._id;
+      const result = await task.save();
+      if (result) {
+        let PASSWORD = "nwfbopmzfxclbkup";
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          secure: false,
+          auth: {
+            user: "devconnector254@gmail.com",
+            pass: `${PASSWORD}`,
+          },
+        });
+        const mailOptions = {
+          from: "devconnector254@gmail.com",
+           to: user.email,
+          subject: `Reminder: Task Asssignment`,
+          text: `Task "${task.name}"  has been assigned to you,  Please confirm .`,
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
+        console.log("Email sent");
+      } else {
+        console.log("email not sent");
       }
+    }
 
-      task.assignedTo = user._id;
-      await task.save();
+     
+    
     } catch (error) {
       throw new Error("Failed to assign Task to user");
     }

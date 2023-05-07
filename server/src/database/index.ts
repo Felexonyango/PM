@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-
 export const connectDb = async () => {
   try{
        
@@ -16,3 +15,4 @@ export const connectDb = async () => {
         process.exit(1)
 }
 };
+

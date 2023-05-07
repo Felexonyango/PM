@@ -10,5 +10,5 @@ router.route('/all/:projectId').get(protect,authorize([Role.SYSADMIN]),getAllTas
 router.route('/:id').get(protect, authorize([Role.SYSADMIN,Role.USER,Role.PROJECTMANAGER]), getTaskById );
 router.route('/:id').delete(protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER,Role.USER]), deleteTask);
 router.route('/:id').patch(protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER,Role.USER]),UpdateTask);
-router.route('/id').patch(protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER]),AssignTask)
+router.route('/assignTo/:id').patch(protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER]),AssignTask)
 export { router as TaskRoutes };

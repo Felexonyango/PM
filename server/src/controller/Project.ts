@@ -52,7 +52,8 @@ const ProjectController = {
 
   updateProjectPercentage(req: Request, res: Response, next: NextFunction){
     ProjectService.updateProjectPercentages(req,res,next);
-  }
+  },
+
 };
 export const {
   CreateProject,

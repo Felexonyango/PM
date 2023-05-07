@@ -100,6 +100,13 @@ router
     authorize([Role.SYSADMIN, Role.PROJECTMANAGER, Role.USER]),
     UpdateProject
   );
+  router
+  .route("/assignTo/:id")
+  .patch(
+    protect,
+    authorize([Role.SYSADMIN, Role.PROJECTMANAGER, Role.USER]),
+    AssignProject
+  );
 router
   .route("/id")
   .patch(protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER]), AssignProject);

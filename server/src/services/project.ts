@@ -1,12 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import { User as UserType } from "../types/user";
-import { Iworkspace as WorkspaceType } from "../types/workspace";
+import nodemailer from "nodemailer";
+import cron from "node-cron";
 import { Project } from "../model/project";
 import mongoose from "mongoose";
 import { Status } from "../types/project";
 import { User } from "../model/user";
 import { Workspace, workspaceDocument } from "../model/workspace";
 import { Task } from "../model/task";
+
 export const ProjectService = {
   async CreateProject(req: Request, res: Response, next: NextFunction) {
     try {
@@ -179,15 +181,39 @@ export const ProjectService = {
       }
 
       const user = await User.findById(userId);
-
-      if (!user) {
-        throw new Error("User not found");
+      if (user) {
+        project.assignedTo = user._id;
+      const result = await project.save();
+      if (result) {
+        let PASSWORD = "nwfbopmzfxclbkup";
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          secure: false,
+          auth: {
+            user: "devconnector254@gmail.com",
+            pass: `${PASSWORD}`,
+          },
+        });
+        const mailOptions = {
+          from: "devconnector254@gmail.com",
+           to: user.email,
+          subject: `Reminder: Project Asssignment`,
+          text: `Project "${project.projectName}"  has been assigned to you  Please confirm .`,
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
+        console.log("Email sent");
+      } else {
+        console.log("email not sent");
       }
-
-      project.assignedTo = user._id;
-      await project.save();
+    }
     } catch (error) {
-      throw new Error("Failed to assign project to user");
+      console.log(error);
     }
   },
   async AssignProject(req: Request, res: Response, next: NextFunction) {
@@ -201,11 +227,11 @@ export const ProjectService = {
         .status(200)
         .send({ message: "Project assigned to user successfully" });
     } catch (error) {
-      res.status(500).send({ message: "Failed to assign project to user" });
+      console.log(error);
+      //res.status(500).send({ message: "Failed to assign project to user" });
     }
     next();
   },
-
 
   async getAllCompletedProjects(
     req: Request,
@@ -353,55 +379,61 @@ export const ProjectService = {
         status: Status.ONGOING,
       }).countDocuments();
 
-      let totalNotstartedProjects = await Project.find({status: Status.NOTSTARTED}).countDocuments()
-      let totalWorkspace =await Workspace.find({}).countDocuments()
+      let totalNotstartedProjects = await Project.find({
+        status: Status.NOTSTARTED,
+      }).countDocuments();
+      let totalWorkspace = await Workspace.find({}).countDocuments();
       return {
         totalCompletedProjects,
         totalOngoingProjects,
         totalOnholdProjects,
         totalWorkspace,
         totalProjects,
-        totalNotstartedProjects
+        totalNotstartedProjects,
       };
     } catch (err) {
       console.log(err);
     }
   },
-  async getUserDashboardSummary(req: Request, res: Response, next: NextFunction) {
+  async getUserDashboardSummary(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) {
     try {
       const user = req.user as UserType;
-      let totalProjects = await Project.find({user:user._id}).countDocuments();
+      let totalProjects = await Project.find({
+        user: user._id,
+      }).countDocuments();
       let totalCompletedProjects = await Project.find({
-        user:user._id,
+        user: user._id,
         status: Status.COMPLETED,
       }).countDocuments();
       let totalOnholdProjects = await Project.find({
-        user:user._id,
+        user: user._id,
         status: Status.ONHOLD,
       }).countDocuments();
       let totalOngoingProjects = await Project.find({
-        user:user._id,
+        user: user._id,
         status: Status.ONGOING,
       }).countDocuments();
 
-     
-      let totalWorkspace =await Workspace.find({}).countDocuments()
+      let totalWorkspace = await Workspace.find({}).countDocuments();
       return {
         totalCompletedProjects,
         totalOngoingProjects,
         totalOnholdProjects,
         totalWorkspace,
         totalProjects,
-       
       };
     } catch (err) {
       console.log(err);
     }
   },
-  async getUsersProjects(req:Request, res:Response,next:NextFunction){
-    try{
-    const user = req.user as UserType;
-      const result = await Project.find({user:user._id })
+  async getUsersProjects(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user = req.user as UserType;
+      const result = await Project.find({ user: user._id })
         .populate("assignedTo", "-password")
         .populate("task")
         .populate("user", "-password")
@@ -412,11 +444,58 @@ export const ProjectService = {
         return res
           .status(200)
           .json({ message: " User's Projects retrieved successfully", result });
+    } catch (err) {
+      res.status(500).json({ error: err });
+    }
+  },
+};
 
-    
+function SendprojectDueDatesReminders(req: Request) {
+  try {
+    console.log("test due date reminder");
+    cron.schedule("0 0 * * *", async () => {
+      const dueDateReminderPeriod = 1; // in days
+      const dueDateReminder = new Date();
+      dueDateReminder.setDate(
+        dueDateReminder.getDate() + dueDateReminderPeriod
+      );
+      const user = req.user as UserType;
+
+      const dueProjects = await Project.find({
+        dueDate: { $lte: dueDateReminder },
+        user: user?._id,
+      });
+
+      for (const project of dueProjects) {
+        let PASSWORD = "nwfbopmzfxclbkup";
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          secure: false,
+          auth: {
+            user: "devconnector254@gmail.com",
+            pass: `${PASSWORD}`,
+          },
+        });
+        const mailOptions = {
+          from: "devconnector254@gmail.com",
+          to: "felexonyango02@gmail.com",
+          subject: `Reminder: Project "${project.projectName}" is due soon`,
+          text: `Project "${project.projectName}" is due on ${project.dueDate}. Please complete it before then.`,
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            console.error(error);
+          } else {
+            console.log("Email sent: " + info.response);
+          }
+        });
+      }
+    });
   } catch (err) {
-    res.status(500).json({ error: err });
-  
-}
+    console.log(err);
   }
 }
+
+export const sendReminder = async (event: any) => {
+  SendprojectDueDatesReminders(event);
+};
