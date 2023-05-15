@@ -28,6 +28,7 @@
         "@fullcalendar/timegrid": "^6.0.3",
         "@ngx-formly/bootstrap": "^6.1.6",
         "@ngx-formly/core": "^6.1.6",
+        "@ngx-formly/primeng": "^6.1.6",
         "chart.js": "^3.3.2",
         "file-saver": "^2.0.5",
         "primeflex": "^3.2.1",

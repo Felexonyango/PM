@@ -58,12 +58,12 @@ export class LoginComponent implements OnInit {
     this.subscriptions.add(
       this.authservice.login(userDetails).subscribe({
         next:(res)=>{
-          console.log(res)
+        
         }
       })
     
     )
-    console.log(this.userModel)
+  
   
   }
 }
