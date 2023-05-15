@@ -9,7 +9,7 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 
 
-export const sendResponseToken = ({user,res,statusCode,}: {
+export const sendResponseToken = ({user,res,statusCode}: {
     user: UserType | Iuser
   statusCode: number;
   res: Response;
@@ -27,7 +27,7 @@ export const sendResponseToken = ({user,res,statusCode,}: {
 
   // remove password from response
  
-  res.status(statusCode).json({ data: {token }, success: true });
+  res.status(statusCode).json({ message:"Successfully logged in user",result:{token}});
 };
 
 export const AuthService = {

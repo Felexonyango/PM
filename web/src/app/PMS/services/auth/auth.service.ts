@@ -31,6 +31,7 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     const token = this.getAuthToken();
+   
     if (token) {
         const isTokenExpired = this.tokenDecoder.isTokenExpired(token);
         return isTokenExpired ? false : true;
@@ -48,6 +49,17 @@ export class AuthService {
   login(user:User): Observable<HTTPResponse<{token:string}>> {
     return this.httpClient.post<HTTPResponse<{token:string}>>(
       `${environment.server_Url}auth/login`,user)
+      .pipe(
+        map((res) => {
+          const token = res.result.token;
+          this.setAuthToken(token);
+          console.log(token)
+          const redirectUrl = this.redirectUrl || '/app'
+          console.log(redirectUrl);
+          this.navigateByUrl(redirectUrl);
+          return res;
+        })
+      );
       
   }
  
