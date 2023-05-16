@@ -14,23 +14,40 @@
                     <img [src]="'assets/layout/images/appname-'+ (layoutService.config.colorScheme === 'light' ? 'dark' : 'light') + '.png'"
                         class="login-appname ml-3" style="width: 100px;" />
                 </div>
+
                 <div class="form-container">
+                    <form  [formGroup]="loginForm"
+                    (keyup.enter)="submitLoginForm()">
+
+                   
                     <span class="p-input-icon-left">
                         <i class="pi pi-envelope"></i>
-                        <input type="text" autocomplete="off" pInputText placeholder="Email" class="block mb-3" style="   max-width: 320px;
+                        <input type="email"    formControlName="email" autocomplete="off" pInputText placeholder="Email" class="block mb-3" style="   max-width: 320px;
                     min-width: 270px;">
                     </span>
                     <span class="p-input-icon-left">
                         <i class="pi pi-key"></i>
-                        <input type="password" autocomplete="off" pInputText placeholder="Password" class="block mb-3"
+                        <input type="password"    formControlName="password" autocomplete="off" pInputText placeholder="Password" class="block mb-3"
                             style="   max-width: 320px;
                     min-width: 270px;">
                     </span>
+                </form>
                     <a href="#" class="flex text-color-secondary mb-4 text-sm">Forgot your password?</a>
                 </div>
+                
                 <div class="button-container">
-                    <button type="button" pButton label="Login" [routerLink]="['/']" class="block" style="max-width: 320px;
-                margin-bottom: 32px;"></button>
+                    <button 
+                    type="button"
+                     pButton 
+                    label="Login" 
+                     class="block" 
+                     style="max-width: 320px;
+                margin-bottom: 32px;"
+                 
+                 (click)="submitLoginForm()"
+                
+                
+                ></button>
                     <span class="flex text-sm text-color-secondary">Don’t have an account?<a
                             class="cursor-pointer ml-1">Sign-up here</a></span>
                 </div>

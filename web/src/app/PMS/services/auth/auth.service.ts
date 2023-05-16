@@ -3,7 +3,7 @@ import { Observable, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Imenu, User } from '../../model/auth';
+import { HTTPResponseStatus, Imenu, User } from '../../model/auth';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HTTPResponse } from '../../model/HTTPResponse';
 @Injectable({
@@ -23,6 +23,11 @@ export class AuthService {
   setAuthToken(token: string): void {
     localStorage.setItem(this.token_KEY, token);
   }
+  loginPageStatusMessage!: {
+    type: HTTPResponseStatus;
+    title: string;
+    message: string;
+  };
 
   getAuthToken() {
     const token = localStorage.getItem(this.token_KEY)
