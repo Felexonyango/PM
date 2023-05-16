@@ -34,7 +34,7 @@ export const WorkspaceService = {
 
   async getAllWorkspaces(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await Workspace.find({}).populate('user',"-password").exec()
+      const result = await Workspace.find({}).populate('user',"-password").populate('members',"-password").exec()
       if (result)
         return res
           .status(200)
@@ -55,7 +55,7 @@ export const WorkspaceService = {
       });
       if (!workspace)
         return res.status(404).json({ message: " workspace not found" });
-      res.status(200).json({ message: "User updated successfully", workspace });
+      res.status(200).json({ message: "Workspace  updated successfully", workspace });
     } catch (error) {
       res.status(500).json({ message: "Error in updating workspace" });
     }
@@ -89,5 +89,43 @@ export const WorkspaceService = {
     }
     next();
   },
+
+  async getcurrentWorkspace(req: Request, res: Response, next: NextFunction){
+//     try{
+//       if (!req.user) {
+//         return res.status(401).json({ message: "User not authenticated" });
+//       }
+  
+//       const user = req.user as UserType;
+//       const result  = await Workspace.findOne({user:user?._id});
+//       if(!result) {
+//          res.status(404).json({ message: " Current Workspace not found" });
+//       }
+//       res.status(200).json({ msg: "successfully retrieved current Workspace ", result });
+//     }
+    
+//     catch(err){
+// console.log( err)
+//     }
+
+},
+
+async addmembersToworkspace(req: Request, res: Response, next: NextFunction){
+  try{
+    const { id } = req.params;
+    const { members } = req.body;
+    const result = await Workspace.findByIdAndUpdate(
+      id,
+      { $addToSet: { members: { $each: members } } }, 
+      { new: true }
+    );
+
+    res.status(200).json({message:"Successfully updated member to workspace",result});
+  } catch (err) {
+    next(err);
+  }
+
+}
+
 }
 

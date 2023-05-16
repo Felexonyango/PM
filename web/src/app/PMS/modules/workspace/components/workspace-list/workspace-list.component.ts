@@ -100,7 +100,7 @@ workspaceList: IWorkspace[]=[]
                 icon: "pi pi-pencil",
                 command: () => {
                     this.router.navigate([
-                        "/workspaces/edit-workspace",
+                        "/workspace/edit-workspace",
                         workspace?._id,
                     ]);
                 },

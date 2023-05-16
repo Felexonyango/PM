@@ -1,6 +1,7 @@
 {
     "name": "atlantis-ng",
     "version": "15.1.0",
+    
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
@@ -54,5 +55,10 @@
         "karma-jasmine": "~5.1.0",
         "karma-jasmine-html-reporter": "~2.0.0",
         "typescript": "~4.9.4"
-    }
+    },
+    
+        "rules": {
+          "@angular-eslint/no-unused-expressions": "off"
+        }
+      
 }

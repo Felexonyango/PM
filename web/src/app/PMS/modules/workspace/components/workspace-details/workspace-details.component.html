@@ -7,7 +7,7 @@
               <div class="col-auto p-0">
                
                 <b class="h5"
-                  >{{ workspace.title | titlecase }}</b
+                  >{{ workspace?.title | titlecase }}</b
                 >
               </div>
               <div class="col text-right">
@@ -15,7 +15,7 @@
                 label="Edit"
                 icon="pi pi-pencil"
                   class="btn-sibasi-primary btn mr-2 btn-sm"
-                  [routerLink]="['/workspaces/edit-workspace', workspace._id]"
+                  [routerLink]="['/workspace/edit-workspace', workspace?._id]"
                 >
                   
                 </p-button>
@@ -29,8 +29,8 @@
                     <h6> Workspace Owner</h6> 
                   </div>
                   <div class="col-6 text-mute">
-                    {{ workspace.workspaceOwner?.firstname }}
-                    {{ workspace.workspaceOwner?.lastname }}
+                    {{ workspace?.workspaceOwner?.firstname }}
+                    {{ workspace?.workspaceOwner?.lastname }}
                   </div>
                 </div>
                 <div class="grid user-details-row">
@@ -38,17 +38,10 @@
                     <h6> Description: </h6>
                   </div>
                   <div class="col-6 text-mute">
-                    {{ workspace.description }}
+                    {{ workspace?.description }}
                   </div>
                 </div>
-                <div class="grid user-details-row">
-                  <div class="col-6">
-                    <h6> Number of Members: </h6>
-                  </div>
-                  <div class="col-6 text-mute">
-                    
-                  </div>
-                </div>
+               
               </div>
             </div>
          

@@ -21,6 +21,12 @@ const WorkspaceSchma = new Schema(
     action: {
       type: String,
     },
+    members: [
+      {
+        type: ObjectId,
+        ref: "User",
+      },
+    ],
     user: {
       type: ObjectId,
       ref: "User",

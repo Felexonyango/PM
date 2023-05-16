@@ -19,6 +19,11 @@ import { WorkspaceService } from "../services/workspace";
   getWorkspaceById(req: Request, res: Response, next:NextFunction) {
     WorkspaceService.getWorkspaceById(req, res,next);
   },
+  AddmemberToWorkspace(req: Request, res: Response, next:NextFunction){
+    WorkspaceService.addmembersToworkspace(req, res, next);
+  }
+
+
 
 };
-export const {CreateWorkspace,getAllWorkspace,getWorkspaceById,deleteWorkspace,UpdateWorkspace} =WorkspaceController
+export const {CreateWorkspace,getAllWorkspace,getWorkspaceById,deleteWorkspace,UpdateWorkspace,AddmemberToWorkspace} =WorkspaceController

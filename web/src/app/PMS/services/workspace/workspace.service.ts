@@ -16,7 +16,7 @@ export class WorkspaceService {
     workspace: {}
   ): Observable<HTTPResponse<IWorkspace>> {
     return this.http.post<HTTPResponse<IWorkspace>>(
-      `${environment.server_Url}/workspace`,
+      `${environment.server_Url}workspace`,
       workspace
     );
   }
@@ -24,8 +24,8 @@ export class WorkspaceService {
     workspace: {},
     workspaceId: any
   ): Observable<HTTPResponse<IWorkspace>> {
-    return this.http.post<HTTPResponse<IWorkspace>>(
-      `${environment.server_Url}/sibasi-workspace/${workspaceId}`,
+    return this.http.patch<HTTPResponse<IWorkspace>>(
+      `${environment.server_Url}workspace/${workspaceId}`,
       workspace
     );
   }
@@ -34,14 +34,14 @@ export class WorkspaceService {
     workspaceId: any
   ): Observable<HTTPResponse<IWorkspace>> {
     return this.http.get<HTTPResponse<IWorkspace>>(
-      `${environment.server_Url}/sibasi-workspace/single/${workspaceId}`
+      `${environment.server_Url}workspace/${workspaceId}`
     );
   }
   public getAllWorkspaceProjects(
     workspaceId: any
   ): Observable<HTTPResponse<[]>> {
     return this.http.get<HTTPResponse<[]>>(
-      `${environment.server_Url}/sibasi-workspace/${workspaceId}/projects`
+      `${environment.server_Url}workspace/all/${workspaceId}/projects`
     );
   }
   public getAllWorkspaces(): Observable<HTTPResponse<IWorkspace[]>> {

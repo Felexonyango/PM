@@ -79,5 +79,6 @@ app.use("/api/customer",CustomerRoutes)
 //updated body-parser for ts node
 app.use(express.json());
 app.listen(PORT, () => {
+  
   console.log(`server is listening at port ${PORT}`)
 })

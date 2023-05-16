@@ -17,7 +17,7 @@
 
         <ng-template pTemplate="caption">
           <div class="flex ">
-            <button pButton type="button" label="Add" class="p-button-outlined mb-2 mr-2" icon="pi pi-plus"[routerLink]="['/workspaces/create']"></button>
+            <button pButton type="button" label="Add" class="p-button-outlined mb-2 mr-2" icon="pi pi-plus"[routerLink]="['/workspace/create']"></button>
             <button pButton label="Export" class="p-button-outlined mb-2 mr-2" icon="pi pi-file-excel"
             (click)="exportData()"
             ></button> 
@@ -71,7 +71,7 @@
                 label="Details"
                 icon="pi pi-folder-open"
                (onClick)="router.navigate([
-               '/workspaces/details',workspace?._id
+               '/workspace/details',workspace?._id
              ]);"
                [model]="workspace?.menuItems"
                 styleClass="mr-2" >

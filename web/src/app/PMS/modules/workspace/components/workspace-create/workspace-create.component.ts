@@ -23,7 +23,7 @@ export class WorkspaceCreateComponent implements OnInit {
     workspaceOptions: FormlyFormOptions = {};
     workspaceFields: FormlyFieldConfig[] = [
         {
-            className: "col-12",
+            className: "col-12 md:col-12",
             key: "title",
             type: "input",
             templateOptions: {
@@ -33,7 +33,7 @@ export class WorkspaceCreateComponent implements OnInit {
             },
         },
         {
-            className: "col-12",
+            className: "col-12 md:col-12",
             key: "description",
             type: "input",
             templateOptions: {
@@ -69,7 +69,7 @@ export class WorkspaceCreateComponent implements OnInit {
 
         submitUrl.subscribe({
             complete: () => {
-                this.router.navigateByUrl("/workspaces");
+                this.router.navigateByUrl("/workspace");
             },
         });
     }

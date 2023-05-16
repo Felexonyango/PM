@@ -6,12 +6,14 @@ import { IWorkspace } from 'src/app/PMS/model/workspace.model';
 import { UtilService } from 'src/app/PMS/services/util/util.service';
 import { WorkspaceService } from 'src/app/PMS/services/workspace/workspace.service';
 
+
 @Component({
   selector: 'app-workspace-details',
   templateUrl: './workspace-details.component.html',
   styleUrls: ['./workspace-details.component.scss'],
 })
 export class WorkspaceDetailsComponent implements OnInit {
+ 
   subscription = new Subscription();
   workspace!: IWorkspace;
   modalDismissed!: boolean;
