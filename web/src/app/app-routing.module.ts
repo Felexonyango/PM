@@ -10,7 +10,7 @@ const routes: Routes = [
     {
         path: '', component: AppLayoutComponent,
         children: [
-            { path: '', loadChildren: () => import('./demo/components/dashboards/dashboards.module').then(m => m.DashboardsModule) },
+            { path: 'workspace', loadChildren: () => import('./PMS/modules/workspace/workspace.module').then(m => m.WorkspaceModule) },
         ]
     },
     { path: 'auth', data: { breadcrumb: 'Auth' }, loadChildren: () => import('./demo/components/auth/auth.module').then(m => m.AuthModule) },

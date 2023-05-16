@@ -26,6 +26,7 @@ export function tokenGetter() {
     ],
     
     providers: [
+        { provide: History, useValue: window.history },
         { provide: LocationStrategy, useClass: HashLocationStrategy },
         {
             provide: HTTP_INTERCEPTORS,

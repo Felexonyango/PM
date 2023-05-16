@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AppSidebarComponent } from './app.sidebar.component';
+import { AuthService } from '../PMS/services/auth/auth.service';
 
 @Component({
     selector: 'app-topbar',
@@ -12,7 +13,10 @@ export class AppTopbarComponent {
     @ViewChild('searchinput') searchInput!: ElementRef;
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
     searchActive: boolean = false;
-    constructor(public layoutService: LayoutService,public el: ElementRef) { }
+    constructor(
+        public layoutService: LayoutService,public el: ElementRef,
+        private authservice: AuthService
+        ) { }
     activateSearch() {
         this.searchActive = true;
         setTimeout(() => {
@@ -33,5 +37,8 @@ export class AppTopbarComponent {
     
     onSidebarButtonClick() {
         this.layoutService.showSidebar();
+    }
+    logout(){
+        this.authservice.logout()
     }
 }
