@@ -63,7 +63,6 @@ export class WorkspaceCreateComponent implements OnInit {
       }
     createOrUpdateWorkspace(): void {
         const workspace = this.workspaceForm.value;
-
         const submitUrl = this.isEdit
             ? this.workspaceService.editWorkspace(workspace, this.workspace._id)
             : this.workspaceService.addWorkspace(workspace);

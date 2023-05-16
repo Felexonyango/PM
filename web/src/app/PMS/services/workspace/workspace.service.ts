@@ -46,7 +46,7 @@ export class WorkspaceService {
   }
   public getAllWorkspaces(): Observable<HTTPResponse<IWorkspace[]>> {
     return this.http.get<HTTPResponse<IWorkspace[]>>(
-      `${environment.server_Url}/workspace `
+      `${environment.server_Url}workspace/all `
     );
   }
 

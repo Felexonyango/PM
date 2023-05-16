@@ -5,23 +5,20 @@ import { User as UserType } from '../types/user'
 export const WorkspaceService = {
   async CreateWorkspace(req: Request, res: Response, next: NextFunction) {
     try {
-      let { name, email, phoneNumber, address, country, OrgType } = req.body;
-      const checkExsting = await Workspace.findOne({ name: name });
+      let { title, description} = req.body;
+      const checkExsting = await Workspace.findOne({ title: title });
       if (checkExsting) {
         return res
           .status(400)
-          .json({ msg: "Worspace with that name already exists" });
+          .json({ msg: "Workspace with that name already exists" });
       } else {
         const user = req.user as UserType;
         let workspace = await Workspace.create({
-          name,
-          email,
-          phoneNumber,
-          address,
-          country,
-          OrgType,
+          title,
+          description,
           user:user?._id
         });
+        // console.log(workspace,'test')
         let result = await workspace.save();
 
         if (result)
