@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IWorkspace } from 'src/app/PMS/model/workspace.model';
@@ -11,6 +11,7 @@ import { WorkspaceService } from 'src/app/PMS/services/workspace/workspace.servi
   selector: 'app-workspace-details',
   templateUrl: './workspace-details.component.html',
   styleUrls: ['./workspace-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkspaceDetailsComponent implements OnInit {
  

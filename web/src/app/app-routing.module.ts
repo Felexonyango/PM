@@ -18,6 +18,11 @@ const routes: Routes = [
                         (m) => m.WorkspaceModule
                     ),
             },
+
+            {
+                path:"projects",
+                loadChildren:()=>import('./PMS/modules/project/project.module').then((m)=>m.ProjectModule)
+            }
         ],
     },
     {
@@ -34,7 +39,7 @@ const routes: Routes = [
             import('./demo/components/landing/landing.module').then(
                 (m) => m.LandingModule
             ),
-    },
+        },
     {
         path: 'notfound',
         loadChildren: () =>

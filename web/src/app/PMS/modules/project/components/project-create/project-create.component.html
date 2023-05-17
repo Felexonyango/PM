@@ -1,0 +1,48 @@
+<div class="animated fadeIn">
+  <div class="grid">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-body">
+              <div class="mt-4">
+          <form [formGroup]="projectForm">
+            <formly-form
+              [model]="projectModel"
+              [fields]="projectFields"
+              [options]="projectOptions"
+              [form]="projectForm"
+            ></formly-form>
+          </form>
+        </div>
+        <div class="form-actions text-right mt-4">
+          <button 
+          pButton
+        type="button"
+       
+          pRipple type="button"
+          icon="pi pi-times"
+           label="Cancel" 
+           class="p-button-danger mb-2 mr-2"
+
+          (click)="utilService.goBack()">
+    
+          </button>
+          <button
+          pButton
+          class=" mb-2 mr-2"
+          icon="pi pi-plus"
+          type="button"
+          label="{{isEdit? 'Update':'Save'}}"
+            [disabled]="!projectForm.valid"
+            (click)="createOrUpdateProject()"
+          >
+         
+          </button>
+        </div>
+    
+    
+  </div>
+</div>
+</div>
+</div>
+</div>
+

@@ -19,18 +19,26 @@ export const ProjectService = {
         endDate,
         projectduration,
         budget,
+        workspace,
         dueDate,
       } = req.body;
-      const checkExsting = await Project.findOne({ projectName: projectName });
-      if (checkExsting) {
+      const checkExisting = await Project.findOne({ projectName: projectName });
+      if (checkExisting) {
         return res
           .status(400)
           .json({ msg: "Project with that name already exists" });
       } else {
         const user = req.user as UserType;
-        const { id } = req.params;
-        const workspace = await Workspace.findById(id);
-
+        let workspaceObj;
+        if (workspace) {
+          workspaceObj = await Workspace.findById(workspace);
+          
+        } 
+        else{
+           return res.status(404).json({ msg: "Workspace not found" });
+        }
+        
+  
         let project = await Project.create({
           projectName,
           description,
@@ -41,21 +49,23 @@ export const ProjectService = {
           projectduration,
           status: Status.NOTSTARTED,
           user: user?._id,
-          workspace: workspace?._id,
+          workspace: workspaceObj?._id,
         });
         let result = await project.save();
-
+  
         if (result)
           return res
             .status(200)
             .json({ msg: "Successfully created project", result });
       }
     } catch (err) {
+      console.log("Error creating project:", err);
       res.status(500).json({ error: err });
     }
     next();
-  },
-
+  }
+  ,
+  
   async getAllProjects(req: Request, res: Response, next: NextFunction) {
     try {
       const result = await Project.find({})
@@ -86,7 +96,6 @@ export const ProjectService = {
       })
         .populate("assignedTo", "-password")
         .sort({ createdAt: -1 });
-      console.log(result);
       if (result)
         return res
           .status(200)

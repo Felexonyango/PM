@@ -47,12 +47,8 @@ export class WorkspaceCreateComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private workspaceService: WorkspaceService,
-        public utilService: UtilService,
-      
-    ) {
-        
-      
-    }
+        public utilService: UtilService, 
+    ) {}
 
     ngOnInit(): void {
         this.getParam();

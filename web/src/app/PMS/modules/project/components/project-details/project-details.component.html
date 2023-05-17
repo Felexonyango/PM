@@ -1,0 +1,100 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="issue-body">
+            <div class="grid">
+                <div class="col-sm-8">
+                    <div class="issue-title font-weight-bold h5 w-100">
+                        {{ project?.projectName | titlecase }}
+                    </div>
+                </div>
+
+                <div class="col text-right"></div>
+                <div class="col-sm-4 text-right">
+                    <p-splitButton
+                        label="Edit"
+                        icon="pi pi-pencil"
+                        (onClick)="
+                            router.navigate([
+                                '/projects/edit-project/' + project?._id
+                            ])
+                        "
+                        styleClass="mb-2 mr-2"
+                        [model]="projectMenuItems"
+                    >
+                    </p-splitButton>
+                </div>
+            </div>
+
+            <div class="issue-info">
+                <div class="grid mt-4">
+                    <div class="col-3 text-muted">
+                        <i class="fas fa-laptop-house mr-1"></i>
+                        Workspace
+                    </div>
+                    <div class="col-9">
+                    
+                            {{ project?.workspace?.title |titlecase }}
+                        
+                    </div>
+                </div>
+                <div class="grid mt-3">
+                    <div class="col-3 text-muted">
+                        <i class="far fa-clock mr-1"></i>
+                        Date created
+                    </div>
+                    <div class="col-9">
+                        {{ project?.createdAt | date : "medium" }}
+                    </div>
+                </div>
+                <div class="grid mt-3">
+                    <div class="col-3 text-muted">
+                        <i class="fas fa-user mr-1"></i>
+                        Created by
+                    </div>
+                    <div class="col-9">
+                        {{ project?.createdBy.firstname }}
+                        {{ project?.createdBy.lastname }}
+                    </div>
+                </div>
+                <div class="grid mt-3">
+                    <div class="col-3 text-muted">
+                        <i class="fas fa-hourglass-end mr-1"></i>
+                         Status
+                    </div>
+                    <div class="col-9">
+                        <td>
+                            <p-tag
+                            value="Active"
+                            icon="pi pi-check-circle"
+                            severity="success"
+                            *ngIf="project?.status==true"
+                        ></p-tag>
+              
+                        <p-tag
+                            value="Inactive"
+                            icon="pi pi-exclamation-circle"
+                            severity="danger"
+                            *ngIf="project?.status==false"
+                        ></p-tag>
+                          </td>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="grid mt-3">
+                <div class="col-3 text-muted">
+                    <i class="fas fa-hourglass-end mr-1"></i>
+                    Project Hours
+                </div>
+                <div class="col-9">
+                    {{ project?.projectHours }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-tabView>
+
+</p-tabView>

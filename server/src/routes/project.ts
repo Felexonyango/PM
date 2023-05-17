@@ -23,7 +23,7 @@ const router = Router();
 //Admin Routes 
 
 router
-  .route("/create/:id")
+  .route("/create")
   .post(
     protect,
     authorize([Role.SYSADMIN, Role.PROJECTMANAGER, Role.USER]),

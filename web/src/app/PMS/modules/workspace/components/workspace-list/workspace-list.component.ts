@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { DialogService } from "primeng/dynamicdialog";
 import { Subscription } from "rxjs";
@@ -11,7 +11,9 @@ import { DeleteConfirmComponent } from "src/app/PMS/shared/components/delete-con
     selector: "app-workspace-list",
     templateUrl: "./workspace-list.component.html",
     styleUrls: ["./workspace-list.component.scss"],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [DialogService],
+
 })
 export class WorkspaceListComponent implements OnInit {
     subscription = new Subscription();
