@@ -19,6 +19,7 @@ export const ProjectService = {
         endDate,
         projectduration,
         budget,
+        isContractive,
         workspace,
         dueDate,
       } = req.body;
@@ -44,6 +45,7 @@ export const ProjectService = {
           description,
           startDate,
           endDate,
+          isContractive,
           dueDate,
           budget,
           projectduration,

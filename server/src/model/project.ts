@@ -15,6 +15,7 @@ export interface projectDocument extends Document {
   assignedTo:ObjectId |any;
   workspace:ObjectId
   priority:Ipriority,
+  isContractive:boolean
   percentageCompleted: number;
   percentagePending: number;
 }
@@ -77,6 +78,11 @@ const ProjectSchma = new Schema(
      priority:{
       type:String,
       default:Ipriority.NONE
+    },
+    isContractive:{
+      type:Boolean,
+      default:false
+
     },
  
   },

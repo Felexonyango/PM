@@ -51,21 +51,21 @@ router
     getAllCompletedProject
   );
 router
-  .route("all/onhold")
+  .route("/all/onhold")
   .get(
     protect,
     authorize([Role.SYSADMIN, Role.PROJECTMANAGER]),
     getAllOnholdProjects
   );
 router
-  .route("all/ongoing")
+  .route("/all/ongoing")
   .get(
     protect,
     authorize([Role.SYSADMIN, Role.PROJECTMANAGER]),
     getAllOngoingProjects
   );
 router
-  .route("all/pending")
+  .route("/all/pending")
   .get(
     protect,
     authorize([Role.SYSADMIN, Role.PROJECTMANAGER]),
@@ -73,7 +73,7 @@ router
   );
 
 router
-  .route("/all/:workspaceId")
+  .route("/workspace/all/:workspaceId")
   .get(
     protect,
     authorize([Role.SYSADMIN,Role.PROJECTMANAGER]),

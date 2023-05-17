@@ -90,12 +90,12 @@ export class ProjectDetailsComponent implements OnInit {
     editButtonDropdown(): void {
         this.projectMenuItems = [
             {
-                label: this.project?.status
+                label: this.project?.isContractive
                     ? "Deactivate"
                     : "Activate",
                 icon: "pi pi-refresh",
                 command: () => {
-                    this.markAsActive(this.project?.status);
+                    this.markAsActive(this.project?.isContractive);
                 },
             },
         ];

@@ -7,20 +7,25 @@ export interface IProject {
     description?:string;
     budget?:number
     dueDate?:Date
-    status?:boolean
+    isContractive?:boolean
+    status?:Status
+    percentageCompleted?:number
+    percentagePending?:number
     workspace?:IWorkspace
     createdAt?:Date
     createdBy?:User
     menuItems?:any
-    projectHours?:number
-
+    projectduration?:number
     __v?:any
-
-    
-
-    
 }
 
+export enum Status {
+    NOTSTARTED= "NOTSTARTED",
+    COMPLETED= "COMPLETED",
+    ONHOLD= "ONHOLD",
+    ONGOING="ONGOING",
+  
+  }
 
 
 

@@ -67,14 +67,14 @@
                             value="Active"
                             icon="pi pi-check-circle"
                             severity="success"
-                            *ngIf="project?.status==true"
+                            *ngIf="project?.isContractive==true"
                         ></p-tag>
               
                         <p-tag
                             value="Inactive"
                             icon="pi pi-exclamation-circle"
                             severity="danger"
-                            *ngIf="project?.status==false"
+                            *ngIf="project?.isContractive==false"
                         ></p-tag>
                           </td>
                     </div>
@@ -88,7 +88,7 @@
                     Project Hours
                 </div>
                 <div class="col-9">
-                    {{ project?.projectHours }}
+                    {{ project?.projectduration }}
                 </div>
             </div>
         </div>

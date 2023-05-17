@@ -48,16 +48,15 @@
                 {{ project?.title }}
               </td>
               <td>
-                <div class="clamp-text-2">
-                  {{ project?.description }}
-                </div>
+                {{ project?.dueDate }}
               </td>
+              
               <td>
                 <span>
                   {{ project?.workspace?.title }}
                 </span>
               </td>
-              <td>{{project?.type}}</td>
+              <td>{{project?.status}}</td>
 
          
             <td>{{ project?.createdAt | date : "medium" }}</td>

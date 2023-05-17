@@ -16,7 +16,7 @@ import { WorkspaceService } from 'src/app/PMS/services/workspace/workspace.servi
 })
 export class ProjectCreateComponent implements OnInit {
     subscription = new Subscription();
-    project!: IProject;
+    project: IProject;
     isEdit = false;
     workspaceId = '';
     projectForm = new FormGroup({});
