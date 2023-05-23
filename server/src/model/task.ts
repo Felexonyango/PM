@@ -9,6 +9,7 @@ export interface taskDocument extends Document {
   startDate: Date;
   endDate: Date;
   status: Status;
+  description:string,
   priority:Ipriority,
   assignedTo: ObjectId|any
   project: ObjectId;
@@ -26,6 +27,10 @@ const taskSChema = new Schema(
     },
     startDate: {
       type: Date,
+      required: false,
+    },
+    description:{
+      type:String,
       required: false,
     },
 

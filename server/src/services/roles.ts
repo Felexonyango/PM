@@ -4,13 +4,14 @@ import { Roles } from "../model/roles";
 export const RoleService = {
   async CreateRole(req: Request, res: Response, next: NextFunction) {
     try {
-      let { name } = req.body;
+      let { name,description } = req.body;
       const checkExsting = await Roles.findOne({ name: name });
       if (checkExsting) {
         return res.status(400).json({ msg: "Role  already exists" });
       } else {
         let roles = await Roles.create({
           name,
+          description
         });
         let result = await roles.save();
 
@@ -60,6 +61,22 @@ export const RoleService = {
       res.status(500).json({ error: err });
     }
     next();
-  }
+  },
+  async updateRole(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+
+      const user = await Roles.findByIdAndUpdate(id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+      if (!user) return res.status(404).json({ message: "Role not found" });
+      res.status(200).json({ message: "Role updated successfully", user });
+    } catch (error) {
+      res.status(500).json({ message: "Error in updating Role" });
+    }
+    next();
+  },
+
   
 };

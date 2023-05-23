@@ -54,8 +54,14 @@ export class WorkspaceService {
     workspaceId: string
   ): Observable<HTTPResponse<IWorkspace>> {
     return this.http.delete<HTTPResponse<IWorkspace>>(
-      `${environment.server_Url}/workspace/${workspaceId}`
+      `${environment.server_Url}workspace/${workspaceId}`
     );
   }
-    
+  addMembersToWorkspace(workspaceId:string,members:{}):Observable<HTTPResponse<IWorkspace>> {
+    return this.http.patch<HTTPResponse<IWorkspace>>(
+      `${environment.server_Url}workspace/add-member/${workspaceId}`,
+      members
+    )
+
+  }
 }

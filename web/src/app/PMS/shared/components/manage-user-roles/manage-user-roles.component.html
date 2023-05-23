@@ -1,35 +1,30 @@
-
-<div class="modal-body">
-
-  <div *ngIf="isLoading">
-    Loading...
-  </div>
-
-  <table class="table" *ngIf="!isLoading">
-    <tbody>
-      <tr *ngFor="let role of userRolesArray">
-        <td scope="grid">
-          {{role}}
-        </td>
-        <td>
-          <button
-          pButton
-          [label]="!checkIfModuleHasRole(role)? 'Assign':'UnAssign'"
-          [icon]="!checkIfModuleHasRole(role)?'pi pi-user-plus':'pi pi-user-minus'"
-            class=" mr-2 mt-3 w-75"
-            (click)="!checkIfModuleHasRole(role)? updateModuleRoles(role, roleAction.ASSIGN):updateModuleRoles(role, roleAction.UNASSIGN)"
-          >
-           
-          </button>
-      
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="mt-4">
+  <p-table [value]="userRolesArray">
+      <ng-template pTemplate="body" let-role>
+          <tr class="p-selectable-row">
+              <td>
+                  {{ role?.name }}
+              </td>
+              <td>
+                  <button
+                      pButton
+                      icon="pi pi-user-plus"
+                      label="Assign"
+                      *ngIf="!checkIfModuleHasRole(role)"
+                      (click)="updateModuleRoles(role)"
+                      class="p-button-outlined mb-2 mr-2"
+                  ></button>
+                  <button
+                      pButton
+                      icon="pi pi-user-plus"
+                      label="Assigned"
+                      *ngIf="checkIfModuleHasRole(role)"
+                      class="p-button mb-2 mr-2"
+                      disabled
+                  ></button>
+              </td>
+          </tr>
+      </ng-template>
+  </p-table>
 
 </div>
-
-<div class="modal-footer">
-  <button pButton type="button" icon="pi pi-times" label="Cancel" class="p-button-danger mr-2" (click)="ref.close('Close click')"></button>
-</div>
-

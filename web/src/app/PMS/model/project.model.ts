@@ -9,6 +9,7 @@ export interface IProject {
     dueDate?:Date
     isContractive?:boolean
     status?:Status
+    priority?:ProjectPriorityTypes
     percentageCompleted?:number
     percentagePending?:number
     workspace?:IWorkspace
@@ -26,6 +27,12 @@ export enum Status {
     ONGOING="ONGOING",
   
   }
+  export enum ProjectPriorityTypes {
+    CRITICAL = 'CRITICAL',
+    HIGH = 'HIGH',
+    MEDIUM = 'MEDIUM',
+    LOW = 'LOW'
+}
 
 
 

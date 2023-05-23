@@ -1,33 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent} from './login/login.component'
 import { AuthRoutingModule } from './auth-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { FormlyModule } from '@ngx-formly/core';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextModule } from 'primeng/inputtext';
+import { LoginComponent } from './components/login/login.component';
+import { FormlyModule } from '@ngx-formly/core';
+
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    CardModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    FormlyBootstrapModule ,
-    FormsModule,
-    FormlyModule.forRoot({
-      validationMessages: [
-        {name: 'required', message: 'This field is required'},
-      ],
-    }),
-   
-    
-  ]
-  
+    declarations: [LoginComponent],
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        ButtonModule,
+        InputTextModule,
+        CheckboxModule,
+        FormsModule,
+        FormlyModule.forRoot({
+            validationMessages: [
+                { name: 'required', message: 'This field is required' },
+            ],
+        }),
+        ReactiveFormsModule,
+    ]
 })
 export class AuthModule { }

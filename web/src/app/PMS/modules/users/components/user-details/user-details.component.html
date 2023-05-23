@@ -1,0 +1,99 @@
+ <div class="animated fadeIn">
+    <p-messages [(value)]="deleteMessage"></p-messages>
+    <div>
+        <div>
+            <div class="card">
+
+                <div class="grid">
+
+                    <div class="sm:col-6 col-12">
+                        <div class="card h-full">
+
+                            <div class="mx-auto">
+                                <div class="flex flex-column text-center">
+                                    <img
+                                        src="assets/img/avatars/avatar.png"
+                                        alt="profile"
+                                        class="user-image mx-auto mb-4"
+                                        style="
+                                            width: 103px;
+                                            height: 104px;
+                                            border-radius: 50%;
+                                        "
+                                    />
+                                </div>
+
+                              
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="sm:col-6 col-12">
+
+                        <div class="card h-full">
+
+                            <div class="col-9 mx-auto">
+                                <div class="field-space-btwn">
+                                    <div class="mt-4">
+                                        <form [formGroup]="form">
+                                            <formly-form
+                                                [model]="model"
+                                                [fields]="fields"
+                                                [options]="options"
+                                                [form]="form"
+                                            ></formly-form>
+                                        </form>
+
+                                        <div class="mt-4 text-right">
+                                   
+
+                                            <button
+                                                label="Update"
+                                                pButton
+                                                type="button"
+                                                icon="pi pi-save"
+                                                iconPos="left"
+                                                (click)="updateUser(form)"
+                                                [disabled]="!form.valid"
+                                            ></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="card">
+                        <p class="font-bold">Delete your account</p>
+                        <p class="text-sm">
+                            Once you delete your account, you will have an option to recover it within 30days, after the stated time period, all you data will be <b>PERMANENTLY</b> deleted.
+                        </p>
+                        <button
+                            pButton
+                            pRipple
+                            type="button"
+                            label="Delete account"
+                            (click)="confirmAccountDelete()"
+                            class="p-button-danger p-button-sm ml-auto mr-2"
+                            icon="pi pi-trash"
+                        ></button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-confirmDialog
+        header="Delete account"
+        icon="pi pi-exclamation-triangle"
+    ></p-confirmDialog>
+</div>

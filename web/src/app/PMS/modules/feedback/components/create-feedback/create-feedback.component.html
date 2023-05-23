@@ -1,0 +1,57 @@
+<div class="animated fadeIn">
+    <div class="card">
+    
+        <div class="grid mb-2">
+       
+        </div>
+        <div
+        class="card mb-2 border-0 rounded-0"
+        *ngIf="HTTPResponseMessage"
+        [ngClass]="
+          HTTPResponseMessage.type === HTTPResponseStatus.SUCCESS ?
+          'bg-success-light border-left-success' : 'bg-danger-light border-left-danger'
+        "
+      >
+        
+          <h5><b>
+            {{HTTPResponseMessage?.title}}
+          </b></h5>
+          <p>
+            {{HTTPResponseMessage?.message}}
+          </p>
+        
+      </div>
+        <form [formGroup]="feedBackForm">
+          <formly-form
+            [model]="model"
+            [fields]="feedBackFormFields"
+            [form]="feedBackForm"
+          ></formly-form>
+        </form>
+  
+        <div class="form-actions text-right mt-4">
+          <button
+          pButton
+          label="Cancel"
+          icon="pi pi-times"
+            class="p-button-danger  mr-2"
+            (click)="utilService.goBack()"
+          >
+           
+          </button>
+          <button
+          pButton
+          type="button"
+          label=" Send"
+          icon="pi pi-plus"
+            [disabled]="feedBackForm.invalid"
+            (click)="submitFeedBack()"
+          >
+          
+          </button>
+        </div>
+  
+    
+    </div>
+  </div>
+  

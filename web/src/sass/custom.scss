@@ -18,7 +18,7 @@ body {
  .field-space-btwn {
     .p-inputtext {
         &:not(.p-dropdown-label) {
-            width: 100%;
+            width: 100% !important;
             margin-top: 1em;
             margin-bottom: 1em;
         }
@@ -32,7 +32,7 @@ body {
 }
 
 .p-inputtext {
-    width: 100%;
+    width: 100% !important
 }
 
 .inputfield {
@@ -85,3 +85,10 @@ padding-left: 15px;
 margin-right: auto;
 margin-left: auto;
 }
+.dropdown-container {
+    text-align: left;
+  }
+  
+  .dropdown-option {
+    text-align: left;
+  }

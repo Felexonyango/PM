@@ -26,6 +26,16 @@ export interface IAuthItem {
 };
 
 
-
+export interface IPermission {
+  _id?: string;
+  name: string;
+  description?: string;
+  permissions?: string[];
+  menuItems?: any[];
+}
+export interface IAllowedPermissions {
+  value: string;
+  text: string;
+}
 
 

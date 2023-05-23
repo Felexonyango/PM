@@ -4,6 +4,9 @@ export class User {
   password?: string;
   firstname?: string;
   lastname?:string
+  menuItems?:any
+  roles?:any
+  profileBgColor?:any
   
     
   }

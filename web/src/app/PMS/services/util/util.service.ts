@@ -153,7 +153,8 @@ export class UtilService {
 
  getUserId(): string {
   const decodedToken = this.authService.decodedToken();
-  const userId = decodedToken.id;
+  const userId = decodedToken.user_id;
+  
   return userId;
 }
  getProfileColor(): string {

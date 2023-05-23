@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HTTPResponse } from '../../model/HTTPResponse';
 import { User, UserRoles } from '../../model/auth';
+import { IPermission } from '../../model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,16 +15,22 @@ export class UserService {
     private httpClient: HttpClient
   ) { }
 
-  getAllUsers(organizationId:string): Observable<HTTPResponse<User[]>> {
-    return this.httpClient.get<HTTPResponse<User[]>>(`${environment.server_Url}/user/admin/${organizationId}`);
+  getAllUsers(): Observable<HTTPResponse<User[]>> {
+    return this.httpClient.get<HTTPResponse<User[]>>(`${environment.server_Url}user/all`);
   }
-
-  createUser(user: User,organizationId:string): Observable<HTTPResponse<User>> {
-    return this.httpClient.post<HTTPResponse<User>>(`${environment.server_Url}/user/admin/${organizationId}`, user);
+ 
+  addUserAuthItem(authItem: {}): Observable<HTTPResponse<User>> {
+    return this.httpClient.post<HTTPResponse<User>>(`${environment.server_Url}/user/admin`, authItem);
+  }
+  // deleteUserAuthItem(authItem:{}){
+    
+  // }
+  createUser(user: User): Observable<HTTPResponse<User>> {
+    return this.httpClient.post<HTTPResponse<User>>(`${environment.server_Url}auth/create-user`, user);
   }
 
   updateUser(user: User, userId: string): Observable<HTTPResponse<User>> {
-    return this.httpClient.post<HTTPResponse<User>>(`${environment.server_Url}/user/admin/updateUser/${userId}`, user);
+    return this.httpClient.patch<HTTPResponse<User>>(`${environment.server_Url}user/${userId}`, user);
   }
 
   // deleteUser(userId: string): Observable<HTTPResponse<User>> {
@@ -31,7 +38,7 @@ export class UserService {
   // }
 
   deleteUser(userId: string): Observable<HTTPResponse<User>> {
-    return this.httpClient.delete<HTTPResponse<User>>(`${environment.server_Url}/user/slateforDeletion/${userId}`);
+    return this.httpClient.delete<HTTPResponse<User>>(`${environment.server_Url}user/${userId}`);
   }
 
   restoreDeletedUser(userId: string): Observable<HTTPResponse<User>> {
@@ -43,40 +50,26 @@ export class UserService {
   }
 
   getUserById(userId: string): Observable<HTTPResponse<User>> {
-    return this.httpClient.get<HTTPResponse<User>>(`${environment.server_Url}/user/admin/getUser/${userId}`);
+    return this.httpClient.get<HTTPResponse<User>>(`${environment.server_Url}user/${userId}`);
   }
 
-  assignUserRole(role: {role: UserRoles}, userId: string): Observable<HTTPResponse<User>> {
-    return this.httpClient.post<HTTPResponse<User>>(`${environment.server_Url}/user/admin/assignRole/${userId}`, role);
+  assignUserRole(userId:string,role:IPermission): Observable<HTTPResponse<User>> {
+    return this.httpClient.patch<HTTPResponse<User>>(`${environment.server_Url}user/assign/${userId}`, role);
   }
 
   unAssignUserRole(role: {role: UserRoles}, userId: string): Observable<HTTPResponse<User>> {
-    return this.httpClient.post<HTTPResponse<User>>(`${environment.server_Url}/user/admin/removeRole/${userId}`, role);
+    return this.httpClient.post<HTTPResponse<User>>(`${environment.server_Url}user/unassign/${userId}`, role);
   }
 
-  getAllUserRoles(): Observable<HTTPResponse<UserRoles[]>> {
-    return this.httpClient.get<HTTPResponse<UserRoles[]>>(`${environment.server_Url}/userRole/all`);
-  }
+  // getAllUserRoles(): Observable<HTTPResponse<UserRoles[]>> {
+  //   return this.httpClient.get<HTTPResponse<UserRoles[]>>(`${environment.server_Url}/userRole/all`);
+  // }
 
-  getAllHardCodedUserRoles(): Observable<HTTPResponse<string[]>> {
-    return this.httpClient.get<HTTPResponse<string[]>>(`${environment.server_Url}/user/getAvailableSystemRoles`);
-  }
+  // getAllHardCodedUserRoles(): Observable<HTTPResponse<string[]>> {
+  //   return this.httpClient.get<HTTPResponse<string[]>>(`${environment.server_Url}/user/getAvailableSystemRoles`);
+  // }
 
-  createUserRole(userRole: UserRoles): Observable<HTTPResponse<UserRoles>> {
-    return this.httpClient.post<HTTPResponse<UserRoles>>(`${environment.server_Url}/userRole`, userRole);
-  }
 
-  updateUserRole(userRole: UserRoles, userRoleId: string): Observable<HTTPResponse<UserRoles>> {
-    return this.httpClient.post<HTTPResponse<UserRoles>>(`${environment.server_Url}/userRole/update/${userRoleId}`, userRole);
-  }
-
-  deleteUserRole(userRoleId: string): Observable<HTTPResponse<UserRoles>> {
-    return this.httpClient.delete<HTTPResponse<UserRoles>>(`${environment.server_Url}/userRole/delete/${userRoleId}`);
-  }
-
-  getUserRoleById(userRoleId: string): Observable<HTTPResponse<UserRoles>> {
-    return this.httpClient.get<HTTPResponse<UserRoles>>(`${environment.server_Url}/userRole/${userRoleId}`);
-  }
 
   getUserProfile(): Observable<HTTPResponse<User>> {
     return this.httpClient.get<HTTPResponse<User>>(`${environment.server_Url}/user/profile`);

@@ -10,26 +10,30 @@ import cron from "node-cron";
 export const TaskService = {
   async CreateTask(req: Request, res: Response, next: NextFunction) {
     try {
-      let { name, dueDate, startDate, endDate } = req.body;
-      const checkExsting = await Task.findOne({ name });
-      if (checkExsting) {
+      let { name, dueDate, startDate,description,  endDate,project } = req.body;
+      const checkExisting = await Task.findOne({ name });
+      if (checkExisting) {
         return res
           .status(400)
           .json({ msg: "Task with that name already exists" });
       } else {
         const user = req.user as UserType;
-        const { id } = req.params;
-        let project = await Project.findById(id);
+        let projects;
+        if(project){
+          projects =await  Project.findById(project)
 
-        if (!project) {
+        }
+        if (!projects) {
           return res.status(400).json({ msg: "Project not found" });
         }
+       
         let task = await Task.create({
           name,
           startDate,
           endDate,
           status: Status.NOTSTARTED,
           dueDate,
+          description,
           priority: Ipriority.LOW,
           user: user?._id,
           project: project?._id,
@@ -65,27 +69,25 @@ export const TaskService = {
     }
     next();
   },
-  async getAllTasksByProjectId(
+  async getAllTasks(
     req: Request,
     res: Response,
     next: NextFunction
   ) {
     try {
-      const { projectId } = req.params;
-      let project = await Project.findById(projectId);
-      if (project) {
-        const result = await Task.find({ project: project.id })
+      
+      
+        const result = await Task.find({})
           .populate("assignedTo", "-password")
           .populate("user")
+          .populate('project')
           .sort({ createdAt: -1 })
           .exec();
         if (result)
           return res
             .status(200)
             .json({ message: "Tasks retrieved successfully", result });
-      } else {
-        return res.status(404).json({ message: "Tasks not found" });
-      }
+      
     } catch (err) {
       res.status(500).json({ error: err });
     }

@@ -1,8 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DialogService, DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
-import { UserRoles } from 'src/app/PMS/model/auth';
-import { UserService } from 'src/app/PMS/services/user/user.service';
+import { IPermission } from 'src/app/PMS/model/user.model';
+import { RoleAction } from 'src/app/PMS/model/userRoles.model';
+import { PermissionService } from 'src/app/PMS/services/permission/permission.service';
 
 @Component({
   selector: 'app-manage-user-roles',
@@ -12,46 +13,45 @@ import { UserService } from 'src/app/PMS/services/user/user.service';
 })
 export class ManageUserRolesComponent implements OnInit {
 
-  userRolesArray: string[] = [];
+  userRolesArray: IPermission[] = [];
   subscriptions = new Subscription();
 
   @Input() activeModuleRoles: string[] = [];
-  @Output() passEntry: EventEmitter<{role: string, action: any}> = new EventEmitter();
-  roleAction :any;
+  @Input() activeModuleDetails: any;
+  @Output() passEntry: EventEmitter<{ role: string; action: RoleAction }> =
+      new EventEmitter();
+  roleAction = RoleAction;
   isLoading = false;
+
+
 
   constructor(
     public dialogService: DialogService,
   
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    private userService: UserService
+    private permissionService: PermissionService
   ) { }
 
   ngOnInit(): void {
-    // this.userRolesArray = userRoleArray;
     this.getAllUserRoles();
   }
 
-  checkIfModuleHasRole(role: UserRoles): boolean {
-    return this.config.data.activeModuleRoles.includes(role) ? true : false;
-  }
+  checkIfModuleHasRole(role: IPermission): boolean {
+    return this.config?.data?.assignedRole?._id === role._id ? true : false;
+}
 
-  updateModuleRoles(role: UserRoles, action: any): void {
-    const returnRoleAndAction = {
-      role,
-      action
-    }
-    this.ref.close(returnRoleAndAction);
-
-  }
+updateModuleRoles(role: IPermission): void {
+    this.ref.close(role);
+}
 
   getAllUserRoles(): void {
     this.isLoading = true;
     this.subscriptions.add(
-      this.userService.getAllHardCodedUserRoles().subscribe({
+      this.permissionService.getAllPermissions().subscribe({
         next: (res) => {
           this.userRolesArray = res.result;
+          
           this.isLoading = false;
         }
       })

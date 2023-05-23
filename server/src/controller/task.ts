@@ -9,8 +9,8 @@ const TaskController = {
   getAllMyTasks(req: Request, res: Response, next: NextFunction) {
     TaskService.getTasksAssignedTOme(req, res, next);
   },
-  getAllTasksById(req: Request, res: Response, next: NextFunction){
-    TaskService.getAllTasksByProjectId(req, res, next);
+  getAllTasks(req: Request, res: Response, next: NextFunction){
+    TaskService.getAllTasks(req, res, next);
   },
 
   UpdateTask(req: Request, res: Response, next: NextFunction) {
@@ -29,7 +29,7 @@ const TaskController = {
 export const {
   createTask,
   getAllMyTasks,
-  getAllTasksById,
+  getAllTasks,
   getTaskById,
   deleteTask,
   UpdateTask,

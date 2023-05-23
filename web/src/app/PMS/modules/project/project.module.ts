@@ -29,12 +29,15 @@ import { EditorModule } from "primeng/editor";
 import { InputSwitchModule } from "primeng/inputswitch";
 import { MessagesModule } from "primeng/messages";
 import { ToastModule } from "primeng/toast";
+import { CompletedProjectsComponent } from './components/completed-projects/completed-projects.component';
+import { DropdownModule } from "primeng/dropdown";
 
 @NgModule({
     declarations: [
         ProjectListComponent,
         ProjectCreateComponent,
         ProjectDetailsComponent,
+        CompletedProjectsComponent,
   
        
     ],
@@ -47,6 +50,8 @@ import { ToastModule } from "primeng/toast";
         ToastModule,
         MessagesModule ,
         TagModule,
+        DropdownModule,
+        
         DialogModule,
         ChartModule,
         CalendarModule,

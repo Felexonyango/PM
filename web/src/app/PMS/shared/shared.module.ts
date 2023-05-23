@@ -30,7 +30,6 @@ import { AuthHeaderComponent } from './components/auth-header/auth-header/auth-h
     ManageUserRolesComponent,
     AvatarGeneratorComponent,
     SearchFilterPipe,
-
     AuthHeaderComponent
 
    

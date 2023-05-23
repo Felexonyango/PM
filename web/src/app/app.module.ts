@@ -5,13 +5,14 @@ import { AppComponent } from './app.component';
 import { AppLayoutModule } from './layout/app.layout.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthInterceptor } from './PMS/modules/auth/Interceptors/Interceptor';
+import { AuthInterceptor } from './PMS/modules/auth/guard/Interceptors/Interceptor';
 export function tokenGetter() {
     return localStorage.getItem('token');
 }
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+       
     ],
     imports: [
         AppRoutingModule,

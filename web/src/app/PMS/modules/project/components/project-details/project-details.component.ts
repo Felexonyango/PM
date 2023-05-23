@@ -19,22 +19,8 @@ export class ProjectDetailsComponent implements OnInit {
     isEditType = false;
     projectMenuItems!: MenuItem[];
      project:IProject
-    @Input() uploadURL!: string;
-    projectProjects = [];
    
-    tableColumns: {
-        displayName: string;
-        fieldName: string;
-    }[] = [
-        {
-            displayName: "Type",
-            fieldName: "type",
-        },
-        {
-            displayName: "Link",
-            fieldName: "url",
-        },
-    ];
+
     constructor(
         private activatedRoute: ActivatedRoute,
         public router: Router,
