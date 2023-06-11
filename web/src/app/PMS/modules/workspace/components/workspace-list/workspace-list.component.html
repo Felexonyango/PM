@@ -1,13 +1,12 @@
 <div class="animated fadeIn">
   <div class="card">
-   
+   {{workspaceList|json}}
       <div class="table-responsive">
-        <p-table
-       responsiveLayout="scroll" 
+        <p-table 
           [value]="workspaceList"
           #table
           [globalFilterFields]="[
-            'title',
+            'name',
             'description',
             'owner.firstname',
             'owner.lastname',
@@ -17,7 +16,9 @@
 
         <ng-template pTemplate="caption">
           <div class="flex ">
-            <button pButton type="button" label="Add" class="p-button-outlined mb-2 mr-2" icon="pi pi-plus"[routerLink]="['/workspace/create']"></button>
+            <button pButton type="button" label="Add" 
+            class="p-button-outlined mb-2 mr-2" icon="pi pi-plus"
+            [routerLink]="['/app/workspace/create']"></button>
             <button pButton label="Export" class="p-button-outlined mb-2 mr-2" icon="pi pi-file-excel"
             (click)="exportData()"
             ></button> 
@@ -48,7 +49,7 @@
           <ng-template pTemplate="body" let-workspace>
             <tr>
               <td>
-                {{ workspace?.title }}
+                {{ workspace?.name }}
               </td>
               <td class="clamp-text-1">
                 
@@ -57,8 +58,8 @@
               </td>
               
                 <td>
-                  {{ workspace?.workspaceOwner?.firstname }}
-                  {{ workspace?.workspaceOwner?.lastname }}
+                  {{ workspace?.user?.firstname }}
+                  {{ workspace?.user?.lastname }}
                 </td>
             
             

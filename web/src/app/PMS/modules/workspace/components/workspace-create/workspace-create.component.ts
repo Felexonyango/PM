@@ -35,10 +35,11 @@ export class WorkspaceCreateComponent implements OnInit {
         {
             className: "col-12 md:col-12",
             key: "description",
-            type: "input",
+            type: "textarea",
             templateOptions: {
                 placeholder: "Workspace Description",
                 required: true,
+                rows: 5,
             label: " Description",
             },
         },
@@ -47,7 +48,8 @@ export class WorkspaceCreateComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private workspaceService: WorkspaceService,
-        public utilService: UtilService, 
+        public utilService: UtilService,
+         
     ) {}
 
     ngOnInit(): void {

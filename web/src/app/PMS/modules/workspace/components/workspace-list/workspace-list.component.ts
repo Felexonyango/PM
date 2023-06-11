@@ -86,6 +86,7 @@ workspaceList: IWorkspace[]=[]
             this.workspaceService.getAllWorkspaces().subscribe({
                 next: (res) => {
                     this.workspaceList =
+
                         res.result.length > 0
                             ? res.result.map((x) => this.getMenuItems(x))
                             : [];

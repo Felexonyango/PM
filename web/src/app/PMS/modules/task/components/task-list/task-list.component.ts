@@ -101,12 +101,12 @@ export class TaskListComponent {
 
   getMenuItems(task: ITask): ITask {
       const menu = [
-      ,        {
+            {
               label: "Edit",
               icon: "pi pi-pencil",
               command: () => {
                   this.router.navigate([
-                      "/tasks/edit-task",
+                      "/app/tasks/edit",
                       task?._id,
                   ]);
               },

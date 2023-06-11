@@ -200,7 +200,6 @@ export class ProjectCreateComponent implements OnInit {
     }
     populateWorkspaceDropdown(workspace: IWorkspace[]): void {
         const workspaceField = this.projectFields.find( (x) => x.key === "workspace");
-     
         const workspacesOptions = workspace.map((x) => {
             return {
                 label: x.title,

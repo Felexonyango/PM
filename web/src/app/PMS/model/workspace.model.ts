@@ -5,7 +5,7 @@ export interface IWorkspace {
   title?: string;
   description?: string;
   workspaceOwner?:User;
-  members?: unknown[]
+  members?: User[]
   menuItems?: any
   createdBy?:User
   workspace?:User
