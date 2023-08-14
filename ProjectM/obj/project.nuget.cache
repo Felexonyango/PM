@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LTcPipdWUvDeHESTUGWkSNcEwzILEPq2tunszKTBaJI6vxBAIiCbYbqIbPXGYH26/tu9jUFxaQ3RuBxQyA/t1w==",
+  "dgSpecHash": "Nf8RZtnjP5p5/iaZmSaKvqo/F+ZXmRDVghg7uZX7XrIK4eGPZNcKZgjPPkGZc9iGDm1OFPdr0ljktZabzjIQZw==",
   "success": true,
-  "projectFilePath": "c:\\Users\\FelexOnyango\\source\\repos\\project-learn\\ProjectM\\ProjectM.csproj",
+  "projectFilePath": "C:\\Users\\FelexOnyango\\source\\repos\\project-learn\\ProjectM\\ProjectM.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\FelexOnyango\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\FelexOnyango\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
