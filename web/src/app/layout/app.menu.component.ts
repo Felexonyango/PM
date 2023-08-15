@@ -13,17 +13,7 @@
         
 //         this.model = [
 //         //    
-//          {
-//                 label: 'Dashboards',
-//                 icon: 'pi pi-home',
-//                 items: [
-//                     {
-//                         label: 'E-Commerce',
-//                         icon: 'pi pi-fw pi-home',
-//                         routerLink: ['/']
-//                     }
-//                 ]
-//             },
+ 
 //             {
 //                 label: 'Apps',
 //                 icon: 'pi pi-th-large',
