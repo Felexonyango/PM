@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\FelexOnyango\\source\\repos\\project-learn\\ProjectM\\ProjectM.csproj": {}
+    "c:\\Users\\FelexOnyango\\project-learn\\ProjectM\\ProjectM.csproj": {}
   },
   "projects": {
-    "C:\\Users\\FelexOnyango\\source\\repos\\project-learn\\ProjectM\\ProjectM.csproj": {
+    "c:\\Users\\FelexOnyango\\project-learn\\ProjectM\\ProjectM.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\FelexOnyango\\source\\repos\\project-learn\\ProjectM\\ProjectM.csproj",
+        "projectUniqueName": "c:\\Users\\FelexOnyango\\project-learn\\ProjectM\\ProjectM.csproj",
         "projectName": "ProjectM",
-        "projectPath": "C:\\Users\\FelexOnyango\\source\\repos\\project-learn\\ProjectM\\ProjectM.csproj",
+        "projectPath": "c:\\Users\\FelexOnyango\\project-learn\\ProjectM\\ProjectM.csproj",
         "packagesPath": "C:\\Users\\FelexOnyango\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\FelexOnyango\\source\\repos\\project-learn\\ProjectM\\obj\\",
+        "outputPath": "c:\\Users\\FelexOnyango\\project-learn\\ProjectM\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\FelexOnyango\\AppData\\Roaming\\NuGet\\NuGet.Config"
