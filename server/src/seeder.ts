@@ -5,7 +5,6 @@ import {User} from './model/user'
 import {connectDb} from './database/index'
 import { Menu } from './model/menu'
 import  MenuData  from './data/menu'
-import { Role } from './types'
 
 
 dotenv.config()
@@ -14,13 +13,13 @@ connectDb()
  export const importData = async () => {
     try {   
       await User.deleteMany()
-        //await Menu.deleteMany()
+        await Menu.deleteMany()
           await User.insertMany(users)
-          //await Menu.insertMany(MenuData)
+          await Menu.insertMany(MenuData)
 
         console.log('Data Imported')
     } catch (error) {
-        console.log(`${error}`)
+       
         process.exit(1)
     }
 }
@@ -29,7 +28,7 @@ connectDb()
         // empty all models 
      
       await User.deleteMany()
-       //await Menu.deleteMany()
+       await Menu.deleteMany()
     
         console.log(`Data Destroyed !`)
     } catch (error) {

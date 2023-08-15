@@ -24,6 +24,7 @@ import multer from "multer";
 import { CustomerRoutes } from "./routes/customer";
 import {sendProjectReminder} from './services/project'
 import { sendTaskReminder } from "./services/task";
+import { Menu } from "./model/menu";
 // import { MenuRoutes } from "./routes/MenuRoute";
 const app: Application = express();
 app.use(express.json());
@@ -42,7 +43,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 connectDb();
-//destroyData()
+destroyData()
 let event
 sendProjectReminder(event)
 sendTaskReminder(event)
@@ -72,6 +73,18 @@ app.use("/api/feedback",FeedbackRoute)
 app.use('/api/file', upload.single('file'), FileRoutes)
 app.use("/api/faq",FaqRoutes)
 app.use("/api/customer",CustomerRoutes)
+app.get('/api/menu',async (req: Request, res: Response) => {
+  try {
+   
+    let result = await Menu.find({}).exec()
+    console.log(result)
+    return res.status(200).json({msg:"Menu successfully fetched all menus",result})
+  } catch (err) {
+  
+    res.status(500).json({ msg: err });
+  }
+
+})
 // app.use("/api/menus",MenuRoutes)
 
 

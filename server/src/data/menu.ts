@@ -2,62 +2,37 @@ import { Menu, Role } from "../types";
 
 const MenuData: Menu[] = [
   {
-    name: "Dashboard",
-    url: "app/admin",
-    icon: "fa fa-home",
-    role: [Role.Admin],
-  },
-  {
-    name: "Dashboard",
-    url: "app/employee",
-    icon: "fa fa-home",
-    role: [Role.User],
-  },  
-
-  {
-    name: "Apply Leave",
-    url: "leave/apply-leave",
-    role: [Role.User],
-    icon: "fa fa-calendar",
-  },
-  {
-    name: "Leave history",
-    url: "leave/request/history",
-    role: [Role.User],
-    icon: "fa fa-folder",
+    label: "Dashboard",
+    routerLink: ["app/admin"],
+    icon: "pi pi-align-justify",
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
   },
 
   {
-    name: "All leave history",
-    url: "leave/all-request/history",
-    role: [Role.Admin],
-    icon: "fa fa-folder-open",
+    label: "Projects",
+    routerLink: ["leave/apply-leave"],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+     icon: "pi pi-align-justify",
+  },
+  {
+    label: "Tasks",
+    routerLink: ["leave/request/history"],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+     icon: "pi pi-align-justify",
   },
 
   {
-    name: "Create Employee",
-    url: "employees/create",
-    role: [Role.Admin],
-    icon: " fa fa-user",
-  },
-  {
-    name: "All Employees",
-    url: "employees/all-employees",
-    role: [Role.Admin],
-    icon: "fa fa-users",
-  },
-  {
-    name: "Approved Leaves",
-    url: "leave/all-approved-leaves",
-    role: [Role.Admin],
-    icon: "fa fa-folder-o ",
+    label: "Workspace",
+    routerLink: ["leave/all-request/history"],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+     icon: "pi pi-align-justify",
   },
 
   {
-    name: "Settings",
-    url: "leave/leave-setting",
-    role: [Role.Admin],
-    icon: "fa fa-cog",
+    label: "Feedback",
+    routerLink: ["app/admin"],
+     icon: "pi pi-align-justify",
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
   },
 ];
 
