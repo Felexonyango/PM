@@ -1,0 +1,177 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="table-responsive">
+            <p-table [value]="projectsList" 
+            #table>
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <button
+                            pButton
+                            icon="pi pi-filter"
+                            label="Filter"
+                            class="p-button-outlined mb-2 mr-2"
+                            (click)="isShowFilters = !isShowFilters"
+                        ></button>
+                        <button
+                            pButton
+                            type="button"
+                            label="Add"
+                            class="p-button-outlined mb-2 mr-2"
+                            icon="pi pi-plus"
+                            [routerLink]="['./create']"
+                        ></button>
+                        <button
+                            pButton
+                            label="Export"
+                            class="p-button-outlined mb-2 mr-2"
+                            icon="pi pi-file-excel"
+                            (click)="exportData()"
+                        ></button>
+
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="
+                                    table.filterGlobal(
+                                        $event.target,
+                                        'contains'
+                                    )
+                                "
+                                placeholder="Search keyword"
+                            />
+                        </span>
+                    </div>
+
+                    <div class="grid mt-2" *ngIf="isShowFilters">
+                        <div class="col  ">
+                            <div class="form-group dropdown-container">
+                                <p-dropdown
+                                    placeholder="Select status"
+                                    [options]="projectStatusArray"
+                                    (onChange)="
+                                        onStatusChange(
+                                            $event,
+                                            filterType?.STATUS
+                                        )
+                                    "
+                                >
+                                    <ng-template
+                                        pTemplate="filter"
+                                        let
+                                        status
+                                        of
+                                        projectStatusArray
+                                    >
+                            
+                                          
+                                        <div class="dropdown-option">
+                                        
+                                        </div>
+                                    </ng-template>
+                                </p-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                <div class="form-group dropdown-container">
+                    <p-dropdown
+                    placeholder="Select priority"
+                        [options]="projectPriorityArray"
+                        (onChange)="
+                            onStatusChange(
+                                $event,
+                                filterType?.PRIORITY
+                            )
+                        "
+                    >
+                        <ng-template
+                            pTemplate="filter"
+                            let
+                            priority
+                            of
+                            projectPriorityArray
+                        >
+                        <div class="dropdown-option">
+                            
+                            <!-- {{ priority }} -->
+                        </div>
+                            
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+            </div>
+            <div
+                class="col-2 grid justify-content-center align-items-start mt-2"
+            >
+                <div class="mr-2">
+                    <p-inputSwitch
+                        [(ngModel)]="checked"
+                        (onChange)="
+                            filterByAssignedToMe($event)
+                        "
+                    ></p-inputSwitch>
+                </div>
+                <div>
+                    <small>
+                        <b> Assigned to me </b>
+                    </small>
+                </div>
+            </div>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th
+                            *ngFor="let column of tableColumns"
+                            [pSortableColumn]="column?.fieldName"
+                        >
+                            {{ column?.displayName }}
+                            <p-sortIcon
+                                [field]="column?.fieldName"
+                            ></p-sortIcon>
+                        </th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-project>
+                    <tr>
+                        <td>
+                            {{ project?.projectName }}
+                        </td>
+                        <td>
+                            {{ project?.priority }}
+                        </td>
+
+                        <td>
+                            <span>
+                                {{ project?.workspace?.title }}
+                            </span>
+                        </td>
+
+                        <td>{{ project?.createdAt | date : "medium" }}</td>
+                        <td>{{ project?.status }}</td>
+
+                        <td>
+                            <p-splitButton
+                                label="Details"
+                                icon="pi pi-folder-open"
+                                (onClick)="
+                                    router.navigate([
+                                        '/projects/details-project',
+                                        project?._id
+                                    ])
+                                "
+                                [model]="project?.menuItems"
+                                styleClass="mr-2"
+                            >
+                            </p-splitButton>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

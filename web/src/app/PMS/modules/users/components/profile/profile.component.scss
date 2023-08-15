@@ -1,0 +1,25 @@
+// .jumbotron {
+//   background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)),
+//     url("../../../../../assets/img/pos/user-profile.png") no-repeat center !important;
+//   background-size: contain;
+// }
+.layout-rightmenu .layout-rightmenu-store.themeDark {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: #ffffff !important ;
+    padding: 9px;
+    border-radius: 6px;
+}
+
+.layout-rightmenu .layout-rightmenu-store.themeLight {
+    background: rgba(68, 72, 109, 0.07);
+    color: #676B89;
+    padding: 9px;
+    border-radius: 6px;
+}
+
+.user-tasks {
+    border-bottom: 0;
+}
+.layout-rightmenu .user-detail-wrapper {
+    padding: 2.5rem 0 1rem 0;
+}

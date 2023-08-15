@@ -1,0 +1,15 @@
+<button class="layout-config-button p-link" type="button" (click)="onConfigButtonClick()">
+    <i class="pi pi-cog"></i>
+</button>
+
+<p-sidebar [(visible)]="visible" position="right" [transitionOptions]="'.3s cubic-bezier(0, 0, 0.2, 1)'" styleClass="layout-config-sidebar w-18rem">
+    <h5>Color Scheme</h5>
+    <div class="field-radiobutton">
+        <p-radioButton name="colorScheme" value="light" [(ngModel)]="colorScheme" inputId="mode-light"></p-radioButton>
+        <label for="mode-light">Light</label>
+    </div>
+    <div class="field-radiobutton">
+        <p-radioButton name="colorScheme" value="dark" [(ngModel)]="colorScheme" inputId="mode-dark"></p-radioButton>
+        <label for="mode-dark">Dark</label>
+    </div>
+</p-sidebar>

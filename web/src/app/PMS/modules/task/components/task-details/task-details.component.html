@@ -1,0 +1,84 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="issue-body">
+            <div class="grid">
+                <div class="col-sm-8">
+                    <div class="issue-title font-weight-bold h5 w-100">
+                        {{ task?.name | titlecase }}
+                    </div>
+                </div>
+
+                <div class="col text-right"></div>
+                <div class="col-sm-4 text-right">
+                    <p-splitButton
+                        label="Edit"
+                        icon="pi pi-pencil"
+                        (onClick)="
+                            router.navigate([
+                                '/tasks/edit-task/' + task?._id
+                            ])
+                        "
+                        styleClass="mb-2 mr-2"
+                        [model]="taskMenuItems"
+                    >
+                    </p-splitButton>
+                </div>
+            </div>
+
+            <div class="issue-info">
+                <div class="grid mt-3">
+                    <div class="col-3 text-muted">
+                        <i class="far fa-clock mr-1"></i>
+                        Description
+                    </div>
+                    <div class="col-9">
+                        {{ task?.description }}
+                    </div>
+                </div>
+                <div class="grid mt-3">
+                    <div class="col-3 text-muted">
+                        <i class="far fa-clock mr-1"></i>
+                        Date created
+                    </div>
+                    <div class="col-9">
+                        {{ task?.createdAt | date : "medium" }}
+                    </div>
+                </div>
+                <div class="grid mt-3">
+                    <div class="col-3 text-muted">
+                        <i class="fas fa-user mr-1"></i>
+                        Created by
+                    </div>
+                    <div class="col-9">
+                        {{ task?.user.firstname}}
+                        {{ task?.user.lastname }}
+                    </div>
+                </div>
+                <div class="grid mt-3">
+                    <div class="col-3 text-muted">
+                        <i class="fas fa-hourglass-end mr-1"></i>
+                         Status
+                    </div>
+                    <div class="col-9">
+                        {{task?.status}}
+                    </div>
+                </div>
+                
+            </div>
+            
+            <div class="grid mt-3">
+                <div class="col-3 text-muted">
+                    <i class="fas fa-hourglass-end mr-1"></i>
+                  Priority
+                </div>
+                <div class="col-9">
+                    {{ task?.priority }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-tabView>
+
+</p-tabView>

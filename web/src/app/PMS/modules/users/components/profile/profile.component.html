@@ -1,0 +1,133 @@
+<div
+    class="layout-rightmenu"
+    [ngClass]="{ 'layout-rightmenu-active': appMain.rightMenuActive }"
+    (click)="appMain.onRightMenuClick($event)"
+>
+    <div class="flex justify-content-between">
+        <a
+            href="#"
+            (click)="appMain.rightMenuActive = false"
+            class="layout-rightmenu-close"
+        >
+            <i class="pi pi-times"></i>
+        </a>
+    </div>
+
+   
+    <div class="user-detail-wrapper" *ngIf="!isEdit">
+        <div class="user-detail-content">
+            <img
+                src="assets/img/avatars/avatar.png"
+                alt="profile"
+                class="user-image"
+                style="width: 103px; height: 104px; border-radius: 50%"
+            />
+            <!-- <i class="pi pi-pencil text-primary" style="font-size: 1.5rem; margin-left:-2rem"></i> -->
+            <span class="user-name"
+                >{{ user?.fullname }}
+                <i
+                    class="pi pi-pencil text-primary"
+                    routerLink="/users/profile"
+                    pTooltip="Edit profile"
+                ></i>
+            </span>
+      
+            <div>
+                <span>
+                    <i
+                        class="pi pi-check-circle"
+                        *ngIf="authItem?.isVerified"
+                    ></i>
+
+                    <!-- {{ user?.authItems[0]?.value }} -->
+
+                    <!-- <button
+                        pButton
+                        *ngIf="!(authItem?.value === user?.authItems[0]?.value)"
+                        label="delete"
+                        (click)="confirm($event, authItem)"
+                        class="p-button-link p-button-sm ml-2 p-0"
+                    ></button> -->
+                </span>
+            </div>
+        </div>
+        <div class="user-tasks flex justify-content-center">
+            <p-tag
+                [value]="role"
+                *ngFor="let role of user?.roles"
+                class="mb-1 mr-1"
+            >
+            </p-tag>
+        </div>
+    </div>
+    <div class="user-detail-wrapper" *ngIf="isEdit">
+        <span class="user-name"> Edit Profile </span>
+        <div class="mt-4 field-space-btwn">
+            <form [formGroup]="createUserForm">
+                <formly-form
+                    [form]="createUserForm"
+                    [fields]="userFormlyFields"
+                    [model]="userDetailsModel"
+                >
+                </formly-form>
+            </form>
+            <div class="text-left">
+                <button
+                    pButton
+                    icon="pi pi-plus"
+                    label="Add Email"
+                    (click)="showAddEmailModal()"
+                    class="p-button-link p-button-sm ml-auto"
+                ></button>
+            </div>
+        </div>
+        <div class="form-actions text-right mt-4">
+            <button
+                pButton
+                icon="pi pi-times"
+                label="Cancel"
+                (click)="isEdit = false"
+                class="p-button-outlined p-button-sm mb-2 mr-2"
+            ></button>
+            <button
+                pButton
+                icon="pi pi-plus"
+                label="Save"
+                (click)="updateUser()"
+                class="p-button-outlined p-button-sm mb-2 mr-2"
+                [disabled]="createUserForm.invalid"
+            ></button>
+        </div>
+    </div>
+
+    
+</div>
+<p-dialog
+    header="Add Email"
+    [(visible)]="addEmailModal"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false"
+>
+    <div class="form-group mt-4">
+        <!-- <label for="authEmail">Email address {{ authItemValue }}</label> -->
+        <input
+            type="text"
+            pInputText
+            class="form-control"
+            id="authEmail"
+            placeholder="name@example.com"
+            [(ngModel)]="authItemValue"
+        />
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button
+            icon="pi pi-check"
+            (click)="addUserAuthItem()"
+            label="Save"
+            styleClass="p-button-text"
+        ></p-button>
+    </ng-template>
+</p-dialog>
+<p-confirmPopup></p-confirmPopup>

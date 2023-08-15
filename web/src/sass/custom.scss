@@ -1,0 +1,94 @@
+
+body {
+    overflow-x: hidden;
+}
+
+.app-body {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    overflow-x: hidden;
+}
+
+.app-body .main {
+    flex: 1;
+    min-width: 0;
+}
+
+ .field-space-btwn {
+    .p-inputtext {
+        &:not(.p-dropdown-label) {
+            width: 100% !important;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+    }
+
+    .p-dropdown {
+        width: 100% !important;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+}
+
+.p-inputtext {
+    width: 100% !important
+}
+
+.inputfield {
+    font-size: 1rem;
+    color: var(--text-color);
+    background: var(--surface-overlay);
+    padding: 0.5rem 0.5rem;
+    border: 1px solid var(--surface-border);
+    appearance: none;
+    border-radius: 3px;
+}
+
+
+.container {
+width: 100%;
+padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;
+}
+
+@media (min-width: 576px) {
+.container {
+    max-width: 540px;
+}
+}
+
+@media (min-width: 768px) {
+.container {
+    max-width: 720px;
+}
+}
+
+@media (min-width: 992px) {
+.container {
+    max-width: 960px;
+}
+}
+
+@media (min-width: 1200px) {
+.container {
+    max-width: 1140px;
+}
+}
+
+.container-fluid {
+width: 100%;
+padding-right: 15px;
+padding-left: 15px;
+margin-right: auto;
+margin-left: auto;
+}
+.dropdown-container {
+    text-align: left;
+  }
+  
+  .dropdown-option {
+    text-align: left;
+  }

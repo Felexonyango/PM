@@ -1,0 +1,96 @@
+<div class="animated fadeIn">
+  <div class="card">
+      <div class="table-responsive">
+          <p-table [value]="tasks" #table>
+              <ng-template pTemplate="caption">
+                  <div class="flex">
+                      <button
+                          pButton
+                          type="button"
+                          label="Add"
+                          class="p-button-outlined mb-2 mr-2"
+                          icon="pi pi-plus"
+                          [routerLink]="['../create']"
+                      ></button>
+                      <button
+                          pButton
+                          label="Export"
+                          class="p-button-outlined mb-2 mr-2"
+                          icon="pi pi-file-excel"
+                          (click)="exportData()"
+                      ></button>
+
+                      <span class="p-input-icon-left ml-auto">
+                          <i class="pi pi-search"></i>
+                          <input
+                              pInputText
+                              type="text"
+                              (input)="
+                                  table.filterGlobal(
+                                      $event.target,
+                                      'contains'
+                                  )
+                              "
+                              placeholder="Search keyword"
+                          />
+                      </span>
+                  </div>
+              </ng-template>
+
+              <ng-template pTemplate="header">
+                  <tr>
+                      <th
+                          *ngFor="let column of tableColumns"
+                          [pSortableColumn]="column?.fieldName"
+                      >
+                          {{ column?.displayName }}
+                          <p-sortIcon
+                              [field]="column?.fieldName"
+                          ></p-sortIcon>
+                      </th>
+                      <th></th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-task>
+                  <tr>
+                      <td>
+                          {{ task?.name }}
+                      </td>
+                      <td>
+                          {{ task?.description }}
+                      </td>
+                      <td>
+                        {{ task?.project?.name }}
+                    </td>
+
+
+                      <td>
+                          <span>
+                              {{ task?.dueDate | date : "medium" }}
+                          </span>
+                      </td>
+
+                      <td>{{ task?.createdAt | date : "medium" }}</td>
+                      <td>{{ task?.status }}</td>
+
+                      <td>
+                          <p-splitButton
+                              label="Details"
+                              icon="pi pi-folder-open"
+                              (onClick)="
+                                  router.navigate([
+                                      '/app/tasks/details',
+                                      task?._id
+                                  ])
+                              "
+                              [model]="task?.menuItems"
+                              styleClass="mr-2"
+                          >
+                          </p-splitButton>
+                      </td>
+                  </tr>
+              </ng-template>
+          </p-table>
+      </div>
+  </div>
+</div>

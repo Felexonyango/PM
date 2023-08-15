@@ -1,0 +1,57 @@
+<div class="animated fadeIn">
+    <div class="grid">
+        <div class="col-12">
+
+
+            <div class="card">
+
+                <div class="w-9 sm:mx-auto">
+
+                
+
+                        <div class="field-space-btwn">
+                            <div class="mt-4">
+                                <form [formGroup]="permissionCreateForm">
+                                    <formly-form
+                                        [model]="permissionModel"
+                                        [fields]="permissionFormlyFields"
+                                        [form]="permissionCreateForm"
+                                    ></formly-form>
+                                </form>
+
+                                <div class="mt-4 text-right">
+                                    <button
+                                        label="Cancel"
+                                        pButton
+                                        type="button"
+                                        icon="pi pi-times"
+                                        iconPos="left"
+                                        (click)="utilService.goBack()"
+                                        class="p-button-danger mr-2"
+                                    ></button>
+
+                                    <button
+                                        label="Save"
+                                        pButton
+                                        type="button"
+                                        icon="pi pi-plus"
+                                        iconPos="left"
+                                        (click)="createOrUpdatePermission()"
+                                        [disabled]="permissionCreateForm.invalid"
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+
+                   
+
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
