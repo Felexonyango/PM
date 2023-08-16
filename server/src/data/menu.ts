@@ -5,50 +5,51 @@ const MenuData: Menu[] = [
     label: 'Apps',
     icon: 'pi pi-th-large',
     items: [
-        {
-            label: 'Blog',
-            icon: 'pi pi-fw pi-comment',
-            
-        },
+      {
+    label: "Dashboard",
+    routerLink: ["/app"],
+    icon: "pi pi-home",
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+  },
       
+  {
+    label: "Projects",
+    routerLink: ["/app/projects"],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+    icon: 'pi pi-fw pi-image',
+  },
+  {
+    label: "Tasks",
+    routerLink: ["/app/tasks"],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+    icon: 'pi pi-fw pi-check-square',
+  },
+
+  {
+    label: "Workspace",
+    routerLink: ["/app/workspace"],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+     icon: "pi pi-align-justify",
+  },
+  {
+    label: "Users",
+    routerLink: ["/app/users"],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+    icon: 'pi pi-fw pi-users',
+  },
+
+  {
+    label: "Feedback",
+    routerLink: ["/app/feedback"],
+    icon: 'pi pi-fw pi-comment',
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+  },
        
         
     ]
 },
 
-  // {
-  //   label: "Dashboard",
-  //   routerLink: ["app/admin"],
-  //   icon: "pi pi-align-justify",
-  //   role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
-  // },
-
-  // {
-  //   label: "Projects",
-  //   routerLink: ["leave/apply-leave"],
-  //   role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
-  //    icon: "pi pi-align-justify",
-  // },
-  // {
-  //   label: "Tasks",
-  //   routerLink: ["leave/request/history"],
-  //   role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
-  //    icon: "pi pi-align-justify",
-  // },
-
-  // {
-  //   label: "Workspace",
-  //   routerLink: ["leave/all-request/history"],
-  //   role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
-  //    icon: "pi pi-align-justify",
-  // },
-
-  // {
-  //   label: "Feedback",
-  //   routerLink: ["app/admin"],
-  //    icon: "pi pi-align-justify",
-  //   role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
-  // },
+  
 ];
 
 export default MenuData;

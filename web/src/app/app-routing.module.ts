@@ -27,6 +27,13 @@ import { AppLayoutComponent } from './layout/app.layout.component';
                     canActivate: [AuthGuard],
                     children: [
                         {
+                            path: '',
+                            loadChildren: () =>
+                                import(
+                                    './PMS/modules/dashboard/components/dashboard.module'
+                                ).then((m) => m.DashboardModule),
+                        },
+                        {
                             path: 'workspace',
                             loadChildren: () =>
                                 import(
