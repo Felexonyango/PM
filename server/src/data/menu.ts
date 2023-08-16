@@ -28,20 +28,26 @@ const MenuData: Menu[] = [
   {
     label: "Workspace",
     routerLink: ["/app/workspace"],
-    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN],
      icon: "pi pi-align-justify",
   },
   {
     label: "Users",
     routerLink: ["/app/users"],
-    role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN],
     icon: 'pi pi-fw pi-users',
+  },
+  {
+    label: "Roles",
+    routerLink: ["/app/permissions"],
+    role: [Role.PROJECTMANAGER, Role.SYSADMIN],
+    icon: 'pi pi-fw pi-list',
   },
 
   {
     label: "Feedback",
     routerLink: ["/app/feedback"],
-    icon: 'pi pi-fw pi-comment',
+    icon: 'pi pi-question-circle',
     role: [Role.PROJECTMANAGER, Role.SYSADMIN, Role.USER],
   },
        
