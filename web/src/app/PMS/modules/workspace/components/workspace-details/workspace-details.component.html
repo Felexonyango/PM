@@ -1,69 +1,154 @@
 <div class="animated fadeIn">
-  <div class="grid">
-    <div class="col-12">
-      <div class="user-detail">
-        <div class="card">
-            <div class="grid m-0">
-              <div class="col-auto p-0">
-               
-                <b class="h5"
-                  >{{ workspace?.title | titlecase }}</b
-                >
-              </div>
-              <div class="col text-right">
-                <p-button
-                label="Edit"
-                icon="pi pi-pencil"
-                  class="btn-sibasi-primary btn mr-2 btn-sm"
-                  [routerLink]="['/app/workspace/edit-workspace', workspace?._id]"
-                >
-                  
-                </p-button>
-              </div>
-            </div>
+    <div class="grid">
+  
+        <div class="col-12">
+            <div class="user-detail">
+                <div class="card">
+                    <div class="grid m-0">
+                        <div class="col-auto p-0">
+                            <b class="h5">{{ workspace?.title | titlecase }}</b>
+                        </div>
+                        <div class="col text-right">
+                            <p-button
+                                label="Edit"
+                                icon="pi pi-pencil"
+                                class="btn-sibasi-primary btn mr-2 btn-sm"
+                                [routerLink]="[
+                                    '/app/workspace/edit-workspace',
+                                    workspace?._id
+                                ]"
+                            >
+                            </p-button>
+                        </div>
+                    </div>
 
-            <div class="grid mt-4">
-              <div class="md:col-6">
-                <div class="grid  user-details-row mt-2">
-                  <div class="col-6">
-                    <h6> Workspace Owner</h6> 
-                  </div>
-                  <div class="col-6 text-mute">
-                    {{ workspace?.workspaceOwner?.firstname }}
-                    {{ workspace?.workspaceOwner?.lastname }}
-                  </div>
+                    <div class="grid">
+                        <div class="md:col-6">
+                            <div class="grid user-details-row mt-2">
+                                <div class="col-6">
+                                    <h6>Workspace Owner</h6>
+                                </div>
+                                <div class="col-6 text-mute">
+                                    {{ workspace?.workspaceOwner?.firstname }}
+                                    {{ workspace?.workspaceOwner?.lastname }}
+                                </div>
+                            </div>
+                            <div class="grid user-details-row">
+                                <div class="col-6">
+                                    <h6>Description:</h6>
+                                </div>
+                                <div class="col-6 text-mute">
+                                    {{ workspace?.description }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="grid user-details-row">
-                  <div class="col-6">
-                    <h6> Description: </h6>
-                  </div>
-                  <div class="col-6 text-mute">
-                    {{ workspace?.description }}
-                  </div>
-                </div>
-               
-              </div>
             </div>
-         
         </div>
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="card">
-        <div class="card-body">
-          <p-tabView>
-
-            <p-tabPanel header="Projects">
-              
-            </p-tabPanel>
-            <p-tabPanel header="Members">
-          
-            </p-tabPanel>
-          </p-tabView>
-       
-        
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <p-tabView>
+                        <p-tabPanel header="Projects"> 
+                          <div class="animated fadeIn">
+                            <div class="card">
+                                <div class="table-responsive">
+                                    <p-table [value]="workspaceProjects" 
+                                    #table>
+                                        <ng-template pTemplate="caption">
+                                            <div class="flex">
+                                                <button
+                                                    pButton
+                                                    type="button"
+                                                    label="Add"
+                                                    class="p-button-outlined mb-2 mr-2"
+                                                    icon="pi pi-plus"
+                                                    [routerLink]="['./create']"
+                                                ></button>
+                                               
+                                                <button
+                                                    pButton
+                                                    label="Export"
+                                                    class="p-button-outlined mb-2 mr-2"
+                                                    icon="pi pi-file-excel"
+                                                    (click)="exportData()"
+                                                ></button>
+                        
+                                                <span class="p-input-icon-left ml-auto">
+                                                    <i class="pi pi-search"></i>
+                                                    <input
+                                                        pInputText
+                                                        type="text"
+                                                        (input)="
+                                                            table.filterGlobal(
+                                                                $event.target,
+                                                                'contains'
+                                                            )
+                                                        "
+                                                        placeholder="Search keyword"
+                                                    />
+                                                </span>
+                                            </div>
+                        
+                                         
+                                        </ng-template>
+                        
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th
+                                                    *ngFor="let column of tableColumns"
+                                                    [pSortableColumn]="column?.fieldName"
+                                                >
+                                                    {{ column?.displayName }}
+                                                    <p-sortIcon
+                                                        [field]="column?.fieldName"
+                                                    ></p-sortIcon>
+                                                </th>
+                                                <th></th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-project>
+                                            <tr>
+                                                <td>
+                                                    {{ project?.projectName }}
+                                                </td>
+                                                <td>
+                                                    {{ project?.priority }}
+                                                </td>
+                        
+                                             
+                        
+                                                <td>{{ project?.createdAt | date }}</td>
+                                                <td>{{ project?.status }}</td>
+                        
+                                                <td>
+                                                    <p-splitButton
+                                                        label="Details"
+                                                        icon="pi pi-folder-open"
+                                                        (onClick)="
+                                                            router.navigate([
+                                                                '/app/projects/details-project',
+                                                                project?._id
+                                                            ])
+                                                        "
+                                                        [model]="project?.menuItems"
+                                                        styleClass="mr-2"
+                                                    >
+                                                    </p-splitButton>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        </p-tabPanel>
+                        <p-tabPanel header="Members"> </p-tabPanel>
+                    </p-tabView>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

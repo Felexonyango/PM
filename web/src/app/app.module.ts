@@ -6,6 +6,8 @@ import { AppLayoutModule } from './layout/app.layout.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './PMS/modules/auth/guard/Interceptors/Interceptor';
+import { AppNotfoundComponent } from './PMS/shared/components/app-notfound/app.notfound.component';
+import { ButtonModule } from 'primeng/button';
 
 export function tokenGetter() {
     return localStorage.getItem('token');
@@ -13,12 +15,14 @@ export function tokenGetter() {
 @NgModule({
     declarations: [
         AppComponent,
+        AppNotfoundComponent
         
        
     ],
     imports: [
         AppRoutingModule,
         AppLayoutModule,
+        ButtonModule,
         JwtModule.forRoot({
             config: {
                 tokenGetter: tokenGetter,

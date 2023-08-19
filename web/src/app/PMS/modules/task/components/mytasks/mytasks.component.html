@@ -8,7 +8,7 @@
                             <app-avatar-generator
                                 [name]="utilService.getUserFirstName()"
                                 [circleSize]="'30'"
-                                [circleColor]="user?.profileBgColor"
+                                [circleColor]=""
                                 [initialsSize]="'.8'"
                                 [showName]="true"
                             ></app-avatar-generator>
@@ -61,7 +61,7 @@
                                 icon="pi pi-folder-open"
                                 (onClick)="
                                     router.navigate([
-                                        '/tasks/details-task',
+                                        '/app/tasks/details-task',
                                         task?._id
                                     ])
                                 "

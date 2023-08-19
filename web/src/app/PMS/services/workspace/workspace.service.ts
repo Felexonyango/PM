@@ -41,7 +41,7 @@ export class WorkspaceService {
     workspaceId: any
   ): Observable<HTTPResponse<[]>> {
     return this.http.get<HTTPResponse<[]>>(
-      `${environment.server_Url}workspace/all/${workspaceId}/projects`
+      `${environment.server_Url}project/workspace/all/${workspaceId}`
     );
   }
   public getAllWorkspaces(): Observable<HTTPResponse<IWorkspace[]>> {

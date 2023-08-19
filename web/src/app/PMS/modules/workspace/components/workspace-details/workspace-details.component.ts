@@ -11,7 +11,7 @@ import { WorkspaceService } from 'src/app/PMS/services/workspace/workspace.servi
   selector: 'app-workspace-details',
   templateUrl: './workspace-details.component.html',
   styleUrls: ['./workspace-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class WorkspaceDetailsComponent implements OnInit {
  
@@ -19,7 +19,7 @@ export class WorkspaceDetailsComponent implements OnInit {
   workspace!: IWorkspace;
   modalDismissed!: boolean;
   workspaceProjects = [];
-
+  currentworkspaceId:string
   workspaceMembersTableColumns: {
     displayName: string;
     fieldName: string;
@@ -49,7 +49,7 @@ export class WorkspaceDetailsComponent implements OnInit {
   ];
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router,
+    public router: Router,
     private workspaceService: WorkspaceService,
 
     public utilService: UtilService,
@@ -57,8 +57,37 @@ export class WorkspaceDetailsComponent implements OnInit {
     ) 
     {}
 
+    tableColumns: {
+      fieldName: string;
+      displayName: string;
+  }[] = [
+      {
+          fieldName: 'title',
+          displayName: 'Title',
+      },
+
+      {
+          fieldName: 'Priority',
+          displayName: 'priority',
+      },
+      {
+          fieldName: 'workspace.name',
+          displayName: 'Workspace Name',
+      },
+      {
+          fieldName: 'createdAt',
+          displayName: 'Date Created',
+      },
+      {
+          fieldName: 'status',
+          displayName: 'Status',
+      },
+  ];
+
+
   ngOnInit(): void {
     this.getParam();
+    this.getAllWorkspaceProjects()
   }
 
   ngOnDestroy(): void {
@@ -69,6 +98,7 @@ export class WorkspaceDetailsComponent implements OnInit {
       this.activatedRoute.params.subscribe({
         next: (param) => {
           const workspaceId = param['workspaceId'];
+          this.currentworkspaceId=workspaceId
           this.getWorkspaceById(workspaceId);
         },
       })
@@ -81,6 +111,7 @@ export class WorkspaceDetailsComponent implements OnInit {
         .getWorkspaceById(workspaceId)
         .subscribe((response) => {
           this.workspace = response.result;
+         
           // this.workspace.members = this.workspace.members.filter(
           //   (x, index, array) => array.findIndex((t) => t._id == x._id) == index
           // );
@@ -89,15 +120,16 @@ export class WorkspaceDetailsComponent implements OnInit {
     );
   }
   
-  // getAllWorkspaceProjects(): void {
-  //   this.subscription.add(
-  //     this.workspaceService
-  //       .getAllWorkspaceProjects(this.workspace._id)
-  //       .subscribe((response) => {
-  //         this.workspaceProjects = response.result;
-  //       })
-  //   );
-  // }
+  getAllWorkspaceProjects(): void {
+    this.subscription.add(
+      this.workspaceService
+        .getAllWorkspaceProjects(this.currentworkspaceId)
+        .subscribe((response) => {
+          this.workspaceProjects = response.result;
+          console.log(this.workspaceProjects)
+        })
+    );
+  }
   public memberDeleteDialog(member: any) {
     // this.deleteConfirmService
     //   .confirm(
@@ -115,7 +147,7 @@ export class WorkspaceDetailsComponent implements OnInit {
 
     //   .catch(() => (this.modalDismissed = true));
   }
-  exportPatients(): void {
+  exportData(): void {
     this.utilService.exportAsExcelFile(this.workspaceProjects, "All-workspace");
 }
 }

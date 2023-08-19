@@ -22,9 +22,7 @@ const routes: Routes = [
   {
     path: 'edit-workspace/:workspaceId',
     component: WorkspaceCreateComponent,
-    data: {
-      title: 'Edit Workspace',
-    },
+   
   },
   {
     path: 'details/:workspaceId',

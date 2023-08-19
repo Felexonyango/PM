@@ -7,7 +7,7 @@ import { UpcomingTasksComponent } from './upcoming-tasks/upcoming-tasks.componen
 import { OverdueTasksComponent } from './overdue-tasks/overdue-tasks.component';
 import { CompletedTasksComponent } from './completed-tasks/completed-tasks.component';
 import { TabViewModule } from 'primeng/tabview';
-import { MytasksComponent } from './dasboard/mytasks/mytasks.component';
+import { MytasksComponent } from '../../task/components/mytasks/mytasks.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyPrimeNGModule } from '@ngx-formly/primeng';

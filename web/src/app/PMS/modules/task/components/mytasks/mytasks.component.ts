@@ -84,8 +84,7 @@ export class MytasksComponent {
     getAllTasks(): void {
         this.subscription.add(
             this.taskservice.getAllTasks().subscribe((res) => {
-                this.tasks =
-                    res.result.length > 0
+                this.tasks =res.result.length > 0
                         ? res.result.map((x) => this.getMenuItems(x))
                         : [];
             })
@@ -99,7 +98,7 @@ export class MytasksComponent {
                 label: 'Edit',
                 icon: 'pi pi-pencil',
                 command: () => {
-                    this.router.navigate(['/tasks/edit-task', task?._id]);
+                    this.router.navigate(['/app/tasks/edit', task?._id]);
                 },
             },
         ];

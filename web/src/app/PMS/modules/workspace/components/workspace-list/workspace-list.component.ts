@@ -102,7 +102,7 @@ export class WorkspaceListComponent implements OnInit {
                 icon: "pi pi-pencil",
                 command: () => {
                     this.router.navigate([
-                        "/workspace/edit-workspace",
+                        "/app/workspace/edit-workspace/",
                         workspace?._id,
                     ]);
                 },
