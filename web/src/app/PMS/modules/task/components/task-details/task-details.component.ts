@@ -43,6 +43,7 @@ export class TaskDetailsComponent {
           this.activatedRoute.params.subscribe({
               next: (param) => {
                   const taskId = param['taskId'];
+                  console.log(taskId)
                   this.getTaskById(taskId);
               },
           })

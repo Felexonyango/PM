@@ -25,6 +25,7 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,6 @@ import { ToastModule } from 'primeng/toast';
     DialogModule,
     ChartModule,
     CalendarModule,
-    
     PaginatorModule,
     TabViewModule,
     MultiSelectModule,
@@ -62,6 +62,9 @@ import { ToastModule } from 'primeng/toast';
     EditorModule,
     InputTextModule,
     SplitButtonModule
+  ],
+  providers:[
+    DialogService,DynamicDialogRef
   ]
 })
 export class TaskModule { }

@@ -23,7 +23,7 @@ const routes: Routes = [
     component:CreateTaskComponent
   },
   {
-    path:'details/:id',
+    path:'details/:taskId',
     component:TaskDetailsComponent
   }
 ];
