@@ -3,37 +3,23 @@
         <div class="table-responsive">
             <p-table [value]="tasks" #table>
                 <ng-template pTemplate="caption">
-                    <div class="flex">
-                        <button
-                            pButton
-                            type="button"
-                            label="Add"
-                            class="p-button-outlined mb-2 mr-2"
-                            icon="pi pi-plus"
-                            [routerLink]="['../create']"
-                        ></button>
-                        <button
-                            pButton
-                            label="Export"
-                            class="p-button-outlined mb-2 mr-2"
-                            icon="pi pi-file-excel"
-                            (click)="exportData()"
-                        ></button>
-
-                        <span class="p-input-icon-left ml-auto">
-                            <i class="pi pi-search"></i>
-                            <input
-                                pInputText
-                                type="text"
-                                (input)="
-                                    table.filterGlobal(
-                                        $event.target,
-                                        'contains'
-                                    )
-                                "
-                                placeholder="Search keyword"
-                            />
-                        </span>
+                    <div class="grid" style="display: flex; align-items: center">
+                        <div style="margin-right: 5px; margin-left: 10px;">
+                            <app-avatar-generator
+                                [name]="utilService.getUserFirstName()"
+                                [circleSize]="'30'"
+                                [circleColor]="user?.profileBgColor"
+                                [initialsSize]="'.8'"
+                                [showName]="true"
+                            ></app-avatar-generator>
+                        </div>
+                        <h6 style="display: flex; align-items: center">
+                            My Tasks
+                            <i
+                                class="pi pi-unlock"
+                                style="font-size: 1rem; margin-left: 5px"
+                            ></i>
+                        </h6>
                     </div>
                 </ng-template>
 

@@ -428,14 +428,20 @@ export const ProjectService = {
         user: user._id,
         status: Status.ONGOING,
       }).countDocuments();
-
-      let totalWorkspace = await Workspace.find({}).countDocuments();
+    let completedTasks = await Task.find({
+      user:user._id,
+      status:Status.COMPLETED
+    }).countDocuments()
+      let totalWorkspace = await Workspace.find({
+        user:user._id
+      }).countDocuments();
       return {
         totalCompletedProjects,
         totalOngoingProjects,
         totalOnholdProjects,
         totalWorkspace,
         totalProjects,
+        completedTasks
       };
     } catch (err) {
       console.log(err);

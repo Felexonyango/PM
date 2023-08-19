@@ -72,7 +72,7 @@ export class UserService {
 
 
   getUserProfile(): Observable<HTTPResponse<User>> {
-    return this.httpClient.get<HTTPResponse<User>>(`${environment.server_Url}/user/profile`);
+    return this.httpClient.get<HTTPResponse<User>>(`${environment.server_Url}user/profile`);
   }
 
   updateUserProfile(user: {}): Observable<HTTPResponse<User>> {

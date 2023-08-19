@@ -11,13 +11,13 @@ import { DeleteConfirmComponent } from "src/app/PMS/shared/components/delete-con
     selector: "app-workspace-list",
     templateUrl: "./workspace-list.component.html",
     styleUrls: ["./workspace-list.component.scss"],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [DialogService],
 
 })
 export class WorkspaceListComponent implements OnInit {
     subscription = new Subscription();
-workspaceList: IWorkspace[]=[]
+    workspaceList: IWorkspace[]=[]
 
     tableColumns: {
         fieldName: string;
@@ -90,7 +90,6 @@ workspaceList: IWorkspace[]=[]
                         res.result.length > 0
                             ? res.result.map((x) => this.getMenuItems(x))
                             : [];
-                    console.log(this.workspaceList);
                 },
             })
         );

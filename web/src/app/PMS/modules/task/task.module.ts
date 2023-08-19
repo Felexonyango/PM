@@ -25,15 +25,13 @@ import { TableModule } from 'primeng/table';
 import { TabViewModule } from 'primeng/tabview';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
-import { MytasksComponent } from './components/mytasks/mytasks.component';
-
 
 @NgModule({
   declarations: [
     CreateTaskComponent,
     TaskListComponent,
     TaskDetailsComponent,
-    MytasksComponent
+    
   ],
   imports: [
     CommonModule,

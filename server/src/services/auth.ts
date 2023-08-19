@@ -16,7 +16,8 @@ export const sendResponseToken = ({user,res,statusCode}: {
 }) => {
   const payload = {
   user_id: user._id,
-  role:user.role
+  role:user.role,
+  firstname:user.firstname
 
 
 };

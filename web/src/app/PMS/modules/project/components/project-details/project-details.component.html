@@ -15,7 +15,7 @@
                         icon="pi pi-pencil"
                         (onClick)="
                             router.navigate([
-                                '/projects/edit-project/' + project?._id
+                                '/app/projects/edit-project/' + project?._id
                             ])
                         "
                         styleClass="mb-2 mr-2"
@@ -52,8 +52,8 @@
                         Created by
                     </div>
                     <div class="col-9">
-                        {{ project?.createdBy.firstname }}
-                        {{ project?.createdBy.lastname }}
+                        {{ project?.createdBy?.firstname }}
+                        {{ project?.createdBy?.lastname }}
                     </div>
                 </div>
                 <div class="grid mt-3">

@@ -67,7 +67,7 @@ export class WorkspaceCreateComponent implements OnInit {
 
         submitUrl.subscribe({
             complete: () => {
-                this.router.navigateByUrl("/workspace");
+                this.router.navigateByUrl("/app/workspace");
             },
         });
     }

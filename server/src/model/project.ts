@@ -88,7 +88,7 @@ const ProjectSchma = new Schema(
   },
 
   {
-    timestamps: false,
+    timestamps: true,
   }
 );
 export const Project = model<projectDocument>("Project", ProjectSchma);

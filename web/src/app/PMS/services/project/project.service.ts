@@ -98,6 +98,10 @@ export class ProjectService {
     );
   }
 
- 
+  public getSummary(): Observable<HTTPResponse<any>> {
+    return this.http.get<HTTPResponse<any>>(
+      `${environment.server_Url}project/dashboard/user/totals`
+    );
+  }
  
 }

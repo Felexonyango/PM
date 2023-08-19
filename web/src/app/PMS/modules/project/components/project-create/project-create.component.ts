@@ -30,7 +30,7 @@ export class ProjectCreateComponent implements OnInit {
              
                 {
                     className: 'col-12',
-                    key: 'title',
+                    key: 'projectName',
                     type: 'input',
                     props: {
                         placeholder: 'Project Title',
@@ -57,7 +57,7 @@ export class ProjectCreateComponent implements OnInit {
             fieldGroupClassName:'grid',
             fieldGroup:[
             {
-                className: 'col-12 md:col-4',
+                className: 'col-12 md:col-6',
                 key: 'startDate',
                 type: 'input',
                 props: {
@@ -68,7 +68,7 @@ export class ProjectCreateComponent implements OnInit {
                 },
             },
             {
-                className: 'col-12 md:col-4',
+                className: 'col-12 md:col-6',
                 key: 'endDate',
                 type: 'input',
                 props: {
@@ -78,17 +78,7 @@ export class ProjectCreateComponent implements OnInit {
                     label: 'End Date',
                 },
             },
-            {
-                className: 'col-12  md:col-4'  ,
-                key: 'dueDate',
-                type: 'input',
-                props: {
-                    type: 'date',
-                    placeholder: 'Due Date',
-                    required: true,
-                    label: 'Due Date',
-                },
-            },
+       
         ]
         },
      
@@ -146,7 +136,14 @@ export class ProjectCreateComponent implements OnInit {
         const submitUrl = this.isEdit
             ? this.projectService.editProject(projectValue, projectId)
             : this.projectService.addProject(projectValue);
-        submitUrl.subscribe({});
+        submitUrl.subscribe({
+            next:()=>{
+                this.projectForm.reset()
+            },
+            complete:()=>{
+           this.utilService.goBack()
+            }
+        });
     }
 
     getParam(): void {

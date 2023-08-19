@@ -1,6 +1,5 @@
 <div class="animated fadeIn">
   <div class="card">
-   {{workspaceList|json}}
       <div class="table-responsive">
         <p-table 
           [value]="workspaceList"
@@ -49,7 +48,7 @@
           <ng-template pTemplate="body" let-workspace>
             <tr>
               <td>
-                {{ workspace?.name }}
+                {{ workspace?.title }}
               </td>
               <td class="clamp-text-1">
                 

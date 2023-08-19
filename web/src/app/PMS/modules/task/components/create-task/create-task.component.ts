@@ -55,7 +55,7 @@ export class CreateTaskComponent implements OnInit {
             fieldGroupClassName: 'grid',
             fieldGroup: [
                 {
-                    className: 'col-12 md:col-4',
+                    className: 'col-12 md:col-6',
                     key: 'startDate',
                     type: 'input',
                     props: {
@@ -65,19 +65,9 @@ export class CreateTaskComponent implements OnInit {
                         label: 'Start Date',
                     },
                 },
+            
                 {
-                    className: 'col-12 md:col-4',
-                    key: 'endDate',
-                    type: 'input',
-                    props: {
-                        type: 'date',
-                        placeholder: 'End Date',
-                        required: true,
-                        label: 'End Date',
-                    },
-                },
-                {
-                    className: 'col-12  md:col-4',
+                    className: 'col-12  md:col-6',
                     key: 'dueDate',
                     type: 'input',
                     props: {

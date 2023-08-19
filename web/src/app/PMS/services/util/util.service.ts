@@ -29,6 +29,7 @@ export class UtilService {
   getUserFirstName(): string {
     const decodedToken = this.authservice.decodedToken()
     const firstName = decodedToken.firstname;
+    
     return firstName ? firstName : '';
   }
 
@@ -157,6 +158,7 @@ export class UtilService {
   
   return userId;
 }
+
  getProfileColor(): string {
   const decodedToken = this.authService.decodedToken();
   const profileColor = decodedToken.profileBgColor;

@@ -129,7 +129,7 @@ router
     next()
   });
 
-  router.get("/dashboard/user/totals", protect, authorize([Role.USER]), async (req:Request, res:Response,next:NextFunction) => {
+  router.get("/dashboard/user/totals", protect, authorize([Role.USER,Role.SYSADMIN]), async (req:Request, res:Response,next:NextFunction) => {
     try {
       const result = await ProjectService.getUserDashboardSummary(req,res,next);
       res.status(200).json({ msg:"successfully retrieved dashboard summary", result });

@@ -16,7 +16,7 @@ export class WorkspaceService {
     workspace: {}
   ): Observable<HTTPResponse<IWorkspace>> {
     return this.http.post<HTTPResponse<IWorkspace>>(
-      `${environment.server_Url}workspace`,
+      `${environment.server_Url}workspace/create`,
       workspace
     );
   }

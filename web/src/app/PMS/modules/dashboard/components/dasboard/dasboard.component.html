@@ -6,11 +6,11 @@
                 <div class="grid">
                     <div class="col">
                         <div class="text-uppercase">
-                            <div class="text-muted">WORKSPACE</div>
+                            <div class="text-muted">ONGOING PROJECTS</div>
                         </div>
 
                         <div class="h1 font-weight-bold">
-                            <!-- {{ dashboardDetails?.workspaces || "--" }} -->
+                            {{ dashboard?.totalOngoingProjects || "--" }}
                         </div>
                     </div>
                     <div class="col text-right icon-dashboard-container">
@@ -30,12 +30,12 @@
                     <div class="col">
                         <div class="text-uppercase">
                             <div class="text-muted">
-                                summary
+                                CLOSED PROJECTS
                             </div>
                         </div>
 
                         <div class="h5 font-weight-bold">
-                            <!-- {{ dashboardDetails?.allProjects|| "--" }} -->
+                            {{ dashboard?.totalCompletedProjects|| "--" }}
                         </div>  
                     </div>
                     <div class="col text-right icon-dashboard-container">
@@ -56,12 +56,12 @@
                     <div class="col">
                         <div class="text-uppercase">
                             <div class="text-muted">
-                              summary
+                              CLOSED TASKS
                             </div>
                         </div>
 
                         <div class="h5 font-weight-bold">
-                            <!-- {{ dashboardDetails?.openTasks || "--" }} -->
+                            {{ dashboard?.totalCompletedProjects || "--" }}
                         </div>
                     </div>
                     <div class="col text-right icon-dashboard-container">
@@ -81,12 +81,12 @@
                     <div class="col">
                         <div class="text-uppercase">
                             <div class="text-muted">
-                                summary
+                                TOTAL WORKSPACE
                             </div>
                         </div>
 
                         <div class="h5 font-weight-bold">
-                            <!-- {{ dashboardDetails?.openIssues || "--" }} -->
+                            {{ dashboard?.totalWorkspace || "--" }}
                         </div>
                     </div>
                     <div class="col text-right icon-dashboard-container">
@@ -102,3 +102,5 @@
         </div>
     </div>
 </div>
+<app-mytasks></app-mytasks>
+

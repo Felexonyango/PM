@@ -2,8 +2,10 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/PMS/model/auth';
 import { ITask } from 'src/app/PMS/model/task.model';
 import { TaskService } from 'src/app/PMS/services/task/task.service';
+import { UserService } from 'src/app/PMS/services/user/user.service';
 import { UtilService } from 'src/app/PMS/services/util/util.service';
 import { WorkspaceService } from 'src/app/PMS/services/workspace/workspace.service';
 
@@ -16,6 +18,7 @@ import { WorkspaceService } from 'src/app/PMS/services/workspace/workspace.servi
 export class MytasksComponent {
     subscription = new Subscription();
     searchText: string;
+    user:User
     tasks: ITask[] = [];
     tableColumns: {
         fieldName: string;
@@ -52,6 +55,7 @@ export class MytasksComponent {
         private activatedRoute: ActivatedRoute,
         public router: Router,
         private taskservice: TaskService,
+        private userService:UserService,
         public utilService: UtilService,
         public workspaceService: WorkspaceService,
         private dialogRef: DynamicDialogRef,
@@ -59,6 +63,7 @@ export class MytasksComponent {
     ) {}
     ngOnInit(): void {
         this.getAllTasks();
+        
     }
 
     ngOnDestroy(): void {
@@ -105,6 +110,20 @@ export class MytasksComponent {
         this.subscription.add(
             this.taskservice.deleteTask(taskId).subscribe({
                 complete: () => {},
+            })
+        );
+    }
+    getUserDetails(): void {
+        this.subscription.add(
+            this.userService.getUserProfile().subscribe({
+                next: (res) => {
+                    this.user = res.result;
+                   console.log(this.user)
+                  
+                },
+                complete: () => {
+                    
+                },
             })
         );
     }
