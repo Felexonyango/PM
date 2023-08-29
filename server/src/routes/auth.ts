@@ -1,26 +1,19 @@
-import { Router } from 'express';
-
-import { authorize, protect } from "../middleware/auth"
+import { Router } from "express";
 import {
   validate,
   loginValidation,
   signUpValidation,
   changePasswordValidation,
-} from "../validation/index"
-import { Role } from '../types';
-import { changedPassword, login, signUp } from '../controller/auth';
+} from "../validation/index";
+import { changedPassword, login, signUp } from "../controller/auth";
 
 const router = Router();
 
-
-router.route('/create-user').post(signUpValidation(), validate, protect, authorize([Role.SYSADMIN]), signUp);
-router.route('/login').post(loginValidation(), validate, login);
-
-
-
+router.route("/create-user").post(signUpValidation(), validate, signUp);
+router.route("/login").post(loginValidation(), validate, login);
 
 router
-  .route('/change-password')
+  .route("/change-password")
   .patch(changePasswordValidation(), validate, changedPassword);
 
 export { router as authRoutes };

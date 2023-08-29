@@ -8,7 +8,8 @@
     "tsc": "tsc",
     "dev": "nodemon src/app.ts",
     "start": "npm run build && node ./build/index.js",
-    "seed": "ts-node temp/seed.ts"
+    "seed": "ts-node temp/seed.ts",
+    "vercel-build": "echo hello"
   },
   "keywords": [],
   "author": "",

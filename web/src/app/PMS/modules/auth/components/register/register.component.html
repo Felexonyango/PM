@@ -1,0 +1,60 @@
+
+<div [class]="'login-body flex min-h-screen  '+(layoutService.config.colorScheme === 'light' ? 'layout-light':'layout-dark')" 
+>
+    <div class="login-image w-6 h-screen hidden md:block" style="max-width: 490px;">
+        <img [src]="'assets/layout/images/pages/register-'+ (layoutService.config.colorScheme === 'dark' ? 'ondark' : 'onlight') + '.png'"
+             alt="atlantis" class=" h-screen w-full" >
+    </div>
+    <div class="w-full" style="background:var(--surface-ground)">
+        <div class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
+            style=" padding: 20% 10% 20% 10%;background:var(--exception-pages-image)">
+            <div class="flex flex-column">
+                <form  [formGroup]="registerForm"
+                (keyup.enter)="submitRegisterForm()">
+                <div class="form-container text-left" style="   max-width: 320px;
+                min-width: 270px;">
+                    <h4 class="m-0 mb-2">Register</h4>
+                    <span class="block text-600 font-medium mb-4">Let's get started</span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-user"></i>
+                        <input type="text"  formControlName="firstname" autocomplete="off" pInputText placeholder="firstname" class="block mb-3" style="   max-width: 320px;
+                        min-width: 270px;">
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-user"></i>
+                        <input type="text"   formControlName="lastname" autocomplete="off" pInputText placeholder="lastname" class="block mb-3" style="   max-width: 320px;
+                        min-width: 270px;">
+                    </span>
+                     <span class="p-input-icon-left">
+                        <i class="pi pi-envelope"></i>
+                        <input type="mail" formControlName="email" autocomplete="off" pInputText placeholder="email" class="block mb-3" style="   max-width: 320px;
+                        min-width: 270px;">
+                    </span>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-key"></i>
+                        <input type="password" formControlName="password" autocomplete="off" pInputText placeholder="Password" class="block mb-3" style="   max-width: 320px;
+                        min-width: 270px;">
+                    </span>
+                    <div class="mt-2 flex flex-wrap">
+                        <label for="checkbox" class="text-900 font-medium mr-2">I have read the</label>
+                        <a class="text-600 cursor-pointer hover:text-primary cursor-pointer">Terms and Conditions</a>
+                    </div>
+                </div>
+                <div class="button-container mt-4 text-left "style="   max-width: 320px;
+                min-width: 270px;">
+                <div class="buttons flex align-items-center gap-3">
+                  
+                    <button type="button" pButton label="Submit"  (click)="submitRegisterForm()" [routerLink]="['/']" class="block" style="max-width: 320px;
+                    margin-bottom: 32px;"></button>
+                </div>
+                <span class="font-medium text-600">Already have an account? <a class="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300"[routerLink]="['/auth/login']">Login</a></span>
+                </div>
+                </form>
+            </div>
+    
+            
+        </div>
+
+    
+    </div>
+</div>

@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { HTTPResponse } from "../../model/HTTPResponse";
-import { IPermission, IAllowedPermissions } from "../../model/user.model";
+import { IPermission } from "../../model/user.model";
 
 @Injectable({
     providedIn: "root",
@@ -21,7 +21,7 @@ export class PermissionService {
         permissionId: string
     ): Observable<HTTPResponse<IPermission>> {
         return this.httpClient.get<HTTPResponse<IPermission>>(
-            `${environment.server_Url}role${permissionId}`
+            `${environment.server_Url}role/${permissionId}`
         );
     }
 

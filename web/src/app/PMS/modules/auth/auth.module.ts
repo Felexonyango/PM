@@ -7,9 +7,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoginComponent } from './components/login/login.component';
 import { FormlyModule } from '@ngx-formly/core';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
-    declarations: [LoginComponent],
+    declarations: [LoginComponent,RegisterComponent],
     imports: [
         CommonModule,
         AuthRoutingModule,

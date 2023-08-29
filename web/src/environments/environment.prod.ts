@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  server_Url:'https://project-managment-kohl.vercel.app/api/'
+
 };

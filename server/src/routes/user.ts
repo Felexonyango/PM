@@ -6,7 +6,7 @@ import { Role } from '../types';
 const router = Router();
 
 
-//route  admin routes\
+//route  admin routes
 router.route('/all').get(protect, authorize([Role.SYSADMIN, Role.PROJECTMANAGER]),  getAllUsers);
 router.route('/:id').get(protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER]),  getUserById);
 router.route('/:id').delete(protect, authorize([Role.SYSADMIN,Role.PROJECTMANAGER]), deleteUser);

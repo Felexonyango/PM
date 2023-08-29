@@ -100,8 +100,8 @@
                     <tr>
                         <td *ngIf="utilService.doesURLHaveText('workspace')">
                             <p-checkbox
-                                value="user._id"
-                                [value]="user._id"
+                                value="user?._id"
+                                [value]="user?._id"
                                 [(ngModel)]="checkedUsers"
                                 [inputId]="user._id"
                                
