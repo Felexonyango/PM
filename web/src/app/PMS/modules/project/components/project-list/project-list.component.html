@@ -1,7 +1,9 @@
 <div class="animated fadeIn">
     <div class="card">
         <div class="table-responsive">
-            <p-table [value]="projectsList" 
+            <p-table 
+            responsiveLayout="stack" 
+            [value]="projectsList" 
             #table>
                 <ng-template pTemplate="caption">
                     <div class="flex">

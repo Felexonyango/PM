@@ -92,3 +92,25 @@ margin-left: auto;
   .dropdown-option {
     text-align: left;
   }
+
+  .p-dropdown-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; 
+    flex-shrink: 0;
+    position: relative; 
+}
+
+.p-dropdown-trigger-icon.pi.pi-chevron-down {
+    position: absolute;
+    right: 0; 
+}
+
+
+  .p-dropdown .p-dropdown-trigger {
+    background: transparent;
+    color: #C8CCD8;
+    width: 61rem !important; 
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}

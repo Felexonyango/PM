@@ -48,6 +48,7 @@ export class CreateTaskComponent implements OnInit {
                 options: [],
                 placeholder: 'Select Project',
                 required: true,
+                style: { width: '100%' },
             },
         },
 
@@ -128,7 +129,9 @@ export class CreateTaskComponent implements OnInit {
             : this.taskService.addTask(taskModel);
 
         taskUrl.subscribe({
-            next: (result) => {},
+            next: (result) => {
+                this.router.navigateByUrl('/app/tasks/list')
+            },
         });
     }
     getAllProjects(): void {
@@ -188,7 +191,31 @@ getTaskById(taskId:string){
         this.taskService.getTaskById(taskId).subscribe({
             next:(res)=>{
                 this.task=res.result
-                this.taskModel=res.result
+                console.log(this.task)
+                this.taskModel={
+                    ...this.task,
+                    startDate: this.utilService.convertToSimpleDate(
+                        new Date(
+                            res.result?.startDate as
+                                | string
+                                | number
+                                | Date
+                        ),
+                        
+                        ),
+                    dueDate: this.utilService.convertToSimpleDate(
+                        new Date(
+                            res.result?.dueDate as
+                                | string
+                                | number
+                                | Date
+                        ),
+                        
+                        ),
+                      
+                        assignedTo: this.task?.assignedTo?._id,
+                        project: this.task?.project?._id
+                }
             }
         })
     )

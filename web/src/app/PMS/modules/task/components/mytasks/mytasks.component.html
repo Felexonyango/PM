@@ -1,7 +1,9 @@
 <div class="animated fadeIn">
     <div class="card">
         <div class="table-responsive">
-            <p-table [value]="tasks" #table>
+            <p-table [value]="tasks" 
+            responsiveLayout="stack" 
+            #table>
                 <ng-template pTemplate="caption">
                     <div class="grid" style="display: flex; align-items: center">
                         <div style="margin-right: 5px; margin-left: 10px;">

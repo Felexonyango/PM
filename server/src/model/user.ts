@@ -40,13 +40,9 @@ const UserSchema: Schema = new Schema(
 
     
 
-    role: [{
-      type: mongoose.Types.ObjectId,
-      ref: "Roles",
-      default: [
-        ObjectId("64ee194c4409a33958fc5676"),
-      ]
-    }],
+    role: {
+      type: [{ type: mongoose.Types.ObjectId, ref: "Roles" }]
+    },
   
   },
   

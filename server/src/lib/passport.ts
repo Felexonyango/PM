@@ -40,35 +40,29 @@ module.exports = function(passport:PassportStatic) {
       },
       async (req, email, password, done) => {
         try {
-    
           // check if the email is already taken
           const user = await User.findOne({ email: email.toLowerCase() });
           if (user) {
             return done(null, false, { message: "Email is already taken" });
           }
-
-          // create the user
+  
+          
           const newUser = await User.create({
             email,
             password,
             firstname: req.body.firstname,
             lastname: req.body.lastname,
-            role:Types.ObjectId("6448d330febc8c2878fec0b1")
-         
+            role: ["64eee8de951c980008813f0c"], 
           });
-
-         
-            await newUser.save()
-    
-        
+  
           return done(null, newUser);
-
         } catch (error) {
           done(error);
         }
       }
     )
   );
+  
 
   
   passport.use(

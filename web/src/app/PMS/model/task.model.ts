@@ -9,7 +9,7 @@ export interface ITask{
     startDate?:Date
     endDate?:Date
     project?:IProject
-    asssignedTo?:User
+    assignedTo?:User
     user?:User
     priority?:any
     status?:Status

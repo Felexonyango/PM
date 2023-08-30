@@ -10,7 +10,7 @@ import cron from "node-cron";
 export const TaskService = {
   async CreateTask(req: Request, res: Response, next: NextFunction) {
     try {
-      let { name, dueDate, startDate,description,  endDate,project } = req.body;
+      let { name, dueDate, startDate,description,  endDate,project,assignedTo } = req.body;
       const checkExisting = await Task.findOne({ name });
       if (checkExisting) {
         return res
@@ -26,13 +26,14 @@ export const TaskService = {
         if (!projects) {
           return res.status(400).json({ msg: "Project not found" });
         }
-       
+     
         let task = await Task.create({
           name,
           startDate,
           endDate,
           status: Status.NOTSTARTED,
           dueDate,
+          assignedTo:user?._id,
           description,
           priority: Ipriority.LOW,
           user: user?._id,
